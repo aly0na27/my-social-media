@@ -1,0 +1,21 @@
+.header {
+    height: 5rem;
+    background-color: #faf9f9;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+}
+
+.logo__text {
+    font-family: "Rowdies", sans-serif;
+    font-size: 3rem;
+    font-weight: 1000;
+    background: linear-gradient(#cd9fe7, #61eade);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 2rem;
+}
+
+.img {
+    width: 4rem;
+}

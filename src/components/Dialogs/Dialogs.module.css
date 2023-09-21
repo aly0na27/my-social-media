@@ -1,0 +1,86 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 5fr 10fr;
+}
+
+.dialogsItems {
+    padding: 2rem;
+    border-right: 1px #c5c4c4 solid;
+}
+
+.dialog {
+    height: 6rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    /*border-bottom: 1px #000 solid;*/
+}
+
+.nameDialog {
+    text-decoration: none;
+    color: #0f0f0f;
+    font-family: Saira, sans-serif;
+    padding-left: 1.7rem;
+    font-size: 1.3rem;
+}
+
+.active {
+    color: #61eade;
+}
+
+.messages {
+    padding: 2rem;
+    position: relative;
+    display: grid;
+    grid-template-rows: 15fr 2fr;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: stretch;*/
+    /*align-content: stretch;*/
+}
+
+.message {
+    padding: 1rem;
+}
+
+.dialogAvatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 3rem;
+}
+
+.messageBar {
+
+}
+
+.sendBar {
+    /*position: absolute;*/
+    /*bottom: 3%;*/
+
+}
+
+.messagesTextarea {
+    width: 90%;
+    height: 3rem;
+    border-radius: 0.6rem;
+    border: 1px #c5c4c4 solid;
+}
+
+.btnSend {
+    border: none;
+    background-image: linear-gradient(to right top, #cd9fe7, #61eade);
+    border-radius: 2rem;
+    padding: 0.2rem;
+}
+
+.btnSend:hover {
+    cursor: pointer;
+}
+
+.imgSend {
+    width: 3rem;
+    padding: 0.2rem;
+    /*background-image: linear-gradient(to right top, #cd9fe7, #61eade);*/
+}

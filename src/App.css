@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Rowdies:wght@300&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f0f0f0;
+}
+
+.appWrapper {
+    /*position: relative;*/
+    display: grid;
+    grid-template-columns: 2.5fr 9fr;
+    gap: 1rem;
+    grid-template-areas:
+        "h h"
+        "n c";
+    width: 97vw;
+    /*left: 50%;*/
+    /*transform: translateX(-50%);*/
+    margin: 0 auto;
+}
+
+.appWrapper__content {
+    grid-area: c;
+    background-color: #faf9f9;
+    border-radius: 2rem;
+    /*position: relative;*/
+}
+
