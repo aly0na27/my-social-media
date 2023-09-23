@@ -3,24 +3,27 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import iconSend from "./../../images/iconSend.svg"
 import React from "react";
+import {addMessageCreateAction, updateMessageCreateAction} from "../../redux/dialogs-reducer";
+
 function Dialogs(props) {
 
 
-    let dialogsElements = props.state.messagePage.dialogs.map(d => <DialogItem name={d.name} id={d.id} avatar={d.avatar}/>);
+    let dialogsElements = props.state.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} avatar={d.avatar}/>);
 
-    let messageElements = props.state.messagePage.messages.map(m => <Message id={m.id} message={m.message}/>);
+    let messageElements = props.state.dialogsPage.messages.map(m => <Message id={m.id} message={m.message}/>);
 
-    let addNewMessage = React.createRef();
+    // let addNewMessage = React.createRef();
     let sendMessageOnclick = () => {
         debugger
-        props.addMessage();
+        props.dispatch(addMessageCreateAction());
 
     }
 
-    let messageChanged = () => {
-        let text = addNewMessage.current.value;
-        props.updateMessage(text);
-        console.log(text);
+    let messageChanged = (e) => {
+        let text = e.target.value;
+        // let text = addNewMessage.current.value;
+        props.dispatch(updateMessageCreateAction(text));
+
     }
     return (
         <div>
@@ -34,7 +37,7 @@ function Dialogs(props) {
                     </div>
 
                     <div className={s.sendBar}>
-                        <textarea onChange={messageChanged} ref={addNewMessage} className={s.messagesTextarea} value={props.state.messagePage.newMessageText}></textarea>
+                        <textarea placeholder={"Enter your message"} onChange={messageChanged}  className={s.messagesTextarea} value={props.state.dialogsPage.newMessageText}></textarea>
                         <button onClick={sendMessageOnclick} className={s.btnSend}>
                             <img src={iconSend} className={s.imgSend} alt=""/>
                         </button>

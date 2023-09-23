@@ -2,6 +2,7 @@ import classes from "./MyPosts.module.css"
 import Post from "./Post/Post";
 import newPostIcon from "./../../../images/newPostIcon.svg"
 import React from "react";
+import {addPostCreateAction, updatePostCreateAction} from "../../../redux/profile-reducer";
 
 function MyPosts(props) {
     let postsElements = props.state.profilePage.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>);
@@ -10,12 +11,14 @@ function MyPosts(props) {
 
 
     let onButtonClick = () => {
-        props.addPost();
+        debugger;
+        props.dispatch(addPostCreateAction());
+
     }
 
     let onPostChange = function()  {
         let text = newPostElement.current.value;
-        props.updatePost(text);
+        props.dispatch(updatePostCreateAction(text));
     }
     return (
         <div>

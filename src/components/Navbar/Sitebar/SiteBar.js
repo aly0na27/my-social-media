@@ -2,7 +2,8 @@ import s from "./../Navbar.module.css";
 import SiteBarItem from "./SiteBarItem/SiteBarItem";
 
 function SiteBar(props) {
-    let friends = props.friends.map((el) => <SiteBarItem name={el.name} avatar={el.avatar}/> );
+    debugger;
+    let friends = props.state.sideBar.map((el) => <SiteBarItem name={el.name} avatar={el.avatar}/> );
     return (
         <div className={s.siteBar}>
             <h2>Friends</h2>

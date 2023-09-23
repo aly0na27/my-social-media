@@ -1,3 +1,12 @@
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
+
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+const ADD_MESSAGE = "ADD-MESSAGE";
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
+
 let store = {
     callSubscriber() {
         console.log("State changed!");
@@ -17,7 +26,7 @@ let store = {
                 },
                 {id: "3", message: "вот тебе и мяу, вот тебе и реакт...", likesCount: "190"}
             ],
-            newPostText: "it-kamasutra"
+            newPostText: ""
         },
         messagePage: {
             messages: [
@@ -51,9 +60,9 @@ let store = {
                 },
                 {id: "6", name: "Laura", avatar: "https://4seller.ru/wp-content/uploads/2020/11/2484704267.jpg"}
             ],
-            newMessageText: "blabla"
+            newMessageText: ""
         },
-        siteBar: [
+        sideBar: [
             {name: "Maxim", avatar: "https://i.pinimg.com/564x/e3/2b/82/e32b82b24bd8ef5ad7779206909f47dd.jpg"},
             {name: "Daria", avatar: "https://i.pinimg.com/564x/39/7f/0a/397f0af261f6ed134f1d27aa4a7571dc.jpg"},
             {name: "Alex", avatar: "https://i.pinimg.com/564x/85/64/a6/8564a60d18ec505477c1fb6e91e05251.jpg"}
@@ -62,31 +71,11 @@ let store = {
     getState() {
         return this._state;
     },
-    addPost() {
-        let newPost = {
-            id: "5",
-            message: this._state.profilePage.newPostText,
-            likesCount: "0"
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this.callSubscriber(this._state);
-    },
-    updateNewPostText(newText) {
-        this._state.profilePage.newPostText = newText;
-        this.callSubscriber(this._state);
-    },
-    addMessage() {
-        let newMessage = {
-            id: "6",
-            message: this._state.messagePage.newMessageText
-        }
-        this._state.messagePage.messages.push(newMessage);
-        this._state.messagePage.newMessageText = "";
-        this.callSubscriber(this._state);
-    },
-    updateNewMessageText(newMessageText) {
-        this._state.messagePage.newMessageText = newMessageText;
+    dispatch(action) {
+        debugger;
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.messagePage = dialogsReducer(this._state.messagePage, action);
+        this._state.sideBar = sidebarReducer(this._state.sideBar, action);
         this.callSubscriber(this._state);
     },
     subscribe(observer) {
