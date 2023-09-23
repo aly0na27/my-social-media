@@ -9,6 +9,7 @@ import App from "./App";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 let rerenderEntireTree = (state) => {
+    
     root.render(
         <React.StrictMode>
             <BrowserRouter>
