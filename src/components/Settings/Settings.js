@@ -1,4 +1,4 @@
-import s from "./Settings.module.css"
+// import s from "./Settings.module.css"
 
 function Settings() {
     return (
