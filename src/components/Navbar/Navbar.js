@@ -8,7 +8,6 @@ import {NavLink} from "react-router-dom";
 import SiteBar from "./Sitebar/SiteBar";
 
 function Navbar(props) {
-    debugger;
     return (
         <div className={classes.nav}>
             <nav>
@@ -63,7 +62,7 @@ function Navbar(props) {
                     </NavLink>
                 </div>
             </nav>
-            <SiteBar state={props.state}/>
+            {/*<SiteBar/>*/}
         </div>
     );
 }

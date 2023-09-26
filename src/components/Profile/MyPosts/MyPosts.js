@@ -4,7 +4,6 @@ import newPostIcon from "./../../../images/newPostIcon.svg"
 import React from "react";
 
 function MyPosts(props) {
-    debugger;
     let postsElements = props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>);
 
     let newPostElement = React.createRef();
