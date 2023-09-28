@@ -32,6 +32,15 @@ function Navbar(props) {
                     </NavLink>
                 </div>
                 <div className={classes.nav__item}>
+                    <NavLink className={navData => navData.isActive ? classes.nav__itemLinkActiveLink : classes.nav__itemLinkInactiveLink}
+                             to="/users">
+                        <img src={iconNews} className={classes.nav__itemImage} alt=""/>
+                        <span className={classes.span}>
+                            Find Users
+                        </span>
+                    </NavLink>
+                </div>
+                <div className={classes.nav__item}>
                     <NavLink
                         className={navData => navData.isActive ? classes.nav__itemLinkActiveLink : classes.nav__itemLinkInactiveLink}
                         to="/dialogs">

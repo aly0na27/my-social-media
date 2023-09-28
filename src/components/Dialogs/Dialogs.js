@@ -5,9 +5,9 @@ import iconSend from "./../../images/iconSend.svg"
 import React from "react";
 
 function Dialogs(props) {
-    let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} id={d.id} avatar={d.avatar}/>);
+    let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id} avatar={d.avatar}/>);
 
-    let messageElements = props.messages.map(m => <Message id={m.id} message={m.message}/>);
+    let messageElements = props.messages.map(m => <Message id={m.id} key={m.id} message={m.message}/>);
 
     let onAddMessage = () => {
         props.addMessage();
