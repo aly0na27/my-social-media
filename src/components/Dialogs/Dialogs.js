@@ -1,7 +1,7 @@
 import s from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import iconSend from "./../../images/iconSend.svg"
+import iconSend from "../../assets/images/iconSend.svg"
 import React from "react";
 
 function Dialogs(props) {

@@ -1,5 +1,5 @@
 import s from "./ProfileInfo.module.css"
-import avatar from "../../../images/avatar1.jpg";
+import avatar from "../../../assets/images/avatar1.jpg";
 
 function ProfileInfo() {
     return (

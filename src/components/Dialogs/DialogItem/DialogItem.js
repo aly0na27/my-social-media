@@ -6,7 +6,7 @@ function DialogItem(props) {
     return (
         <div className={s.dialog + ' ' + s.active}>
             <img className={s.dialogAvatar} src={props.avatar} alt=""/>
-            <NavLink className={s.nameDialog} to={path}><img src="./../../../images/avatar1.jpg" alt=""/>{props.name}</NavLink>
+            <NavLink className={s.nameDialog} to={path}><img src="../../../assets/images/avatar1.jpg" alt=""/>{props.name}</NavLink>
 
         </div>
     )
