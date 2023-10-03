@@ -1,11 +1,50 @@
 import {connect} from "react-redux";
+import {
+    changeSelectedPageCreateAction,
+    followCreateAction,
+    setTotalUserCountCreateAction,
+    setUsersCreateAction,
+    unfollowCreateAction
+} from "../../redux/users_reducer";
+import axios from "axios";
+import React from "react";
 import Users from "./Users";
-import {followCreateAction, setUsersCreateAction, unfollowCreateAction} from "../../redux/users_reducer";
 
+class UsersContainer extends React.Component {
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.pageSelected}`).then((response) => {
+            this.props.setUsers(response.data.items);
+            this.props.setTotalUserCount(response.data.totalCount/700)
+        });
+    }
+
+    onChangePageUsers = (p) => {
+        debugger
+        this.props.changeSelectedPage(p);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${p}`).then((response) => {
+            this.props.setUsers(response.data.items);
+        });
+    }
+    render() {
+        debugger
+        return (
+            <Users totalUserCount={this.props.totalUserCount}
+                   pageSize={this.props.pageSize}
+                   onChangePageUsers={this.onChangePageUsers}
+                   pageSelected={this.props.pageSelected}
+                   users={this.props.users}
+                   follow={this.props.follow}
+                   unfollow={this.props.unfollow}
+            />
+        );
+    }
+}
 let mapStateToProps = (state) => {
-    debugger;
     return {
-        users: state.usersPage.users
+        users: state.usersPage.users,
+        pageSize: state.usersPage.pageSize,
+        totalUserCount: state.usersPage.totalUserCount,
+        pageSelected: state.usersPage.pageSelected
     }
 }
 
@@ -19,10 +58,15 @@ let mapDispatchToProps = (dispatch) => {
         },
         setUsers: (users) => {
             dispatch(setUsersCreateAction(users));
+        },
+        changeSelectedPage: (page) => {
+            dispatch(changeSelectedPageCreateAction(page));
+        },
+        setTotalUserCount: (totalCount) => {
+            dispatch(setTotalUserCountCreateAction(totalCount))
         }
     }
 }
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
 
-export default UsersContainer;

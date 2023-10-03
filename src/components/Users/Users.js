@@ -1,27 +1,37 @@
-import User from "./User/User";
-import s from "./User/User.module.css";
+import styles from "./Users.module.css"
 import React from "react";
-import axios from "axios";
+import User from "./User/User";
+
 function Users(props) {
-    if (props.users.length === 0) {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then((response) => {
-            debugger;
-            props.setUsers(response.data.items);
-            debugger;
-        });
+    let pagesCount = Math.ceil(props.totalUserCount / props.pageSize);
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
-    debugger;
+
     let users = props.users.map((u) => {
         return (
-            <User id={u.id} key={u.id} name={u.name} followed={u.followed} location={"u.location"} follow={props.follow} unfollow={props.unfollow}/>
+            <User id={u.id} key={u.id} name={u.name} followed={u.followed} location={"u.location"}
+                  follow={props.follow}
+                  unfollow={props.unfollow} photos={u.photos.small}/>
         )
     })
-    debugger;
+
     return (
         <div>
-            {users}
+            <div className={styles.pages}>
+                {
+                    pages.map((el) => {
+                        return <span onClick={() => props.onChangePageUsers(el)}
+                                     className={props.pageSelected === el && styles.pageSelected}>{el}</span>
+                    })
+                }
+            </div>
+            <div className={styles.wrapperUsers}>
+                {users}
+            </div>
         </div>
-    );
+    )
 }
 
-export default Users;
+export default Users

@@ -4,9 +4,14 @@ import avatarIcon from "./../../../assets/images/1573589.png"
 function User(props) {
     return (
         <div className={s.userWrapper}>
-            <div className={s.userItem}>
+            <div className={`${s.userItem} ${s.userItem1}`}>
 
-                <img className={s.userIcon} src={avatarIcon} alt=""/>
+                {
+                    props.photos ?
+                    <img className={s.userIcon} src={props.photos} alt=""/> :
+                    <img className={s.userIcon} src={avatarIcon} alt=""/>
+                }
+
                 <div className={s.wrapperButton}>
                     {
                         props.followed ?
@@ -17,7 +22,7 @@ function User(props) {
             </div>
             <div className={s.userItem}>
                 {
-                    <h4>{props.name}</h4>
+                    <h4 className={s.nameUser}>{props.name}</h4>
                 }
             </div>
 

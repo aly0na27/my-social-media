@@ -1,0 +1,16 @@
+.wrapperUsers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 3rem 0;
+}
+
+.pages {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.pageSelected {
+    color: red;
+}

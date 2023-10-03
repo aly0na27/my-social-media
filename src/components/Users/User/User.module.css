@@ -2,16 +2,25 @@
     display: grid;
     width: 90%;
     gap: 2rem;
-    grid-template-columns: 4fr 10fr;
-    /*justify-items: center;*/
-    justify-content: center;
-    /*align-items: center;*/
+    grid-template-columns: 3fr 10fr;
+    justify-items: start;
+    /*justify-content: center;*/
+    align-items: center;
     /*align-content: center;*/
-    border: 1px solid #4d4b4b;
+    border: 1px solid #c7c5c5;
     border-radius: 2rem;
+    padding: 1rem;
 }
 .userItem {
+    /*padding: 1rem;*/
+}
 
+.userItem1 {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    align-content: center
 }
 .avatar {
 
@@ -41,6 +50,6 @@ s.wrapperButton {
     cursor: pointer;
 }
 
-h4 {
+.nameUser {
     font-size: 3rem;
 }

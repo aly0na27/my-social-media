@@ -1,15 +1,14 @@
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
+const CHANGE_SELECTED_PAGE = "CHANGE_SELECTED_PAGE";
+const SET_TOTAL_USER_COUNT = "SET_TOTAL_USER_COUNT";
 
 let initialState = {
-    users: []
-    // users: [
-    //     {id: 1, followed: true, fullName: "Dmitry", status: "I'm a boss", location: {city: "Ukraine", country: "Kiev"}},
-    //     {id: 2, followed: false, fullName: "Alex", status: "I'm a boss too", location: {city: "Russia", country: "Moscow"}},
-    //     {id: 3, followed: true, fullName: "John", status: "I'm happy", location: {city: "USA", country: "New-York"}},
-    //     {id: 4, followed: true, fullName: "Andrew", status: "I'm so tired", location: {city: "USa", country: "Boston"}}
-    // ]
+    users: [],
+    pageSize: 5,
+    totalUserCount: 26,
+    pageSelected: 1
 };
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -42,10 +41,21 @@ const usersReducer = (state = initialState, action) => {
         case SET_USERS:
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: action.users
+            }
+        case CHANGE_SELECTED_PAGE:
+            return {
+                ...state,
+                pageSelected: action.page
+            }
+        case SET_TOTAL_USER_COUNT:
+            return {
+                ...state,
+                totalUserCount: action.totalCount
             }
         default:
             return state;
+
     }
 
 }
@@ -60,5 +70,19 @@ export const unfollowCreateAction = (userId) => {
 
 export const setUsersCreateAction = (users) => {
     return {type: SET_USERS, users}
+}
+
+export const changeSelectedPageCreateAction = (page) => {
+    return {
+        type: CHANGE_SELECTED_PAGE,
+        page: page
+    }
+}
+
+export const setTotalUserCountCreateAction = (totalCount) => {
+    return {
+        type: SET_TOTAL_USER_COUNT,
+        totalCount
+    }
 }
 export default usersReducer;
