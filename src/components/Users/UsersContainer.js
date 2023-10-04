@@ -1,15 +1,12 @@
 import {connect} from "react-redux";
 import {
-    changeSelectedPageCreateAction,
-    followCreateAction, setIsFetchingCreateAction,
-    setTotalUserCountCreateAction,
-    setUsersCreateAction,
-    unfollowCreateAction
+    changeSelectedPage, follow, toggleIsFetching,
+    setTotalUserCount, setUsers, unfollow
 } from "../../redux/users_reducer";
 import axios from "axios";
 import React from "react";
 import Users from "./Users";
-import preloader from "../../assets/images/load.svg"
+import Preloader from "../common/Preloader/Preloader";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -33,7 +30,7 @@ class UsersContainer extends React.Component {
 
     render() {
         return (<>
-                {this.props.isFetching ? <img src={preloader} alt=""/> : null}
+                {this.props.isFetching ? <Preloader/> : null}
                 <Users totalUserCount={this.props.totalUserCount}
                        pageSize={this.props.pageSize}
                        onChangePageUsers={this.onChangePageUsers}
@@ -57,29 +54,32 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId) => {
-            dispatch(followCreateAction(userId));
-        },
-        unfollow: (userId) => {
-            dispatch(unfollowCreateAction(userId));
-        },
-        setUsers: (users) => {
-            dispatch(setUsersCreateAction(users));
-        },
-        changeSelectedPage: (page) => {
-            dispatch(changeSelectedPageCreateAction(page));
-        },
-        setTotalUserCount: (totalCount) => {
-            dispatch(setTotalUserCountCreateAction(totalCount))
-        },
-        toggleIsFetching: (toggle) => {
-            dispatch(setIsFetchingCreateAction(toggle))
-        }
+// let mapDispatchToProps = (dispatch) => {
+//     return {
+//         follow: (userId) => {
+//             dispatch(followCreateAction(userId));
+//         },
+//         unfollow: (userId) => {
+//             dispatch(unfollowCreateAction(userId));
+//         },
+//         setUsers: (users) => {
+//             dispatch(setUsersCreateAction(users));
+//         },
+//         changeSelectedPage: (page) => {
+//             dispatch(changeSelectedPageCreateAction(page));
+//         },
+//         setTotalUserCount: (totalCount) => {
+//             dispatch(setTotalUserCountCreateAction(totalCount))
+//         },
+//         toggleIsFetching: (toggle) => {
+//             dispatch(setIsFetchingCreateAction(toggle))
+//         }
+//
+//     }
+// }
 
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+    follow, unfollow, setUsers, changeSelectedPage,
+    setTotalUserCount, toggleIsFetching
+})(UsersContainer);
 
