@@ -1,17 +1,15 @@
 import s from "./User.module.css"
 import avatarIcon from "./../../../assets/images/1573589.png"
+import {NavLink} from "react-router-dom";
 
 function User(props) {
     return (
         <div className={s.userWrapper}>
             <div className={`${s.userItem} ${s.userItem1}`}>
 
-                {
-                    props.photos ?
-                    <img className={s.userIcon} src={props.photos} alt=""/> :
-                    <img className={s.userIcon} src={avatarIcon} alt=""/>
-                }
-
+                <NavLink to={'/profile/'+props.id}>
+                    <img src={props.photos !== null ? props.photos : avatarIcon} className={s.userIcon} alt={""}/>
+                </NavLink>
                 <div className={s.wrapperButton}>
                     {
                         props.followed ?

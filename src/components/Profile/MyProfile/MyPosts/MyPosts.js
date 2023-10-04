@@ -1,6 +1,6 @@
 import classes from "./MyPosts.module.css"
 import Post from "./Post/Post";
-import newPostIcon from "../../../assets/images/newPostIcon.svg"
+import newPostIcon from "../../../../assets/images/newPostIcon.svg"
 import React from "react";
 
 function MyPosts(props) {

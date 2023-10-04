@@ -1,7 +1,9 @@
 import s from "./ProfileInfo.module.css"
-import avatar from "../../../assets/images/avatar1.jpg";
+import avatar from "../../../../assets/images/avatar1.jpg";
+import Preloader from "../../../common/Preloader/Preloader";
 
-function ProfileInfo() {
+function ProfileInfo(props) {
+
     return (
         <div>
             <div className={s.background__profile}></div>
