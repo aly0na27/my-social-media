@@ -3,7 +3,6 @@
 import Song from "./Song/Song";
 
 function Musics(props) {
-    debugger;
     let musics = props.musics.map((m) => {
         return <Song key={m.id}
                      id={m.id}

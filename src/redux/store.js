@@ -72,7 +72,6 @@ let store = {
         return this._state;
     },
     dispatch(action) {
-        debugger;
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.messagePage = dialogsReducer(this._state.messagePage, action);
         this._state.sideBar = sidebarReducer(this._state.sideBar, action);

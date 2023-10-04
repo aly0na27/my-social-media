@@ -47,7 +47,6 @@ const musicsReducer = (state = initialState, action) => {
                 })
             }
         case DELETE_MUSIC:
-            debugger;
             return {
                 ...state,
                 musics: state.musics.map((m) => {
