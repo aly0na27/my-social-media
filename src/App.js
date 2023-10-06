@@ -1,5 +1,4 @@
 import './App.css';
-import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import {Route, Routes} from "react-router-dom";
 import News from "./components/News/News";
@@ -9,17 +8,19 @@ import UsersContainer from "./components/Users/UsersContainer";
 import MusicsContainer from "./components/Musics/MusicsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import MyProfile from "./components/Profile/MyProfile/MyProfile";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 function App(props) {
+
     return (
         <div>
-            <Header/>
+            <HeaderContainer/>
             <div className="appWrapper">
                 <Navbar/>
                 <div className="appWrapper__content">
                     <Routes>
                         <Route path="/dialogs/*" element={<DialogsContainer/>}/>
-                        <Route path="/profile/*" element={<ProfileContainer/>}/>
+                        <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
                         <Route path="/myProfile" element={<MyProfile/>}/>
                         <Route path="/users" element={<UsersContainer/>}/>
                         <Route path="/music" element={<MusicsContainer/>}/>

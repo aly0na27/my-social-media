@@ -1,6 +1,7 @@
 import s from "./User.module.css"
 import avatarIcon from "./../../../assets/images/1573589.png"
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 function User(props) {
     return (
@@ -13,8 +14,40 @@ function User(props) {
                 <div className={s.wrapperButton}>
                     {
                         props.followed ?
-                            <button className={s.button} onClick={() => props.unfollow(props.id)}>Unfollowed</button> :
-                            <button className={s.button} onClick={() => props.follow(props.id)}>Followed</button>
+                            <button className={s.button} onClick={() => {
+                                // debugger;
+                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {
+                                    withCredentials: true,
+                                    headers: {
+                                        "API-KEY": "09353765-c548-4086-a6f6-a43a7968d508"
+                                    }
+                                }).then(response => {
+                                    // debugger;
+                                    if (response.data.resultCode === 0) {
+                                        // debugger
+                                        props.unfollow(props.id);
+                                    }
+                                })
+                                // props.unfollow(props.id)
+
+                            }}>Unfollowed</button> :
+                            <button className={s.button} onClick={() => {
+                                // debugger
+                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {},{
+                                    withCredentials: true,
+                                    headers: {
+                                        "API-KEY": "09353765-c548-4086-a6f6-a43a7968d508"
+                                    }
+                                }).then(response => {
+                                    // debugger
+                                    if (response.data.resultCode === 0) {
+                                        // debugger
+                                        props.follow(props.id)
+                                    }
+                                })
+                                // props.follow(props.id)
+
+                            }}>Followed</button>
                     }
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import styles from "./Users.module.css"
 import React from "react";
 import User from "./User/User";
+import { v4 } from 'uuid'
 
 function Users(props) {
     let pagesCount = Math.ceil(props.totalUserCount / props.pageSize);
@@ -11,7 +12,7 @@ function Users(props) {
 
     let users = props.users.map((u) => {
         return (
-            <User id={u.id} key={u.id} name={u.name} followed={u.followed} location={"u.location"}
+            <User key={v4()} id={u.id} name={u.name} followed={u.followed} location={"u.location"}
                   follow={props.follow}
                   unfollow={props.unfollow} photos={u.photos.small}/>
         )

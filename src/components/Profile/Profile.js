@@ -4,7 +4,7 @@ import ProfileInfoUser from "./ProfileInfoUser";
 function Profile(props) {
     return (
         <div>
-            <ProfileInfoUser profile={props.profile}/>
+            <ProfileInfoUser {...props} />
             <MyPostsContainer/>
         </div>
     );

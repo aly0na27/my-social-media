@@ -11,9 +11,10 @@ import Preloader from "../common/Preloader/Preloader";
 class UsersContainer extends React.Component {
     componentDidMount() {
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.pageSelected}`).then((response) => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.pageSelected}`, {
+            withCredentials: true
+        }).then((response) => {
             this.props.toggleIsFetching(false);
-            debugger
             this.props.setUsers(response.data.items);
             this.props.setTotalUserCount(response.data.totalCount / 700)
         });
@@ -22,7 +23,9 @@ class UsersContainer extends React.Component {
     onChangePageUsers = (p) => {
         this.props.changeSelectedPage(p);
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${p}`).then((response) => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${p}`, {
+            withCredentials: true
+        }).then((response) => {
             this.props.toggleIsFetching(false);
             this.props.setUsers(response.data.items);
         });
