@@ -6,9 +6,9 @@ import React from "react";
 import {Navigate} from "react-router-dom";
 
 function Dialogs(props) {
-    if (!props.isAuth) {
-        return <Navigate to={"/login"}/>
-    }
+    // if (!props.isAuth) {
+    //     return <Navigate to={"/login"}/>
+    // }
     let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id} avatar={d.avatar}/>);
 
     let messageElements = props.messages.map(m => <Message id={m.id} key={m.id} message={m.message}/>);
