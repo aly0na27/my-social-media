@@ -35,16 +35,16 @@ s.wrapperButton {
 
 }
 
-.button {
-    width: 10rem;
-    height: 3rem;
-    border: none;
-    border-radius: 2rem;
-    background-image: linear-gradient(to right top, #cd9fe7, #61eade);
-    font-family: Saira, sans-serif;
-    color: #f0f0f0;
-    font-weight: bold;
-}
+/*.button {*/
+/*    width: 10rem;*/
+/*    height: 3rem;*/
+/*    border: none;*/
+/*    border-radius: 2rem;*/
+/*    background-image: linear-gradient(to right top, #cd9fe7, #61eade);*/
+/*    font-family: Saira, sans-serif;*/
+/*    color: #f0f0f0;*/
+/*    font-weight: bold;*/
+/*}*/
 
 .button:hover {
     cursor: pointer;

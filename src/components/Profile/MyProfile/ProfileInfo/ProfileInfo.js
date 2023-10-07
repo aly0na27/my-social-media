@@ -1,7 +1,5 @@
 import s from "./ProfileInfo.module.css"
 import avatar from "../../../../assets/images/avatar1.jpg";
-import Preloader from "../../../common/Preloader/Preloader";
-
 function ProfileInfo(props) {
 
     return (
