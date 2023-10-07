@@ -1,7 +1,7 @@
 import s from "./User.module.css"
 import avatarIcon from "./../../../assets/images/1573589.png"
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import {setFollow, setUnfollow} from "../../../api/api";
 
 function User(props) {
     return (
@@ -15,39 +15,23 @@ function User(props) {
                     {
                         props.followed ?
                             <button className={s.button} onClick={() => {
-                                // debugger;
-                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {
-                                    withCredentials: true,
-                                    headers: {
-                                        "API-KEY": "09353765-c548-4086-a6f6-a43a7968d508"
-                                    }
-                                }).then(response => {
-                                    // debugger;
-                                    if (response.data.resultCode === 0) {
-                                        // debugger
+                                setUnfollow(props.id).then(response => {
+                                    if (response.resultCode === 0) {
                                         props.unfollow(props.id);
                                     }
                                 })
-                                // props.unfollow(props.id)
-
-                            }}>Unfollowed</button> :
+                            }}>
+                                Unfollowed
+                            </button> :
                             <button className={s.button} onClick={() => {
-                                // debugger
-                                axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {},{
-                                    withCredentials: true,
-                                    headers: {
-                                        "API-KEY": "09353765-c548-4086-a6f6-a43a7968d508"
-                                    }
-                                }).then(response => {
-                                    // debugger
-                                    if (response.data.resultCode === 0) {
-                                        // debugger
+                                setFollow(props.id).then(response => {
+                                    if (response.resultCode === 0) {
                                         props.follow(props.id)
                                     }
                                 })
-                                // props.follow(props.id)
-
-                            }}>Followed</button>
+                            }}>
+                                Followed
+                            </button>
                     }
                 </div>
             </div>
