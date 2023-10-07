@@ -4,7 +4,8 @@ import Musics from "./Musics";
 
 const mapStateToProps = (state) => {
     return {
-        musics: state.musicsPage.musics
+        musics: state.musicsPage.musics,
+        isAuth: state.auth.isAuth
     }
 }
 
