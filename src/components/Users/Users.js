@@ -13,9 +13,9 @@ function Users(props) {
     let users = props.users.map((u) => {
         return (
             <User key={v4()} id={u.id} name={u.name} followed={u.followed} location={"u.location"}
-                  follow={props.follow} followingInProgress={props.followingInProgress}
-                  unfollow={props.unfollow} photos={u.photos.small}
+                  followingInProgress={props.followingInProgress} photos={u.photos.small}
                   toggleIsFollowingProgress={props.toggleIsFollowingProgress}
+                  setUnfollow={props.setUnfollow} setFollow={props.setFollow}
             />
         )
     })
@@ -26,7 +26,7 @@ function Users(props) {
                 {
                     pages.map((el) => {
                         return <span key={el} onClick={() => props.onChangePageUsers(el)}
-                                     className={props.pageSelected === el ? styles.pageSelected : undefined}>{el}</span>
+                            className={props.pageSelected === el ? styles.pageSelected : undefined}>{el}</span>
                     })
                 }
             </div>

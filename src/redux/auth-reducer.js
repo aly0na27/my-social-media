@@ -1,3 +1,6 @@
+import {authAPI, usersAPI} from "../api/api";
+import avatarUser from "../assets/images/1573589.png";
+
 const SET_USER_DATA = "SET_USER_DATA";
 
 const initialState = {
@@ -31,6 +34,22 @@ export const setAuthUserData = (userId, email, login, photos) => {
             photos
         }
     }
+}
+
+export const authThunkCreate = () => (dispatch) => {
+    debugger
+    authAPI.authMe().then(response => {
+        if (response.resultCode === 0) {
+            let {id, email, login} = response.data
+            usersAPI.getProfileUser(id).then(response => {
+                let photos = response.photos.small;
+                if (!photos) {
+                    photos = avatarUser;
+                }
+                dispatch(setAuthUserData(id, email, login, photos));
+            })
+        }
+    })
 }
 
 export default authReducer;
