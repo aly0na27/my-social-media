@@ -6,6 +6,9 @@ import React from "react";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {Navigate} from "react-router-dom";
+import {compose} from "redux";
+import withIsFetching from "../../hoc/withIsFetching";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -29,11 +32,11 @@ class UsersContainer extends React.Component {
     }
 
     render() {
-        if (!this.props.isAuth) {
-            return <Navigate to={"/login"}/>
-        }
+        // if (!this.props.isAuth) {
+        //     return <Navigate to={"/login"}/>
+        // }
         return (<>
-                {this.props.isFetching ? <Preloader/> : null}
+                {/*{this.props.isFetching ? <Preloader/> : null}*/}
                 <Users {...this.props} onChangePageUsers={this.onChangePageUsers}/>
             </>
         );
@@ -46,9 +49,9 @@ let mapStateToProps = (state) => {
         pageSize: state.usersPage.pageSize,
         totalUserCount: state.usersPage.totalUserCount,
         pageSelected: state.usersPage.pageSelected,
-        isFetching: state.usersPage.isFetching,
+        // isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress,
-        isAuth: state.auth.isAuth
+        // isAuth: state.auth.isAuth
     }
 }
 
@@ -76,8 +79,14 @@ let mapStateToProps = (state) => {
 //     }
 // }
 
-export default connect(mapStateToProps, {
-     changeSelectedPage, toggleIsFollowingProgress,
-    getUsers, setUnfollow, setFollow
-})(UsersContainer);
+// export default connect(mapStateToProps, {
+//      changeSelectedPage, toggleIsFollowingProgress,
+//     getUsers, setUnfollow, setFollow
+// })(UsersContainer);
 
+export default compose(
+    connect(mapStateToProps, {
+        changeSelectedPage, toggleIsFollowingProgress,
+        getUsers, setUnfollow, setFollow}),
+    withAuthRedirect
+)(UsersContainer)

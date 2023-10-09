@@ -2,6 +2,8 @@ import styles from "./Users.module.css"
 import React from "react";
 import User from "./User/User";
 import { v4 } from 'uuid'
+import {compose} from "redux";
+import withIsFetching from "../../hoc/withIsFetching";
 
 function Users(props) {
     let pagesCount = Math.ceil(props.totalUserCount / props.pageSize);
@@ -37,4 +39,4 @@ function Users(props) {
     )
 }
 
-export default Users
+export default compose(withIsFetching)(Users)

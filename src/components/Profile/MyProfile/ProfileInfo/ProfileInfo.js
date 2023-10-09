@@ -1,5 +1,6 @@
 import s from "./ProfileInfo.module.css"
 import avatar from "../../../../assets/images/avatar1.jpg";
+import Status from "./Status";
 function ProfileInfo(props) {
 
     return (
@@ -11,9 +12,7 @@ function ProfileInfo(props) {
                     <h3>
                         Alyona Kravchenko
                     </h3>
-                    <p>
-                        alenakravchenko1910@gmail.com
-                    </p>
+                    <Status status={"bla"}/>
                 </div>
             </div>
         </div>
