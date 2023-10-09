@@ -5,7 +5,7 @@ function Profile(props) {
     return (
         <div>
             <ProfileInfoUser {...props} />
-            {/*<MyPostsContainer/>*/}
+            <MyPostsContainer/>
         </div>
     );
 }

@@ -14,7 +14,7 @@ function Navbar(props) {
                 <div className={classes.nav__item}>
                     <NavLink
                         className={navData => navData.isActive ? classes.nav__itemLinkActiveLink : classes.nav__itemLinkInactiveLink}
-                        to="/myProfile">
+                        to="/profile">
                         <img src={iconProfile} className={classes.nav__itemImage} alt=""/>
                         <span className={classes.span}>
                         Profile
