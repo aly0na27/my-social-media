@@ -17,12 +17,10 @@ class Status extends React.Component {
         this.setState({
             editMode: false,
         })
-        // debugger
         this.props.updateProfileStatus(this.state.status)
     }
 
     onChangeStatus = (e) => {
-        // debugger
         this.setState({
             status: e.currentTarget.value
         })
@@ -33,19 +31,10 @@ class Status extends React.Component {
             this.setState({
                 status: this.props.status
             })
-            console.log(`local state: ${this.state.status}`);
         }
-        console.log(`prev state: ${prevState.status}`);
-        console.log(`prev props: ${prevProps.status}`);
-        console.log(`props: ${this.props.status}`);
-        console.log(`state: ${this.state.status}`);
-        console.log("componentDidUpdate")
-        // debugger
     }
 
     render() {
-        // debugger
-        // console.log("render")
         return (
             <div>
                 {this.props.userId === 30096 ? (
