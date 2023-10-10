@@ -1,8 +1,8 @@
 import logo from "../../assets/images/logo.svg";
 import styles from "./Header.module.css"
 import {NavLink} from "react-router-dom";
-function Header(props) {
 
+function Header(props) {
     return (
         <header className={styles.header}>
             <div className={styles.logoContainer}>
@@ -12,6 +12,7 @@ function Header(props) {
             <div>
                 {props.isAuth ?
                     <div className={styles.authUserContainer}>
+                        <button onClick={props.logoutThunkCreate}>Logout</button>
                         <img className={styles.avatar} src={props.photos} alt={""}/>
                         <p className={styles.headerName}>{props.login}</p>
                     </div> :

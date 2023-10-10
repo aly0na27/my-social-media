@@ -2,11 +2,14 @@ import ReduxForm from "redux-form/lib/reduxForm";
 import {Field, reduxForm} from "redux-form";
 import {Input as Input} from "./../common/FormsControllers/FormsConrtolers"
 import {required} from "../../utils/Validators/validators";
+import {loginThunkCreate} from "../../redux/auth-reducer";
+import {connect} from "react-redux";
+import {Navigate} from "react-router-dom";
 const LoginForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field name={"login"}
+                <Field name={"email"}
                        component={Input}
                        placeholder={"Login"}
                        validate={[required]}
@@ -20,7 +23,7 @@ const LoginForm = (props) => {
                 />
             </div>
             <div>
-                <Field name={"checkbox"}
+                <Field name={"rememberMe"}
                        component={"input"}
                        type={"checkbox"}
                 />Remember me
@@ -37,11 +40,23 @@ const LoginReduxForm = reduxForm({
 
 function Login(props) {
     let onSubmit = (formData) => {
-        console.log(formData)
+        props.loginThunkCreate(formData.email, formData.password, formData.rememberMe)
+    }
+
+    if (props.isAuth) {
+        return <Navigate to={"/profile"}/>
     }
     return (
         <LoginReduxForm onSubmit={onSubmit}/>
     )
 }
 
-export default Login
+const mapStateToProps = (state) => {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+
+const LoginContainer = connect(mapStateToProps, {loginThunkCreate})(Login)
+
+export default LoginContainer
