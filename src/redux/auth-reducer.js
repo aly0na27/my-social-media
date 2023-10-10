@@ -37,7 +37,7 @@ export const setAuthUserData = (userId, email, login, photos) => {
 }
 
 export const authThunkCreate = () => (dispatch) => {
-    debugger
+
     authAPI.authMe().then(response => {
         if (response.resultCode === 0) {
             let {id, email, login} = response.data

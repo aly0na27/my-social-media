@@ -28,8 +28,24 @@ class Status extends React.Component {
         })
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+            console.log(`local state: ${this.state.status}`);
+        }
+        console.log(`prev state: ${prevState.status}`);
+        console.log(`prev props: ${prevProps.status}`);
+        console.log(`props: ${this.props.status}`);
+        console.log(`state: ${this.state.status}`);
+        console.log("componentDidUpdate")
+        // debugger
+    }
+
     render() {
-        debugger
+        // debugger
+        // console.log("render")
         return (
             <div>
                 {this.props.userId === 30096 ? (
