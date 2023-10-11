@@ -1,0 +1,15 @@
+.formControl {
+    /*height: 5rem;*/
+}
+
+.formControl.error {
+    border: solid red 1px;
+    border-radius: 1rem;
+
+}
+
+.textarea {
+    width: 100%;
+    height: 5rem;
+    border-radius: 1rem;
+}
