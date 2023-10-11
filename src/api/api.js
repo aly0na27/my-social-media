@@ -50,6 +50,16 @@ export const authAPI = {
         return instance.get(`auth/me`).then(response => {
             return response.data
         })
+    },
+    authLogin: () => {
+        return instance.post('auth/login', {}).then(response => {
+            return response;
+        })
+    },
+    authLogout: () => {
+        return instance.delete('auth/login').then(response => {
+            return response;
+        })
     }
 }
 

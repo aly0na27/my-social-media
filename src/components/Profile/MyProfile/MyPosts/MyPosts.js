@@ -2,20 +2,15 @@ import classes from "./MyPosts.module.css"
 import Post from "./Post/Post";
 import newPostIcon from "../../../../assets/images/newPostIcon.svg"
 import React from "react";
+import AddPost from "./AddPostForm";
 
 function MyPosts(props) {
     let postsElements = props.posts.map(p => <Post id={p.id} key={p.id} message={p.message} likesCount={p.likesCount}/>);
 
-    let newPostElement = React.createRef();
+    let onAddPost = (newPostText) => {
 
-    let onAddPost = () => {
-        props.addPost();
+        props.addPost(newPostText);
 
-    }
-
-    let onPostChange = function()  {
-        let text = newPostElement.current.value;
-        props.updateNewPostText(text);
     }
 
     return (
@@ -25,10 +20,7 @@ function MyPosts(props) {
                     <img src={newPostIcon} className={classes.createNewPost__image} alt=""/>
                     <p>Create post</p>
                 </div>
-                <div className={classes.posts__item2}>
-                    <textarea onChange={onPostChange} ref={newPostElement} className={classes.textarea} value={props.newPostText}/>
-                    <button onClick={onAddPost} className={classes.btn}>Add post</button>
-                </div>
+                <AddPost onAddPost={onAddPost}/>
             </div>
             <div>
                 {postsElements}
