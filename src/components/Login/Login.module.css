@@ -1,0 +1,22 @@
+
+.containerForm {
+    width: 100%;
+}
+.title {
+    color: #8eece4;
+    font-size: 3.4rem;
+    text-align: center;
+    padding: 1rem 0 2rem 0;
+
+}
+.form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    padding: 2rem
+}

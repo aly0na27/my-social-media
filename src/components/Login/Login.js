@@ -1,35 +1,41 @@
-import ReduxForm from "redux-form/lib/reduxForm";
 import {Field, reduxForm} from "redux-form";
-import {Input as Input} from "./../common/FormsControllers/FormsConrtolers"
+import {Input} from "./../common/FormsControllers/FormsConrtolers"
 import {required} from "../../utils/Validators/validators";
 import {loginThunkCreate} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
+import styles from "./Login.module.css";
+import ButtonLogin from "../common/Button/ButtonLogin";
+
 const LoginForm = (props) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field name={"email"}
-                       component={Input}
-                       placeholder={"Login"}
-                       validate={[required]}
-                />
+        <>
+            <div className={styles.containerForm}>
+                <h1 className={styles.title}>Login</h1>
+
+                <form className={styles.form} onSubmit={props.handleSubmit}>
+                    <Field name={"email"}
+                           component={Input}
+                           placeholder={"Login"}
+                           validate={[required]}
+                    />
+                    <Field name={"password"}
+                           component={Input}
+                           placeholder={"Password"}
+                           validate={[required]}
+                    />
+
+                    <div>
+                        <Field name={"rememberMe"}
+                               component={"input"}
+                               type={"checkbox"}
+                        />Remember me
+                    </div>
+                    <ButtonLogin/>
+                    {/*<button className={styles.btnSend}>Send</button>*/}
+                </form>
             </div>
-            <div>
-                <Field name={"password"}
-                       component={Input}
-                       placeholder={"Password"}
-                       validate={[required]}
-                />
-            </div>
-            <div>
-                <Field name={"rememberMe"}
-                       component={"input"}
-                       type={"checkbox"}
-                />Remember me
-            </div>
-            <button>Send</button>
-        </form>
+        </>
     );
 }
 

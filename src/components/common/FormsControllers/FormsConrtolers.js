@@ -17,15 +17,14 @@ const Textarea = ({input, meta, ...props}) => {
 
 export const Input = ({input, meta, ...props}) => {
     return (
-        <div className={styles.formControl + ' ' + ((meta.error && meta.touched) ? styles.error : '')}>
-            <div>
-
-                <input {...input} {...props} className={styles.textarea}/>
+        <>
+            <div className={styles.formControl + ' ' + ((meta.error && meta.touched) ? styles.error : '')}>
+                <input {...input} {...props} className={styles.input}/>
             </div>
             {
-                (meta.error && meta.touched) ? <span>{meta.error}</span> : <></>
+                (meta.error && meta.touched) ? <span className={styles.validateForm}>{meta.error}</span> : <></>
             }
-        </div>
+        </>
     )
 }
 
