@@ -38,7 +38,7 @@ export const setAuthUserData = (userId, email, login, photos, isAuth) => {
 }
 
 export const authThunkCreate = () => (dispatch) => {
-    authAPI.authMe().then(response => {
+    return authAPI.authMe().then(response => {
         if (response.resultCode === 0) {
             let {id, email, login} = response.data
             usersAPI.getProfileUser(id).then(response => {

@@ -8,9 +8,11 @@ import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
+        debugger
         let userId = this.props.router.params.userId
         if (!userId) {
-            userId = this.props.userId
+            userId = this.props.userId;
+
         }
 
         this.props.getProfileUser(userId);
@@ -21,7 +23,7 @@ class ProfileContainer extends React.Component {
 
     render() {
         return (
-            <Profile {...this.props} userId={this.props.router.params.userId ? this.props.router.params.userId : 30096}/>
+            <Profile {...this.props} userId={this.props.router.params.userId}/>
         )
     }
 }
@@ -46,7 +48,6 @@ function withRouter(Component) {
             />
         );
     }
-
     return ComponentWithRouterProp;
 }
 
@@ -58,9 +59,9 @@ function withRouter(Component) {
 // }
 
 export default compose(
-    connect(mapStateToProps, {getProfileUser, getStatusUser, updateUserStatus}),
     withRouter,
-    withAuthRedirect)(ProfileContainer)
+    withAuthRedirect,
+    connect(mapStateToProps, {getProfileUser, getStatusUser, updateUserStatus}))(ProfileContainer)
 // let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
 //
 // // AuthRedirectComponent = connect(mapStateToPropsForRedirect)(AuthRedirectComponent)

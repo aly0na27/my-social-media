@@ -1,14 +1,13 @@
 import {connect} from "react-redux";
 import {
-    changeSelectedPage, toggleIsFollowingProgress, getUsers, setUnfollow, setFollow
+    changeSelectedPage,
+    getUsers,
+    setFollow,
+    setUnfollow,
+    toggleIsFollowingProgress
 } from "../../redux/users_reducer";
 import React from "react";
 import Users from "./Users";
-import Preloader from "../common/Preloader/Preloader";
-import {Navigate} from "react-router-dom";
-import {compose} from "redux";
-import withIsFetching from "../../hoc/withIsFetching";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -19,6 +18,7 @@ class UsersContainer extends React.Component {
         //     this.props.setUsers(response.items);
         //     this.props.setTotalUserCount(response.totalCount / 700)
         // });
+        console.log(this.props)
     }
 
     onChangePageUsers = (p) => {
@@ -51,43 +51,11 @@ let mapStateToProps = (state) => {
         pageSelected: state.usersPage.pageSelected,
         // isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress,
-        // isAuth: state.auth.isAuth
     }
 }
 
-// let mapDispatchToProps = (dispatch) => {
-//     return {
-//         follow: (userId) => {
-//             dispatch(followCreateAction(userId));
-//         },
-//         unfollow: (userId) => {
-//             dispatch(unfollowCreateAction(userId));
-//         },
-//         setUsers: (users) => {
-//             dispatch(setUsersCreateAction(users));
-//         },
-//         changeSelectedPage: (page) => {
-//             dispatch(changeSelectedPageCreateAction(page));
-//         },
-//         setTotalUserCount: (totalCount) => {
-//             dispatch(setTotalUserCountCreateAction(totalCount))
-//         },
-//         toggleIsFetching: (toggle) => {
-//             dispatch(setIsFetchingCreateAction(toggle))
-//         }
-//
-//     }
-// }
 
-// export default connect(mapStateToProps, {
-//      changeSelectedPage, toggleIsFollowingProgress,
-//     getUsers, setUnfollow, setFollow
-// })(UsersContainer);
-
-export default compose(
-    connect(mapStateToProps, {
-        changeSelectedPage, toggleIsFollowingProgress,
-        getUsers, setUnfollow, setFollow}),
-    withAuthRedirect,
-
-)(UsersContainer)
+export default connect(mapStateToProps, {
+     changeSelectedPage, toggleIsFollowingProgress,
+    getUsers, setUnfollow, setFollow
+})(UsersContainer);
