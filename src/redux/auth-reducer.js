@@ -1,5 +1,6 @@
 import {authAPI, usersAPI} from "../api/api";
 import avatarUser from "../assets/images/1573589.png";
+import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = "SET_USER_DATA";
 
@@ -55,6 +56,9 @@ export const loginThunkCreate = (email, password, rememberMe) => (dispatch) => {
     authAPI.authLogin(email, password, rememberMe).then(response => {
         if (response.data.resultCode === 0) {
             dispatch(authThunkCreate())
+        } else {
+            let message = (response.data.messages && response.data.messages.length > 0) ? response.data.messages[0] : '';
+            dispatch(stopSubmit("login", {_error: message}));
         }
     })
 }

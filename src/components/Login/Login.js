@@ -20,6 +20,7 @@ const LoginForm = (props) => {
                            validate={[required]}
                     />
                     <Field name={"password"}
+                           type={"password"}
                            component={Input}
                            placeholder={"Password"}
                            validate={[required]}
@@ -31,6 +32,12 @@ const LoginForm = (props) => {
                                type={"checkbox"}
                         />Remember me
                     </div>
+                    {
+                        props.error &&
+                        <div className={styles.formError}>
+                            {props.error}
+                        </div>
+                    }
                     <ButtonLogin/>
                     {/*<button className={styles.btnSend}>Send</button>*/}
                 </form>
