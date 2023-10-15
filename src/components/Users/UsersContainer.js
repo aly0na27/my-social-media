@@ -8,6 +8,13 @@ import {
 } from "../../redux/users_reducer";
 import React from "react";
 import Users from "./Users";
+import {
+    getFollowingInProgress,
+    getPageSelected,
+    getPageSize,
+    getTotalUserCount,
+    getUsersSuperSelector
+} from "../../redux/users-selectors";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -18,7 +25,6 @@ class UsersContainer extends React.Component {
         //     this.props.setUsers(response.items);
         //     this.props.setTotalUserCount(response.totalCount / 700)
         // });
-        console.log(this.props)
     }
 
     onChangePageUsers = (p) => {
@@ -32,11 +38,7 @@ class UsersContainer extends React.Component {
     }
 
     render() {
-        // if (!this.props.isAuth) {
-        //     return <Navigate to={"/login"}/>
-        // }
         return (<>
-                {/*{this.props.isFetching ? <Preloader/> : null}*/}
                 <Users {...this.props} onChangePageUsers={this.onChangePageUsers}/>
             </>
         );
@@ -45,12 +47,11 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUserCount: state.usersPage.totalUserCount,
-        pageSelected: state.usersPage.pageSelected,
-        // isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
+        users: getUsersSuperSelector(state),
+        pageSize: getPageSize(state),
+        totalUserCount: getTotalUserCount(state),
+        pageSelected: getPageSelected(state),
+        followingInProgress: getFollowingInProgress(state),
     }
 }
 
