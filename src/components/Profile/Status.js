@@ -7,6 +7,7 @@ function Status(props) {
     useEffect(() => {
         setStatus(props.status)
     }, [props.status]);
+
     const activateEditMode = () => {
         setEditMode(true)
     }
@@ -17,9 +18,9 @@ function Status(props) {
     }
 
     const onChangeStatus = (newStatus) => {
-        debugger
         setStatus(newStatus.target.value)
     }
+
     return (
         <div>
             {

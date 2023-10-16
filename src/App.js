@@ -1,6 +1,6 @@
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {Route, Routes, useLocation, useNavigate, useParams} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useLocation, useNavigate, useParams} from "react-router-dom";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
@@ -10,10 +10,11 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginContainer from "./components/Login/Login";
 import React, {Component} from "react";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import {compose} from "redux";
+import store from "./redux/redux-store";
 
 
 class App extends Component {
@@ -26,24 +27,28 @@ class App extends Component {
             return <Preloader/>
         }
         return (
-            <div>
-                <HeaderContainer/>
-                <div className="appWrapper">
-                    <Navbar/>
-                    <div className="appWrapper__content">
-                        <Routes>
-                            <Route path="/dialogs/*" element={<DialogsContainer/>}/>
-                            <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
-                            {/*<Route path="/myProfile" element={<MyProfile/>}/>*/}
-                            <Route path="/users" element={<UsersContainer/>}/>
-                            <Route path="/music" element={<MusicsContainer/>}/>
-                            <Route path="/news" element={<News/>}/>
-                            <Route path="/settings" element={<Settings/>}/>
-                            <Route path="/login" element={<LoginContainer/>}/>
-                        </Routes>
+            <BrowserRouter>
+                <Provider store={store}>
+                    <div>
+                        <HeaderContainer/>
+                        <div className="appWrapper">
+                            <Navbar/>
+                            <div className="appWrapper__content">
+                                <Routes>
+                                    <Route path="/dialogs/*" element={<DialogsContainer/>}/>
+                                    <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
+                                    {/*<Route path="/myProfile" element={<MyProfile/>}/>*/}
+                                    <Route path="/users" element={<UsersContainer/>}/>
+                                    <Route path="/music" element={<MusicsContainer/>}/>
+                                    <Route path="/news" element={<News/>}/>
+                                    <Route path="/settings" element={<Settings/>}/>
+                                    <Route path="/login" element={<LoginContainer/>}/>
+                                </Routes>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </Provider>
+            </BrowserRouter>
         );
     }
 }
@@ -60,8 +65,10 @@ function withRouter(Component) {
             />
         );
     }
+
     return ComponentWithRouterProp;
 }
+
 const mapStateToProps = (state) => {
     return {
         initialized: state.app.initialized
