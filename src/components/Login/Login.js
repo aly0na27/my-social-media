@@ -1,19 +1,19 @@
 import {Field, reduxForm} from "redux-form";
-import {Input} from "./../common/FormsControllers/FormsConrtolers"
 import {required} from "../../utils/Validators/validators";
 import {loginThunkCreate} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
 import {Navigate} from "react-router-dom";
 import styles from "./Login.module.css";
 import ButtonLogin from "../common/Button/ButtonLogin";
+import {Input} from "../common/FormsControllers/FormsConrtolers";
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
     return (
         <>
             <div className={styles.containerForm}>
                 <h1 className={styles.title}>Login</h1>
 
-                <form className={styles.form} onSubmit={props.handleSubmit}>
+                <form className={styles.form} onSubmit={handleSubmit}>
                     <Field name={"email"}
                            component={Input}
                            placeholder={"Login"}
@@ -33,13 +33,12 @@ const LoginForm = (props) => {
                         />Remember me
                     </div>
                     {
-                        props.error &&
+                        error &&
                         <div className={styles.formError}>
-                            {props.error}
+                            {error}
                         </div>
                     }
                     <ButtonLogin/>
-                    {/*<button className={styles.btnSend}>Send</button>*/}
                 </form>
             </div>
         </>

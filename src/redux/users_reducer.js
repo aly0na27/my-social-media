@@ -1,7 +1,9 @@
 import {usersAPI} from "../api/api";
+import {updateObjectInArray} from "../utils/deep-copy";
 
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
+const TOGGLE_IS_FOLLOW = "TOGGLE_IS_FOLLOW";
 const SET_USERS = "SET_USERS";
 const CHANGE_SELECTED_PAGE = "CHANGE_SELECTED_PAGE";
 const SET_TOTAL_USER_COUNT = "SET_TOTAL_USER_COUNT";
@@ -18,31 +20,28 @@ let initialState = {
 };
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FOLLOW:
+        case TOGGLE_IS_FOLLOW:
             return {
                 ...state,
-                users: state.users.map( (u) => {
+                users: state.users.map(u => {
                     if (u.id === action.userId) {
                         return {
                             ...u,
-                            followed: true
+                            followed: !u.followed
                         }
                     }
-                    return u;
+                    return u
                 })
+            }
+        case FOLLOW:
+            return {
+                ...state,
+                users: updateObjectInArray(state.users, action.userId, "id", {followed: true})
             }
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map((u) => {
-                    if (action.userId === u.id) {
-                        return {
-                            ...u,
-                            followed: false
-                        }
-                    }
-                    return u;
-                })
+                users: updateObjectInArray(state.users, action.userId, "id", {followed: false})
             }
         case SET_USERS:
             return {
@@ -86,6 +85,12 @@ export const unfollowSuccess = (userId) => {
     return {type: UNFOLLOW, userId};
 }
 
+export const toggleIsFollow = (userId) => {
+    return {
+        type: TOGGLE_IS_FOLLOW,
+        userId
+    }
+}
 export const setUsers = (users) => {
     return {type: SET_USERS, users}
 }
@@ -118,32 +123,29 @@ export const toggleIsFollowingProgress = (isFetching, userId) => {
     }
 }
 
-export const getUsers = (pageSize, pageSelected) => (dispatch) => {
+export const getUsers = (pageSize, pageSelected) => async (dispatch) => {
     dispatch(toggleIsFetching(true));
-    usersAPI.getUsers(pageSize, pageSelected).then((response) => {
-        dispatch(toggleIsFetching(false));
-        dispatch(setUsers(response.items));
-        dispatch(setTotalUserCount(response.totalCount / 500))
-    });
+    let response = await usersAPI.getUsers(pageSize, pageSelected);
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(response.items));
+    dispatch(setTotalUserCount(response.totalCount / 500))
+
 }
 
-export const setUnfollow = (id) => (dispatch) => {
-    dispatch(toggleIsFollowingProgress(true, id))
-    usersAPI.setUnfollow(id).then(response => {
-        if (response.resultCode === 0) {
-            dispatch(unfollowSuccess(id));
-        }
-        dispatch(toggleIsFollowingProgress(false, id))
-    })
+export const setUnfollow = (id) => async (dispatch) => {
+    dispatch(setFollowUnfollow(id, usersAPI.setUnfollow.bind(usersAPI), unfollowSuccess));
 }
 
-export const setFollow = (id) => (dispatch) => {
-    dispatch(toggleIsFollowingProgress(true, id));
-    usersAPI.setFollow(id).then(response => {
-        if (response.resultCode === 0) {
-            dispatch(followSuccess(id));
-        }
-        dispatch(toggleIsFollowingProgress(false, id))
-    })
+export const setFollow = (id) => async (dispatch) => {
+    dispatch(setFollowUnfollow(id, usersAPI.setFollow.bind(usersAPI), followSuccess));
+}
+
+export const setFollowUnfollow = (userId, apiMethod, actionCreator) => async (dispatch) => {
+    dispatch(toggleIsFollowingProgress(true, userId));
+    let response = await apiMethod(userId);
+    if (response.resultCode === 0) {
+        dispatch(actionCreator(userId))
+    }
+    dispatch(toggleIsFollowingProgress(false, userId))
 }
 export default usersReducer;

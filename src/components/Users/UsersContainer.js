@@ -18,23 +18,13 @@ import {
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.getUsers(this.props.pageSize, this.props.pageSelected)
-        // this.props.toggleIsFetching(true);
-        // usersAPI.getUsers(this.props.pageSize, this.props.pageSelected).then((response) => {
-        //     this.props.toggleIsFetching(false);
-        //     this.props.setUsers(response.items);
-        //     this.props.setTotalUserCount(response.totalCount / 700)
-        // });
+        const {pageSize, pageSelected} = this.props
+        this.props.getUsers(pageSize, pageSelected)
     }
 
     onChangePageUsers = (p) => {
         this.props.changeSelectedPage(p);
         this.props.getUsers(this.props.pageSize, p);
-        // this.props.toggleIsFetching(true);
-        // usersAPI.getUsers(this.props.pageSize, this.props.pageSelected).then((response) => {
-        //     this.props.toggleIsFetching(false);
-        //     this.props.setUsers(response.items);
-        // });
     }
 
     render() {

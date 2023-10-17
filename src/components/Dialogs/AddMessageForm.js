@@ -25,9 +25,7 @@ const AddMessageForm = (props) => {
 const SendMessage = (props) => {
     const onSubmit = (formData) => {
         console.log(formData);
-        debugger
         props.onAddMessage(formData.message)
-
     }
     return (
         <DialogsReduxForm onSubmit={onSubmit}/>

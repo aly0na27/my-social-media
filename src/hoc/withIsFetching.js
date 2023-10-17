@@ -9,13 +9,10 @@ const mapStateToProps = (state) => {
 
 const withIsFetching = (IsFetchingComponent) => {
     let FetchingComponent = (props) => {
-        // debugger
         if (props.isFetching) {
-            // debugger
             return (
                 <>
                     <Preloader/>
-                    {/*<IsFetchingComponent {...props}/>*/}
                 </>
             )
         }

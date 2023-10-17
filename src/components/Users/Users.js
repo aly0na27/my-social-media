@@ -1,20 +1,14 @@
 import styles from "./Users.module.css"
 import React from "react";
 import User from "./User/User";
-import { v4 } from 'uuid'
 import {compose} from "redux";
 import withIsFetching from "../../hoc/withIsFetching";
+import Paginator from "../common/Paginator/Paginator";
 
 function Users(props) {
-    let pagesCount = Math.ceil(props.totalUserCount / props.pageSize);
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-
     let users = props.users.map((u) => {
         return (
-            <User key={v4()} id={u.id} name={u.name} followed={u.followed} location={"u.location"}
+            <User key={u.id} id={u.id} name={u.name} followed={u.followed} location={"u.location"}
                   followingInProgress={props.followingInProgress} photos={u.photos.small}
                   toggleIsFollowingProgress={props.toggleIsFollowingProgress}
                   setUnfollow={props.setUnfollow} setFollow={props.setFollow}
@@ -24,16 +18,13 @@ function Users(props) {
 
     return (
         <div>
-            <div className={styles.pages}>
-                {
-                    pages.map((el) => {
-                        return <span key={el} onClick={() => props.onChangePageUsers(el)}
-                            className={props.pageSelected === el ? styles.pageSelected : undefined}>{el}</span>
-                    })
-                }
-            </div>
+            <Paginator onChangePageUsers={props.onChangePageUsers}
+                       totalUserCount={props.totalUserCount}
+                       pageSize={props.pageSize}
+                       pageSelected={props.pageSelected}
+            />
             <div className={styles.wrapperUsers}>
-                {users}
+                { users }
             </div>
         </div>
     )
