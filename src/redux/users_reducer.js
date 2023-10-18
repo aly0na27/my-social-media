@@ -128,7 +128,7 @@ export const getUsers = (pageSize, pageSelected) => async (dispatch) => {
     let response = await usersAPI.getUsers(pageSize, pageSelected);
     dispatch(toggleIsFetching(false));
     dispatch(setUsers(response.items));
-    dispatch(setTotalUserCount(response.totalCount / 500))
+    dispatch(setTotalUserCount(response.totalCount))
 
 }
 

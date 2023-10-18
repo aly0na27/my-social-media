@@ -19,9 +19,10 @@ function Users(props) {
     return (
         <div>
             <Paginator onChangePageUsers={props.onChangePageUsers}
-                       totalUserCount={props.totalUserCount}
+                       totalItemsCount={props.totalUserCount}
                        pageSize={props.pageSize}
                        pageSelected={props.pageSelected}
+                       portionSize={5}
             />
             <div className={styles.wrapperUsers}>
                 { users }
