@@ -1,8 +1,6 @@
 import styles from "./Users.module.css"
 import React from "react";
 import User from "./User/User";
-import {compose} from "redux";
-import withIsFetching from "../../hoc/withIsFetching";
 import Paginator from "../common/Paginator/Paginator";
 
 function Users(props) {
@@ -31,4 +29,4 @@ function Users(props) {
     )
 }
 
-export default compose(withIsFetching)(Users)
+export default Users

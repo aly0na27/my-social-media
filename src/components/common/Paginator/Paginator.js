@@ -10,13 +10,10 @@ function Paginator({totalItemsCount, pageSize, pageSelected, onChangePageUsers, 
 
 
     let portionCount = Math.ceil(pagesCount / portionSize)
-    let [portionNumber, setPortionNumber] = useState(Math.ceil(pageSelected / portionSize));
+    let [portionNumber, setPortionNumber] = useState(Math.ceil(pageSelected/portionSize));
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     let rightPortionPageNumber = portionNumber * portionSize;
 
-    console.log(portionNumber)
-
-    console.log(`render ${portionNumber}`)
     return (
         <div>
             {
@@ -39,16 +36,6 @@ function Paginator({totalItemsCount, pageSize, pageSelected, onChangePageUsers, 
             }
         </div>
     )
-    // return (
-    //     <div className={styles.pages}>
-    //         {
-    //             pages.map((el) => {
-    //                 return <span key={el} onClick={() => onChangePageUsers(el)}
-    //                              className={pageSelected === el ? styles.pageSelected : undefined}>{el}</span>
-    //             })
-    //         }
-    //     </div>
-    // )
 }
 
 export default Paginator;

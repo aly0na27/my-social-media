@@ -16,7 +16,6 @@ const withIsFetching = (IsFetchingComponent) => {
                 </>
             )
         }
-        console.log(IsFetchingComponent)
         return <IsFetchingComponent {...props}/>
     }
     return connect(mapStateToProps)(FetchingComponent)

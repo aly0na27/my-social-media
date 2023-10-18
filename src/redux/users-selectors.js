@@ -4,7 +4,7 @@ export const getUsersState = (state) => {
     return state.usersPage.users;
 }
 export const getUsersSuperSelector = createSelector(getUsersState, (users) => {
-    return users.filter(u => true)
+    return users.filter(u => u)
 })
 export const getPageSize = (state) => {
     return state.usersPage.pageSize
@@ -20,4 +20,8 @@ export const getPageSelected = (state) => {
 
 export const getFollowingInProgress = (state) => {
     return state.usersPage.followingInProgress
+}
+
+export const getIsFetching = (state) => {
+    return state.usersPage.isFetching
 }
