@@ -1,28 +1,35 @@
 import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getProfileUser, getStatusUser, updateUserStatus} from "../../redux/profile-reducer";
+import {getProfileUser, getStatusUser, updatePhoto, updateUserStatus} from "../../redux/profile-reducer";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
 class ProfileContainer extends React.Component {
-    componentDidMount() {
+
+    refreshProfile() {
         let userId = this.props.router.params.userId
         if (!userId) {
             userId = this.props.userId;
-
         }
-
         this.props.getProfileUser(userId);
-
         this.props.getStatusUser(userId);
     }
+    componentDidMount() {
+        this.refreshProfile()
+    }
 
+    componentDidUpdate(prevProps, prevState) {
+        debugger
+        if (this.props.router.params.userId !== prevProps.router.params.userId) {
+            this.refreshProfile()
+        }
+    }
 
     render() {
         return (
-            <Profile {...this.props} userId={this.props.router.params.userId}/>
+            <Profile isOwner={!this.props.router.params.userId} {...this.props} userId={this.props.router.params.userId}/>
         )
     }
 }
@@ -31,7 +38,8 @@ let mapStateToProps = (state) => {
     return {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
-        userId: state.auth.userId
+        userId: state.auth.userId,
+        // photos: state.profilePage.profile.photos
     }
 }
 
@@ -60,7 +68,7 @@ function withRouter(Component) {
 export default compose(
     withRouter,
     withAuthRedirect,
-    connect(mapStateToProps, {getProfileUser, getStatusUser, updateUserStatus}))(ProfileContainer)
+    connect(mapStateToProps, {getProfileUser, getStatusUser, updateUserStatus, updatePhoto}))(ProfileContainer)
 // let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
 //
 // // AuthRedirectComponent = connect(mapStateToPropsForRedirect)(AuthRedirectComponent)

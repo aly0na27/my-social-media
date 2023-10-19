@@ -32,7 +32,6 @@ export const profileAPI = {
         })
     },
     getProfileStatus(userId) {
-
         return instance.get(`profile/status/${userId}`).then(response => {
             return response
         })
@@ -40,6 +39,15 @@ export const profileAPI = {
     updateProfileStatus(status) {
         return instance.put(`profile/status`, {status: status}).then(response =>{
             return response;
+        })
+    },
+    updateProfilePhoto(newPhoto) {
+        let formData = new FormData();
+        formData.append("image", newPhoto)
+        return instance.put('profile/photo', formData, {
+            headers: {
+                'Content-Type':  'multipart/form-data'
+            }
         })
     }
 }
