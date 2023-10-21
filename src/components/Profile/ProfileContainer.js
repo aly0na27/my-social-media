@@ -21,7 +21,6 @@ class ProfileContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        debugger
         if (this.props.router.params.userId !== prevProps.router.params.userId) {
             this.refreshProfile()
         }
@@ -39,7 +38,6 @@ let mapStateToProps = (state) => {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
         userId: state.auth.userId,
-        // photos: state.profilePage.profile.photos
     }
 }
 
@@ -58,20 +56,7 @@ function withRouter(Component) {
     return ComponentWithRouterProp;
 }
 
-// const AuthRedirectComponent = (props) => {
-//     if (!props.isAuth) {
-//         return <Navigate to={"/login"}/>
-//     }
-//     return <ProfileContainer {...props}/>
-// }
-
 export default compose(
     withRouter,
     withAuthRedirect,
     connect(mapStateToProps, {getProfileUser, getStatusUser, updateUserStatus, updatePhoto}))(ProfileContainer)
-// let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-//
-// // AuthRedirectComponent = connect(mapStateToPropsForRedirect)(AuthRedirectComponent)
-
-// export default connect(mapStateToProps, {getProfileUser})(withRouter(AuthRedirectComponent));
-

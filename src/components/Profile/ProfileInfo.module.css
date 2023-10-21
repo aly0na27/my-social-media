@@ -14,11 +14,16 @@
 
 .profile {
     position: relative;
-    display: flex;
+    display: grid;
+    grid-template-areas:
+    "A A A B B B B B B B C C C";
     flex-direction: row;
-    align-items: end;
-    left: 10%;
-    width: 50%;
+    align-items: center;
+    /*justify-content: center;*/
+    justify-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 92%;
 }
 
 .avatar {
@@ -26,10 +31,12 @@
     width: 10rem;
     border-radius: 10rem;
     border: #fff 0.5rem solid;
+    grid-area: A;
 }
 
 .description {
     font-family: "Saira", "Roboto", sans-serif;
+    grid-area: B;
 }
 
 .description p {

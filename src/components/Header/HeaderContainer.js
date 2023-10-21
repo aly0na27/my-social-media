@@ -4,11 +4,6 @@ import {connect} from "react-redux";
 import {logoutThunkCreate, setAuthUserData} from "../../redux/auth-reducer";
 
 class HeaderContainer extends React.Component {
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        debugger
-    }
-
     render () {
         return (
             <Header {...this.props}/>

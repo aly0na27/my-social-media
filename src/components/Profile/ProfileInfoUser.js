@@ -4,11 +4,16 @@ import avatar from "./../../assets/images/iconProfile.svg"
 import Status from "./Status";
 import InputChangePhoto from "../common/Input/InputChangePhoto";
 import {useState} from "react";
+import ProfileData from "./MyProfile/ProfileData";
+import ProfileFormContainer from "./MyProfile/ProfileFormData";
 
 function ProfileInfo(props) {
+    const [editMode, setEditMode] = useState(false);
+
     if (!props.profile) {
         return <Preloader/>
     }
+
 
     return (
         <div>
@@ -21,17 +26,22 @@ function ProfileInfo(props) {
                     <h3>
                         {props.profile.fullName}
                     </h3>
-                    <p>
-                        {props.profile.aboutMe}
-                    </p>
                     <Status status={props.status} updateProfileStatus={props.updateUserStatus} userId={props.userId}/>
                 </div>
-
+                {props.isOwner ? <InputChangePhoto updatePhoto={props.updatePhoto}/>
+                    : undefined}
             </div>
-            {props.isOwner ? <InputChangePhoto updatePhoto={props.updatePhoto}/>
-                : undefined}
+
+            {editMode ? <ProfileFormContainer contacts={props.profile.contacts} /> : <ProfileData {...props.profile} isOwner={props.isOwner} editMode={editMode} setEditMode={setEditMode}/>}
+            {/*{props.isOwner ? <button onClick={() => setEditMode(true)}>Edit profile</button> : undefined}*/}
         </div>
     )
 }
+
+
+
+
+
+
 
 export default ProfileInfo;

@@ -25,7 +25,6 @@ const LoginForm = ({handleSubmit, error}) => {
                            placeholder={"Password"}
                            validate={[required]}
                     />
-
                     <div>
                         <Field name={"rememberMe"}
                                component={"input"}

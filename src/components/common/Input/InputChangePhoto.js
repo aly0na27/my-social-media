@@ -7,11 +7,10 @@ function InputChangePhoto(props) {
         props.updatePhoto(file)
     }
     return (
-        <>
+        <div className={styles.edit}>
             <label htmlFor="myfile" className={styles.label} >Выберите файлы</label>
             <input type="file" className={styles.my} id="myfile" onChange={selectPhoto} name="myfile"/>
-
-        </>
+        </div>
     )
 }
 
