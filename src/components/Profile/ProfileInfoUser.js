@@ -5,7 +5,7 @@ import Status from "./Status";
 import InputChangePhoto from "../common/Input/InputChangePhoto";
 import {useState} from "react";
 import ProfileData from "./MyProfile/ProfileData";
-import ProfileFormContainer from "./MyProfile/ProfileFormData";
+import ProfileFormDataRedux from "./MyProfile/ProfileFormData";
 
 function ProfileInfo(props) {
     const [editMode, setEditMode] = useState(false);
@@ -14,12 +14,18 @@ function ProfileInfo(props) {
         return <Preloader/>
     }
 
+    const onSubmit = (dataForm) => {
+        props.updateProfile(dataForm)
+        if (props.isUpdateProfile) {
+            setEditMode(false)
+        }
+    }
 
     return (
         <div>
             <div className={s.background__profile}></div>
             <div className={s.profile}>
-                <img src={props.profile.photos.large ? props.profile.photos.large : avatar} className={s.avatar}
+                <img src={(props.profile.photos && props.profile.photos.large) ? props.profile.photos.large : avatar} className={s.avatar}
                      alt=""/>
 
                 <div className={s.description}>
@@ -32,8 +38,7 @@ function ProfileInfo(props) {
                     : undefined}
             </div>
 
-            {editMode ? <ProfileFormContainer contacts={props.profile.contacts} /> : <ProfileData {...props.profile} isOwner={props.isOwner} editMode={editMode} setEditMode={setEditMode}/>}
-            {/*{props.isOwner ? <button onClick={() => setEditMode(true)}>Edit profile</button> : undefined}*/}
+            {editMode ? <ProfileFormDataRedux initialValues={props.profile} contacts={props.profile.contacts} onSubmit={onSubmit}/> : <ProfileData {...props.profile} isOwner={props.isOwner} editMode={editMode} setEditMode={setEditMode}/>}
         </div>
     )
 }

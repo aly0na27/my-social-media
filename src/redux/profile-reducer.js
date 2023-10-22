@@ -1,10 +1,12 @@
 import {profileAPI, usersAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_USER_STATUS = "SET_USER_STATE";
 const UPDATE_PROFILE_PHOTO = "UPDATE_PROFILE_PHOTO";
-const UPDATE_PROFILE = "UPDATE_PROFILE";
+const UPDATE_PROFILE_SUCCESSFUL = "UPDATE_PROFILE_SUCCESSFUL";
+// const UPDATE_PROFILE = "UPDATE_PROFILE";
 
 let initialState = {
     posts: [
@@ -21,7 +23,8 @@ let initialState = {
         {id: "3", message: "вот тебе и мяу, вот тебе и реакт...", likesCount: "190"}
     ],
     profile: null,
-    status: ""
+    status: "",
+    isUpdateProfile: false
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -49,10 +52,16 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 profile: {...state.profile, photos: {...action.photos} }
             }
-        case UPDATE_PROFILE:
+        // case UPDATE_PROFILE:
+        //     debugger
+        //     return {
+        //         ...state,
+        //         profile: {...state.profile, ...action.profile}
+        //     }
+        case UPDATE_PROFILE_SUCCESSFUL:
             return {
                 ...state,
-                profile: {...action.profile}
+                isUpdateProfile: action.isUpdateProfile
             }
         default:
             return state;
@@ -82,10 +91,10 @@ const updateProfilePhoto = (newPhoto) => {
     }
 }
 
-const updateProfileInfo = (newData) => {
+const updateProfileSuccess = (isUpdateProfile) => {
     return {
-        type: UPDATE_PROFILE,
-        profile: newData
+        type: UPDATE_PROFILE_SUCCESSFUL,
+        isUpdateProfile
     }
 }
 
@@ -113,10 +122,27 @@ export const updatePhoto = (file) => async (dispatch) => {
     }
 }
 
-export const updateProfile = (newData) => async (dispatch) => {
+export const updateProfile = (newData) => async (dispatch, getState) => {
     const response = await profileAPI.updateProfile(newData);
     if (response.data.resultCode === 0) {
-        dispatch(updateProfileInfo(response.data.data));
+        // dispatch(updateProfileInfo(response.data.data));
+        dispatch(updateProfileSuccess(true))
+        dispatch(getProfileUser(getState().auth.userId))
+    } else {
+        if (response.data.messages) {
+            let link = {}
+            response.data.messages.forEach((el, i) => {
+                const message = response.data.messages[i];
+                if (message.includes("Contacts->")) {
+                    const result = message.match(/->\w+/);
+                    const linkItem = result[0].substring(2).toLowerCase()
+                    link[linkItem] = response.data.messages[i]
+                }
+            })
+            dispatch(stopSubmit("edit-profile", {"contacts": link}))
+        }
+        dispatch(updateProfileSuccess(false))
+        // return Promise.reject(response.data.messages[0])
     }
 }
 export default profileReducer;

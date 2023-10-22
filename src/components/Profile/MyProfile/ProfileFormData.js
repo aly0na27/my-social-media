@@ -1,23 +1,20 @@
 import {Field, reduxForm} from "redux-form";
 import Textarea, {Input} from "../../common/FormsControllers/FormsConrtolers";
-import Contacts from "./Contacts";
-import contacts from "./Contacts";
-import {updateProfile} from "../../../redux/profile-reducer";
-import {connect} from "react-redux";
+import {required} from "../../../utils/Validators/validators";
+import styles from "../../Login/Login.module.css";
 
-function ProfileFormData({contacts, onSubmit}) {
+function ProfileFormData({contacts, handleSubmit, error}) {
 
     // debugger;
     return (
-        <>
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <h3>Full name</h3>
-                <Field name={"fullName"} component={Input} placeholder={"Full name"}/>
+                <Field name={"fullName"} component={Input} placeholder={"Full name"} validate={[required]}/>
             </div>
             <div>
                 <h3>About me</h3>
-                <Field name={"aboutMe"} component={Input} placeholder={"About me"}/>
+                <Field name={"aboutMe"} component={Input} placeholder={"About me"} validate={[required]}/>
             </div>
             <div>
                 <h3>Looking for a job?</h3>
@@ -32,33 +29,27 @@ function ProfileFormData({contacts, onSubmit}) {
                     Object.keys(contacts).map(el => {
                         return (
                             <p>
-                                {el}: <Field name={"contact"} component={Input} placeholder={"contact"}></Field>
+                                {el}: <Field key={el} name={"contacts." + el} component={Input} placeholder={"contact"}></Field>
                             </p>
 
                         )
                     })
                 }
             </div>
-            <button>
+            {
+                error && <div className={styles.formError}>{error}</div>
+            }
+            <button >
                 Save
             </button>
         </form>
-            </>
+
     )
 }
 
 const ProfileFormDataRedux = reduxForm({
-    form: "profile"
+    form: "edit-profile"
 })(ProfileFormData)
 
 
-function ProfileDescription(props) {
-    const onSubmit = (newData) => {
-        debugger
-        props.updateProfile(newData)
-    }
-    return <ProfileFormDataRedux onSubmit={onSubmit}/>
-}
-
-const ProfileFormContainer = connect(null, {updateProfile})(ProfileFormDataRedux)
-export default ProfileFormContainer;
+export default ProfileFormDataRedux;
