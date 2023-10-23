@@ -7,7 +7,11 @@ import SamuraiJsApp from "./App";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <SamuraiJsApp/>
+    // <DevSupport ComponentPreviews={ComponentPreviews}
+    //             useInitialHook={useInitial}
+    // >
+        <SamuraiJsApp/>
+    // </DevSupport>
 );
 
 reportWebVitals();

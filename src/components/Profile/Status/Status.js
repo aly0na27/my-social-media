@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react"
-
+import styles from "./Status.module.css"
 function Status(props) {
     const [status, setStatus] = useState(props.status);
     const [editMode, setEditMode] = useState(false)
@@ -31,7 +31,7 @@ function Status(props) {
                         </span>
                     </div> :
                     <div>
-                        <input onBlur={deactivateEditMode}
+                        <input className={styles.statusInput} onBlur={deactivateEditMode}
                                autoFocus={editMode}
                                value={status}
                                onChange={onChangeStatus}

@@ -3,11 +3,12 @@
     width: 100%;
 }
 .title {
-    color: #8eece4;
     font-size: 3.4rem;
     text-align: center;
     padding: 1rem 0 2rem 0;
-
+    background: var(--first-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 .form {
     position: relative;

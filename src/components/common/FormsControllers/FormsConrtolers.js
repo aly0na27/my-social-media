@@ -1,7 +1,7 @@
 import styles from "./FormsControllers.module.css"
 
 
-const Textarea = ({input, meta, ...props}) => {
+export const Textarea = ({input, meta, ...props}) => {
     return (
         <div className={styles.formControl + ' ' + ((meta.error && meta.touched) ? styles.error : '')}>
             <div>
@@ -28,4 +28,3 @@ export const Input = ({input, meta, ...props}) => {
     )
 }
 
-export default Textarea

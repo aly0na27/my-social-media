@@ -1,10 +1,10 @@
 .header {
     height: 5rem;
-    background-color: #faf9f9;
+    background-color: var(--foreground-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem;
+    padding: 0 2rem ;
 }
 
 .logoContainer {
@@ -18,37 +18,50 @@
     font-family: "Rowdies", sans-serif;
     font-size: 3rem;
     font-weight: 1000;
-    background: linear-gradient(#cd9fe7, #61eade);
+    background: var(--first-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    /*margin-left: 2rem;*/
 }
 
-.img {
+.logoContainer svg {
     width: 4rem;
+    height: 4rem;
+}
+
+.logoContainer svg path{
+    fill: var(--third-color-text);
+}
+.logoContainer svg g path {
+    stroke: var(--third-color-text);
+    fill: none
 }
 
 .loginNavLink {
     font-family: Saira, sans-serif;
-    color: #61eade;
-    font-size: 1.5rem;
+    font-size: 2rem;
     text-decoration: none;
     font-weight: bold;
+    color: var(--first-btn-color);
+}
+
+.loginNavLink:hover {
+    color: var(--second-btn-color)
 }
 
 .authUserContainer {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .headerName {
     font-size: 1.5rem;
-    color: #61eade;
+    color: var(--third-color-text);
     font-weight: bold;
 }
 
 .avatar {
-    width: 3rem;
+    border-radius: 2rem;
+    width: 3.5rem;
 }

@@ -1,15 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&family=Rowdies:wght@300&display=swap');
 
+
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    background-color: #f0f0f0;
+.App {
+    min-height: 100vh;
+    background-color: var(--background-color);
 }
-
 .appWrapper {
     /*position: relative;*/
     display: grid;
@@ -26,8 +28,25 @@ body {
 
 .appWrapper__content {
     grid-area: c;
-    background-color: #faf9f9;
+    background-color: var(--foreground-color);
     border-radius: 2rem;
     /*position: relative;*/
+    color: var(--primary-text-color)
+}
+
+.appWrapper__nav {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    color: var(--secondary-text-color);
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    grid-area: n;
+    /*background-color: #fff;*/
+    background-color: var(--foreground-color);
+    border-radius: 2rem;
+    padding: 1rem;
+    height: 23rem;
 }
 

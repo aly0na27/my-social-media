@@ -1,87 +1,24 @@
 .customBtn {
-    width: 130px;
-    height: 40px;
-    color: #fff;
-    border-radius: 5px;
-    padding: 10px 25px;
-    font-family: 'Saira', sans-serif;
-    font-weight: bold;
-    background: transparent;
+    width: 10rem;
+    height: 2.7rem;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 800;
+    color: #000;
+    background-color: var(--first-btn-color);
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
     cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    display: inline-block;
-    box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5),
-    7px 7px 20px 0px rgba(0, 0, 0, .1),
-    4px 4px 5px 0px rgba(0, 0, 0, .1);
     outline: none;
 }
 
-.customBtn {
-    background-color: #a5eae4;
-    background-image: linear-gradient(315deg, #dbf1f6 0%, #91e3e3 74%);
-    line-height: 2.5rem;
-    padding: 0;
-    border: none;
-    width: 10rem;
-}
-
-.customBtn span {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
-.customBtn:before, .customBtn:after {
-    position: absolute;
-    content: "";
-    right: 0;
-    bottom: 0;
-    background-color: #8eece4 ;
-    transition: all 0.3s ease;
-}
-
-.customBtn:before{
-    height: 0;
-    width: 3px;
-}
-.customBtn:after {
-    width: 0;
-    height: 3px;
-}
-.customBtn:hover:before {
-    height: 100%;
-}
-.customBtn:hover:after {
-    width: 100%;
-}
-.customBtn:hover{
-    background: transparent;
-}
-.customBtn span:hover{
-    color: #8eece4;
-}
-.customBtn span:before,
-.customBtn span:after {
-    position: absolute;
-    content: "";
-    left: 0;
-    top: 0;
-    background: #8eece4;
-    transition: all 0.3s ease;
-}
-.customBtn span:before {
-    width: 3px;
-    height: 0;
-}
-.customBtn span:after {
-    height: 3px;
-    width: 0;
-}
-.customBtn span:hover:before {
-    height: 100%;
-}
-.customBtn span:hover:after {
-    width: 100%;
+.customBtn:hover {
+    background-color: var(--second-btn-color);
+    box-shadow: 0px 15px 20px var(--btn-color-shadow);
+    color: #fff;
+    transform: translateY(-7px);
 }

@@ -1,23 +1,36 @@
-import logo from "../../assets/images/logo.svg";
+import {ReactComponent as Logo} from "../../assets/images/logo.svg";
 import styles from "./Header.module.css"
 import {NavLink} from "react-router-dom";
 import avatar from "./../../assets/images/avarar.jpg"
+import ButtonLogout from "../common/Button/ButtonLogout";
+import DarkMode from "../common/DarkMode/DarkMode";
+
 function Header(props) {
     return (
         <header className={styles.header}>
             <div className={styles.logoContainer}>
-                <img src={logo} className={styles.img} alt=""/>
+                <Logo/>
                 <span className={styles.logo__text}>Sociala.</span>
             </div>
-            <div>
+            <div className={styles.authUserContainer}>
+                <DarkMode isDark={props.isDark} setIsDark={props.setIsDark}/>
                 {props.isAuth ?
-                    <div className={styles.authUserContainer}>
-                        <button onClick={props.logoutThunkCreate}>Logout</button>
-                        <img className={styles.avatar} src={(props.profile && props.profile.photos) ? props.profile.photos.small : avatar} alt={""}/>
-                        <p className={styles.headerName}>{props.login}</p>
-                    </div> :
-                    <NavLink to={"/login"} className={styles.loginNavLink}>Login</NavLink>}
+                    <>
+                        <ButtonLogout logoutThunkCreate={props.logoutThunkCreate}/>
+                        <NavLink to={"/profile"}>
+                            <img className={styles.avatar}
+                             src={(props.profile && props.profile.photos) ? props.profile.photos.small : avatar}
+                             alt={""}/>
+                        </NavLink>
+
+
+                    </> :
+                    <div>
+                        <NavLink to={"/login"} className={styles.loginNavLink}>Login</NavLink>
+                    </div>
+                }
             </div>
+
         </header>
     );
 }

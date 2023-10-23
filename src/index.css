@@ -1,5 +1,38 @@
+[data-theme=light] {
+  --background-color: #f0f0f0;
+  --foreground-color: #faf9f9;
+  --primary-text-color: #0f0f0f;
+  --secondary-text-color: #c5c4c4;
+  --third-color-text: #9deee7;
+  --backlight-text-color: #7777f3;
+  --first-gradient: linear-gradient(#c78be8, #61eade);
+  --first-btn-color: #cd9fe7;
+  --second-btn-color: #bb78e0;
+  --third-btn-color: #9deee7;
+  --third-btn-hover: #80e5dc;
+  --btn-color-shadow: rgba(189, 108, 218, 0.4)
+}
+
+[data-theme=dark] {
+  --background-color: #2f2f2f;
+  --foreground-color: #282828;
+  --primary-text-color: #f0f0f0;
+  --secondary-text-color: #efeeee;
+  --backlight-text-color: #8282de;
+  --third-color-text: #e19251;
+  --first-gradient: linear-gradient(#f1c34d, #da3933);
+  --first-btn-color: #ee925d;
+  --second-btn-color: #f18446;
+  --third-btn-color: #e19251;
+  --third-btn-hover: #f18446;
+  --btn-color-shadow: rgba(145, 86, 17, 0.4)
+}
+
 body {
+  /*background-color: var(--background-color);*/
   margin: 0;
+  /*width: 100%;*/
+  /*height: 100vh;*/
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -11,3 +44,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#root {
+  height: 100%;
+}
+
+

@@ -1,0 +1,7 @@
+.statusInput {
+    border: none;
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+    height: 1.5rem;
+    font-size: 1rem;
+}

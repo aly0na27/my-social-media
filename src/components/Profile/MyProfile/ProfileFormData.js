@@ -1,13 +1,14 @@
 import {Field, reduxForm} from "redux-form";
-import Textarea, {Input} from "../../common/FormsControllers/FormsConrtolers";
+import {Textarea, Input} from "../../common/FormsControllers/FormsConrtolers";
 import {required} from "../../../utils/Validators/validators";
 import styles from "../../Login/Login.module.css";
-
+import s from "./ProfileFormData.module.css"
 function ProfileFormData({contacts, handleSubmit, error}) {
 
     // debugger;
     return (
-        <form onSubmit={handleSubmit}>
+        <form className={s.form} onSubmit={handleSubmit}>
+            <div>
             <div>
                 <h3>Full name</h3>
                 <Field name={"fullName"} component={Input} placeholder={"Full name"} validate={[required]}/>
@@ -23,6 +24,7 @@ function ProfileFormData({contacts, handleSubmit, error}) {
             <div>
                 <h3>My professional skills</h3>
                 <Field name={"lookingForAJobDescription"} component={Textarea} placeholder={"My skills"}/>
+            </div>
             </div>
             <div>
                 {

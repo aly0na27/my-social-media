@@ -2,7 +2,7 @@ import {Field, reduxForm} from "redux-form";
 import s from "./Dialogs.module.css";
 import iconSend from "../../assets/images/iconSend.svg";
 import React from "react";
-import Textarea from "../common/FormsControllers/FormsConrtolers";
+import {Textarea} from "../common/FormsControllers/FormsConrtolers";
 import {maxLengthCreator, required} from "../../utils/Validators/validators";
 
 const maxLength20 = maxLengthCreator(20)

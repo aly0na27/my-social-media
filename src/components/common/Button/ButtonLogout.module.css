@@ -1,0 +1,21 @@
+.logoutBtn {
+    border: none;
+    background-color: var(--foreground-color);
+}
+
+.logoutBtn:hover {
+    cursor: pointer;
+}
+
+.logoutImg {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.logoutImg path {
+    stroke: var(--first-btn-color);
+}
+
+.logoutBtn:hover .logoutImg path {
+    stroke: var(--second-btn-color);
+}
