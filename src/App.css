@@ -8,6 +8,10 @@
     min-height: 100vh;
     background-color: var(--background-color);
 }
+body.lock {
+    /*background-color: red;*/
+    overflow: hidden;
+}
 .appWrapper {
     /*position: relative;*/
     display: grid;
@@ -22,9 +26,12 @@
     margin: 0 auto;
 }
 
+.appWrapper__header {
+    grid-area: h;
+}
 .appWrapper__content {
     grid-area: c;
-    background-color: var(--foreground-color);
+    background-color: var(--background-color);
     border-radius: 2rem;
     /*position: relative;*/
     color: var(--primary-text-color)

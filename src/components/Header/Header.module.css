@@ -29,10 +29,10 @@
 }
 
 .logoContainer svg path{
-    fill: var(--third-color-text);
+    fill: var(--third-btn-color);
 }
 .logoContainer svg g path {
-    stroke: var(--third-color-text);
+    stroke: var(--third-btn-color);
     fill: none
 }
 

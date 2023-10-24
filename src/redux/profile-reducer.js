@@ -6,7 +6,6 @@ const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_USER_STATUS = "SET_USER_STATE";
 const UPDATE_PROFILE_PHOTO = "UPDATE_PROFILE_PHOTO";
 const UPDATE_PROFILE_SUCCESSFUL = "UPDATE_PROFILE_SUCCESSFUL";
-// const UPDATE_PROFILE = "UPDATE_PROFILE";
 
 let initialState = {
     posts: [
@@ -22,6 +21,7 @@ let initialState = {
         },
         {id: "3", message: "вот тебе и мяу, вот тебе и реакт...", likesCount: "190"}
     ],
+    myProfilePhoto: null,
     profile: null,
     status: "",
     isUpdateProfile: false
@@ -52,12 +52,6 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 profile: {...state.profile, photos: {...action.photos} }
             }
-        // case UPDATE_PROFILE:
-        //     debugger
-        //     return {
-        //         ...state,
-        //         profile: {...state.profile, ...action.profile}
-        //     }
         case UPDATE_PROFILE_SUCCESSFUL:
             return {
                 ...state,
@@ -98,6 +92,7 @@ const updateProfileSuccess = (isUpdateProfile) => {
     }
 }
 
+
 export const updateUserStatus = (status) => async (dispatch) => {
     let response = await profileAPI.updateProfileStatus(status);
     if (response.data.resultCode === 0) {
@@ -128,6 +123,7 @@ export const updateProfile = (newData) => async (dispatch, getState) => {
         // dispatch(updateProfileInfo(response.data.data));
         dispatch(updateProfileSuccess(true))
         dispatch(getProfileUser(getState().auth.userId))
+        // dispatch(setProfilePhoto(response.data))
     } else {
         if (response.data.messages) {
             let link = {}

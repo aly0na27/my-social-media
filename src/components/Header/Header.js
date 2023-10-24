@@ -6,6 +6,7 @@ import ButtonLogout from "../common/Button/ButtonLogout";
 import DarkMode from "../common/DarkMode/DarkMode";
 
 function Header(props) {
+
     return (
         <header className={styles.header}>
             <div className={styles.logoContainer}>
@@ -19,7 +20,7 @@ function Header(props) {
                         <ButtonLogout logoutThunkCreate={props.logoutThunkCreate}/>
                         <NavLink to={"/profile"}>
                             <img className={styles.avatar}
-                             src={(props.profile && props.profile.photos) ? props.profile.photos.small : avatar}
+                             src={props.photos ? props.photos : avatar}
                              alt={""}/>
                         </NavLink>
 

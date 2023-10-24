@@ -28,7 +28,7 @@ class ProfileContainer extends React.Component {
 
     render() {
         return (
-            <Profile editMode={this.props.editMode} setEditMode={this.props.setEditMode} isOwner={!this.props.router.params.userId} {...this.props} userId={this.props.router.params.userId}/>
+            <Profile  isOwner={!this.props.router.params.userId} {...this.props} userId={this.props.router.params.userId}/>
         )
     }
 }

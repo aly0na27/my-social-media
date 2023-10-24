@@ -1,6 +1,8 @@
 
 .containerForm {
     width: 100%;
+    background-color: var(--foreground-color);
+    border-radius: 2rem;
 }
 .title {
     font-size: 3.4rem;

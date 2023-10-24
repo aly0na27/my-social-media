@@ -8,7 +8,7 @@ function InputChangePhoto(props) {
     }
     return (
         <div className={styles.edit}>
-            <label htmlFor="myfile" className={styles.label} >Выберите файлы</label>
+            <label htmlFor="myfile" className={styles.label} >Select file</label>
             <input type="file" className={styles.my} id="myfile" onChange={selectPhoto} name="myfile"/>
         </div>
     )

@@ -3,5 +3,50 @@
     flex-direction: column;
     align-items: center;
     padding: 2rem 1rem;
+
+}
+
+.formProfileData {
+    display: grid;
+    /*grid-template-columns: 4fr 4fr;*/
+    gap: 2rem;
     border-top: 1px solid var(--secondary-text-color);
+    /*border-bottom: 1px solid var(--secondary-text-color);*/
+    padding: 4rem 0
+}
+
+.formItem {
+    display: grid;
+    grid-template-columns: 12rem auto;
+    gap: 4rem
+}
+
+.formItemTitle {
+    justify-self: end;
+    /*width: 15rem;*/
+
+}
+
+.btnSave {
+    width: 180px;
+    height: 50px;
+    border-radius: 1rem;
+    text-align: center;
+    cursor: pointer;
+    /*display: block;*/
+    font-family: Saira, sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    transition: all 0.18s ease-in-out;
+    /*border: 1px solid #333;*/
+    border: none;
+    color: var(--background-color);
+    background-color: var(--primary-text-color);
+    /*grid-area: C;*/
+}
+
+.btnSave:hover {
+    color: var(--primary-text-color);
+    background: var(--second-btn-color);
+    cursor: pointer;
 }

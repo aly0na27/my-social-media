@@ -1,21 +1,16 @@
-.formControl {
-    width: 20rem;
-    z-index: 5;
-    /*color: var(--foreground-color);*/
-    /*border: solid #b5e4e5 2px;*/
-    border-radius: 0.4rem;
-}
-
 .formControl.error {
-    width: 20rem;
+    /*width: 20rem;*/
+    /*height: 5rem;*/
     border: solid #e77e7e 2px;
     border-radius: 0.4rem;
     z-index: 5;
 }
 
+
 .textarea {
-    width: 100%;
+    border: none;
     height: 5rem;
+    width: 19.8rem;
     border-radius: 0.4rem;
     background-color: var(--background-color);
     color: var(--primary-text-color)
@@ -32,4 +27,5 @@
 
 .validateForm {
     text-align: left;
+    color: #e77e7e;
 }

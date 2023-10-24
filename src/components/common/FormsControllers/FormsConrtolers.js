@@ -3,13 +3,11 @@ import styles from "./FormsControllers.module.css"
 
 export const Textarea = ({input, meta, ...props}) => {
     return (
-        <div className={styles.formControl + ' ' + ((meta.error && meta.touched) ? styles.error : '')}>
-            <div>
-
-                <textarea {...input} {...props} className={styles.textarea}/>
-            </div>
+        <div>
+            <textarea {...input} {...props}
+                      className={styles.textarea + ' ' + styles.formControl + ' ' + ((meta.error && meta.touched) ? styles.error : '')}/>
             {
-                (meta.error && meta.touched) ? <span>{meta.error}</span> : <></>
+                (meta.error && meta.touched) ? <div><span className={styles.validateForm}>{meta.error}</span></div> : <></>
             }
         </div>
     )
@@ -17,14 +15,12 @@ export const Textarea = ({input, meta, ...props}) => {
 
 export const Input = ({input, meta, ...props}) => {
     return (
-        <>
-            <div className={styles.formControl + ' ' + ((meta.error && meta.touched) ? styles.error : '')}>
-                <input {...input} {...props} className={styles.input}/>
-            </div>
+        <div>
+            <input {...input} {...props} className={styles.input + ' ' + styles.formControl + ' ' + ((meta.error && meta.touched) ? styles.error : '')}/>
             {
-                (meta.error && meta.touched) ? <span className={styles.validateForm}>{meta.error}</span> : <></>
+                (meta.error && meta.touched) ? <div><span className={styles.validateForm}>{meta.error}</span></div> : <></>
             }
-        </>
+        </div>
     )
 }
 

@@ -1,3 +1,9 @@
+.sectionProfile {
+    background-color: var(--foreground-color);
+    border-radius: 2rem;
+
+}
+
 .background__profile {
     position: relative;
     left: 50%;
@@ -12,9 +18,10 @@
 .wrapperProfile {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    column-gap: 24rem;
     align-items: center;
-    padding: 0 5rem;
+    /*padding: 0 5rem;*/
     flex-wrap: wrap;
 }
 
@@ -29,7 +36,7 @@
 }
 
 .avatar {
-    z-index: 2;
+    z-index: 1;
     width: 14rem;
     border-radius: 10rem;
     border: var(--foreground-color) 0.4rem solid;
@@ -111,4 +118,30 @@
     cursor: pointer;
     transition: all 0.18s ease-in-out;
 
+}
+
+
+.profileFormData {
+    background-color: var(--foreground-color);
+    border-radius: 2rem;
+    margin-top: 2rem;
+}
+
+.changePhotoSection {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 3rem 0;
+}
+
+.changePhotoSection h3 {
+    font-size: 2rem;
+}
+.profilePhotoEdit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6rem;
 }

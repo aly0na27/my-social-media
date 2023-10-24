@@ -8,31 +8,54 @@ import React from "react";
 function ProfileFormData({contacts, handleSubmit, initialValues, error, isOwner}) {
     return (
         <form className={s.form} onSubmit={handleSubmit}>
-            <div>
-            <div>
-                <h3>Full name</h3>
-                <Field name={"fullName"} component={Input} placeholder={"Full name"} validate={[required]}/>
+            <div className={s.formProfileData}>
+                <div className={s.formItem}>
+                    <div className={s.formItemTitle}>
+                        <h3>Full name:</h3>
+                    </div>
+                    <div>
+                        <Field name={"fullName"} component={Input} placeholder={"Full name"} validate={[required]}/>
+                    </div>
+                </div>
+                <div className={s.formItem}>
+                    <div className={s.formItemTitle}>
+                        <h3>About me:</h3>
+                    </div>
+                    <div>
+                        <Field name={"aboutMe"} component={Input} placeholder={"About me"} validate={[required]}/>
+
+                    </div>
+                </div>
+                <div className={s.formItem}>
+
+                    <div className={s.formItemTitle}>
+                        <h3>Looking for a job?</h3>
+
+                    </div>
+                    <div>
+                        <Field name={"lookingForAJob"} component={"input"} type={"checkbox"}/>
+
+                    </div>
+                </div>
+                <div className={s.formItem}>
+                    <div className={s.formItemTitle}>
+                        <h3>My skills:</h3>
+                    </div>
+                    <div>
+                        <Field name={"lookingForAJobDescription"} component={Textarea} placeholder={"My skills"}
+                               validate={[required]}/>
+                    </div>
+                </div>
             </div>
-            <div>
-                <h3>About me</h3>
-                <Field name={"aboutMe"} component={Input} placeholder={"About me"} validate={[required]}/>
-            </div>
-            <div>
-                <h3>Looking for a job?</h3>
-                <Field name={"lookingForAJob"} component={"input"} type={"checkbox"}/>
-            </div>
-            <div>
-                <h3>My professional skills</h3>
-                <Field name={"lookingForAJobDescription"} component={Textarea} placeholder={"My skills"}/>
-            </div>
-            </div>
-            <div>
+            <div className={s.formProfileData}>
                 {
                     Object.keys(contacts).map(el => {
                         return (
-                            <p>
-                                {el}: <Field key={el} name={"contacts." + el} component={Input} placeholder={"contact"}></Field>
-                            </p>
+                            <div className={s.formItem}>
+                                <div className={s.formItemTitle}><h3>{el}:</h3></div>
+                                <div><Field key={el} name={"contacts." + el} component={Input}
+                                              placeholder={"contact"}></Field></div>
+                            </div>
 
                         )
                     })
@@ -41,7 +64,7 @@ function ProfileFormData({contacts, handleSubmit, initialValues, error, isOwner}
             {
                 error && <div className={styles.formError}>{error}</div>
             }
-            <button >
+            <button className={s.btnSave}>
                 Save
             </button>
         </form>

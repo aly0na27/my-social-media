@@ -35,9 +35,10 @@ class UsersContainer extends React.Component {
     render() {
         return (
             <>
-                {this.props.isFetching ? <Preloader/> : undefined}
+                {this.props.isFetching ? <Preloader/> :
                 <Users {...this.props} onChangePageUsers={this.onChangePageUsers}/>
-            </>
+                }
+                    </>
         );
     }
 }

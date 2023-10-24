@@ -15,7 +15,8 @@ let mapStateToProps = (state) => {
     return {
         isAuth: state.auth.isAuth,
         login: state.auth.login,
-        profile: state.profilePage.profile
+        profile: state.profilePage.profile,
+        photos: state.auth.photos
     }
 }
 

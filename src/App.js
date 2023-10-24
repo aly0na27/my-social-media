@@ -18,7 +18,7 @@ const DialogsContainer = lazy(() => import("./components/Dialogs/DialogsContaine
 
 const App = (props) => {
     useEffect(() => {
-        props.initializeApp()
+        props.initializeApp();
     }, [])
 
     const [isDark, setIsDark] = useState(false)
@@ -28,8 +28,15 @@ const App = (props) => {
     }
     return (
         <div className={"App"} data-theme={isDark ? "dark" : "light"}>
-            <HeaderContainer isDark={isDark} setIsDark={setIsDark}/>
+            {/*<div className={"appWrapper__header"}>*/}
+                <HeaderContainer isDark={isDark} setIsDark={setIsDark}/>
+
+            {/*</div>*/}
             <div className="appWrapper">
+                {/*<div className={"appWrapper__header"}>*/}
+                {/*    <HeaderContainer isDark={isDark} setIsDark={setIsDark}/>*/}
+
+                {/*</div>*/}
                 <div className={"appWrapper__nav"}>
                     <Navbar/>
                 </div>
@@ -38,7 +45,7 @@ const App = (props) => {
                         <Routes>
                             <Route path="/dialogs/*" element={<DialogsContainer/>}/>
                             <Route path="/profile/:userId?"
-                                   element={<ProfileContainer/>}/>
+                                   element={<ProfileContainer />}/>
                             <Route path="/users" element={<UsersContainer/>}/>
                             <Route path="/music" element={<MusicsContainer/>}/>
                             <Route path="/news" element={<News/>}/>
