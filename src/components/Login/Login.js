@@ -7,7 +7,8 @@ import styles from "./Login.module.css";
 import ButtonLogin from "../common/Button/ButtonLogin";
 import {Input} from "../common/FormsControllers/FormsConrtolers";
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm = ({handleSubmit, error, captcha}) => {
+    // debugger
     return (
         <>
             <div className={styles.containerForm}>
@@ -37,6 +38,17 @@ const LoginForm = ({handleSubmit, error}) => {
                             {error}
                         </div>
                     }
+                    {
+                        captcha ?<>
+
+                            <img src={captcha} alt={""}/>
+
+                            <div>
+                                <Field name={"captcha"} component={Input} validate={[required]} />
+                            </div>
+                            </>
+                            : undefined
+                    }
                     <ButtonLogin/>
                 </form>
             </div>
@@ -51,20 +63,21 @@ const LoginReduxForm = reduxForm({
 
 function Login(props) {
     let onSubmit = (formData) => {
-        props.loginThunkCreate(formData.email, formData.password, formData.rememberMe)
+        props.loginThunkCreate(formData.email, formData.password, formData.rememberMe, formData.captcha);
     }
 
     if (props.isAuth) {
         return <Navigate to={"/profile"}/>
     }
     return (
-        <LoginReduxForm onSubmit={onSubmit}/>
+        <LoginReduxForm onSubmit={onSubmit} captcha={props.captcha}/>
     )
 }
 
 const mapStateToProps = (state) => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        captcha: state.auth.captcha
     }
 }
 
