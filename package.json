@@ -2,6 +2,7 @@
   "name": "react-way",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://aly0na27.github.io/my-social-media",
   "dependencies": {
     "@react-buddy/ide-toolbox": "^2.4.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -51,5 +52,8 @@
     "transformIgnorePatterns": [
       "node_modules/(?!(react-leaflet|@react-leaflet|d3-*|axios))"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.0.0"
   }
 }
