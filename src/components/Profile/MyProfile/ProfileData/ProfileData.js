@@ -3,7 +3,7 @@ import {ReactComponent as AtSignIcon} from "../../../../assets/images/Icon/AtSig
 import {ReactComponent as ListIcon} from "../../../../assets/images/Icon/StatusList.svg";
 import {ReactComponent as SearchJobIcon} from "../../../../assets/images/Icon/searchWork.svg";
 import {ReactComponent as SkillsIcon} from "../../../../assets/images/Icon/skills.svg";
-
+import "./ProfileData.css"
 function ProfileData(props) {
     return (
         <div className={"profileDataWrapper"}>

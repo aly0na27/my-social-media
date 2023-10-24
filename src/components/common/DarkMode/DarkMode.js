@@ -13,7 +13,7 @@ const DarkMode = (props) => {
                     return props.isDark ? props.setIsDark(false) : props.setIsDark(true)
                 }}
             />
-            <label className={styles.darkModeLabel}>
+            <label className={styles.darkModeLabel} for='darkmode-toggle'>
                 {/*<Sun />*/}
                 <Moon />
 
