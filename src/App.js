@@ -26,9 +26,6 @@ const App = (props) => {
     if (!props.initialized) {
         return <Preloader/>
     }
-
-
-
     return (
         <div className={"App"} data-theme={isDark ? "dark" : "light"}>
             <HeaderContainer isDark={isDark} setIsDark={setIsDark}/>
@@ -36,12 +33,12 @@ const App = (props) => {
                 <div className={"appWrapper__nav"}>
                     <Navbar/>
                 </div>
-                {/*<Navbar/>*/}
                 <div className="appWrapper__content">
                     <Suspense fallback={<Preloader/>}>
                         <Routes>
                             <Route path="/dialogs/*" element={<DialogsContainer/>}/>
-                            <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
+                            <Route path="/profile/:userId?"
+                                   element={<ProfileContainer/>}/>
                             <Route path="/users" element={<UsersContainer/>}/>
                             <Route path="/music" element={<MusicsContainer/>}/>
                             <Route path="/news" element={<News/>}/>
@@ -73,7 +70,7 @@ function withRouter(Component) {
 
 const mapStateToProps = (state) => {
     return {
-        initialized: state.app.initialized
+        initialized: state.app.initialized,
     }
 }
 

@@ -1,6 +1,6 @@
  import classes from "./Post.module.css"
 import avatar from "../../../../../assets/images/avatar1.jpg"
-import like from "../../../../../assets/images/like.svg"
+import like from "../../../../../assets/images/Icon/like.svg"
 function Post(props) {
     return (
         <div className={classes.item}>

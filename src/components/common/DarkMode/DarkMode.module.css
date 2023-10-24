@@ -1,0 +1,25 @@
+.darkModeLabel svg path {
+    fill: var(--first-btn-color)
+}
+
+.darkModeLabel {
+    width: 3rem;
+    height: 3rem;
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.darkModeInput {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.darkModeLabel:hover svg path {
+    fill: var(--second-btn-color)
+}
+.darkModeLabel svg {
+    width: 3rem;
+    height: 3rem;
+}
+

@@ -1,11 +1,11 @@
 import {Field, reduxForm} from "redux-form";
-import {Textarea, Input} from "../../common/FormsControllers/FormsConrtolers";
+import {Input, Textarea} from "../../common/FormsControllers/FormsConrtolers";
 import {required} from "../../../utils/Validators/validators";
 import styles from "../../Login/Login.module.css";
 import s from "./ProfileFormData.module.css"
-function ProfileFormData({contacts, handleSubmit, error}) {
+import React from "react";
 
-    // debugger;
+function ProfileFormData({contacts, handleSubmit, initialValues, error, isOwner}) {
     return (
         <form className={s.form} onSubmit={handleSubmit}>
             <div>
@@ -53,5 +53,4 @@ const ProfileFormDataRedux = reduxForm({
     form: "edit-profile"
 })(ProfileFormData)
 
-
-export default ProfileFormDataRedux;
+export default ProfileFormDataRedux

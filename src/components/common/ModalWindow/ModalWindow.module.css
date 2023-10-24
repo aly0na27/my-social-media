@@ -1,25 +1,59 @@
-.closeModalWindow {
+.modalWindow {
     position: absolute;
-    top: 0.5rem;
-    right: 2rem;
-    font-size: 5rem;
-    color: #444;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 45rem;
+    height: 30rem;
+    /*padding: 0 1rem;*/
+    z-index: 5;
+    border-radius: 1rem;
+    background-color: var(--background-color);
+    box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+    transition: all 1s ease;
+}
+
+.closeModalWindow {
+    font-size: 4rem;
+    color: var(--first-btn-color);
     cursor: pointer;
     border: none;
     background: none;
 }
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px var(--secondary-text-color) solid;
+    padding: 0 1.5rem;
+}
+
+.profileInfo {
+    padding: 0 2rem;
+}
+
+.logo__text {
+    font-family: Saira, sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-text-color)
+    /*background: var(--first-gradient);*/
+    /*-webkit-background-clip: text;*/
+    /*-webkit-text-fill-color: transparent;*/
+}
+
 h1 {
     font-size: 2.5rem;
     margin-bottom: 2rem;
 }
 
-
-
 .hidden {
     display: none;
 }
+
 .overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -29,16 +63,4 @@ h1 {
     z-index: 2;
 }
 
-.modalWindow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 45rem;
-    height: 30rem;
-    padding: 25px 20px;
-    z-index: 5;
-    border-radius: 10px;
-    background-color: #fff;
-    box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
-}
+

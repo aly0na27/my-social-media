@@ -1,0 +1,71 @@
+.profileInfo {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px var(--secondary-text-color) solid;
+    padding: 1.5rem;
+    gap: 0.8rem;
+    color: var(--third-text-color)
+}
+
+.profileDataSpan {
+    color: var(--span-text-color)
+}
+
+.lookingForAJobSpan {
+    text-decoration: underline;
+}
+.profileInfoItem {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.profileInfoItem svg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.profileInfoItem svg.listIcon {
+    fill: var(--third-text-color);
+}
+
+.profileInfoItem svg.atSign {
+    stroke: var(--third-text-color)
+}
+
+.fullName {
+    color: var(--span-text-color);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/*section job*/
+
+.workInfo {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px var(--secondary-text-color) solid;
+    padding: 1.5rem;
+    gap: 0.8rem;
+    color: var(--third-text-color)
+}
+
+.workInfoItem {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.workInfoItem svg {
+    width: 2rem;
+    height: 2rem;
+    padding: 0.2rem;
+}
+
+.workInfoItem svg.searchJobIcon path {
+    stroke: var(--third-text-color)
+}
+
+.workInfoItem svg.skillsIcon {
+    fill: var(--third-text-color);
+}

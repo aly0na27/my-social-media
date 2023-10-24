@@ -1,4 +1,4 @@
-import {ReactComponent as LogoutIcon} from "../../../assets/images/logout.svg";
+import {ReactComponent as LogoutIcon} from "../../../assets/images/Icon/logout.svg";
 import styles from "./ButtonLogout.module.css"
 function ButtonLogout(props) {
     return (

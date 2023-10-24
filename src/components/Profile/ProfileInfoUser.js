@@ -1,12 +1,14 @@
 import styles from "./ProfileInfo.module.css"
 import Preloader from "../common/Preloader/Preloader";
-import avatar from "./../../assets/images/iconProfile.svg"
+import avatar from "../../assets/images/Icon/iconProfile.svg"
 import Status from "./Status/Status";
-import InputChangePhoto from "../common/Input/InputChangePhoto";
 import {useState} from "react";
 import ModalWindow from "../common/ModalWindow/ModalWindow";
+import {ReactComponent as IconMoreDetails} from "../../assets/images/Icon/moreDetails.svg";
+import ProfileFormDataRedux from "./MyProfile/ProfileFormData";
 
 function ProfileInfo(props) {
+    const [moreDetailsActive, setMoreDetailsActive] = useState(false);
     const [editMode, setEditMode] = useState(false);
 
     if (!props.profile) {
@@ -37,21 +39,35 @@ function ProfileInfo(props) {
                         <Status status={props.status} updateProfileStatus={props.updateUserStatus}
                                 userId={props.userId}/>
                     </div>
+
+                    <div className={styles.moreDetails}>
+                        <button className={styles.btnMoreDetails} onClick={() => {
+                            setMoreDetailsActive(true)
+                        }}>
+                            <IconMoreDetails/>
+                            More details
+                        </button>
+                    </div>
                 </div>
                 <div className={styles.editProfile}>
-                    <button className={styles.btnEditProfile} onClick={() => {
-                        debugger
-                        setEditMode(true)
+                    {props.isOwner ?
+                        <button className={styles.btnEditProfile} onClick={() => setEditMode(true)}>
+                            Edit profile
+                        </button> : undefined
                     }
-                    }>Edit profile</button>
                 </div>
+
             </div>
-            {props.isOwner ? <InputChangePhoto updatePhoto={props.updatePhoto}/>
-                : undefined}
-            <ModalWindow  editMode={editMode} setEditMode={setEditMode} profile={props.profile} contacts={props.profile.contacts} updateProfile={props.updateProfile}/>
-            {/*{editMode ? <ProfileFormDataRedux initialValues={props.profile} contacts={props.profile.contacts}*/}
-            {/*                                  onSubmit={onSubmit}/> :*/}
-            {/*    <ProfileData {...props.profile} isOwner={props.isOwner} editMode={editMode} setEditMode={setEditMode}/>}*/}
+
+            <ModalWindow moreDetailsActive={moreDetailsActive} setMoreDetailsActive={setMoreDetailsActive}
+                         profile={props.profile} contacts={props.profile.contacts}/>
+
+            {
+                editMode ?
+                    <ProfileFormDataRedux initialValues={props.profile}
+                                          contacts={props.profile.contacts}
+                                          onSubmit={onSubmit}/>
+                    : undefined}
         </>
     )
 }

@@ -1,7 +1,7 @@
-import iconNews from "../../assets/images/iconNews.svg"
-import iconMessages from "../../assets/images/iconMessages.svg"
-import iconProfile from "../../assets/images/iconProfile.svg"
-import iconMusic from "../../assets/images/iconMusic.svg"
+import iconNews from "../../assets/images/Icon/iconNews.svg"
+import iconMessages from "../../assets/images/Icon/iconMessages.svg"
+import iconProfile from "../../assets/images/Icon/iconProfile.svg"
+import iconMusic from "../../assets/images/Icon/iconMusic.svg"
 import classes from "./Navbar.module.css"
 import {NavLink} from "react-router-dom";
 
