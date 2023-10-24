@@ -25,13 +25,11 @@ function ProfileInfo(props) {
     }, [editMode])
 
     if (!props.profile) {
-        debugger
         return <Preloader/>
     }
 
 
     const onSubmit = (dataForm) => {
-        debugger
         props.updateProfile(dataForm)
         if (props.isUpdateProfile) {
             setEditMode(false)

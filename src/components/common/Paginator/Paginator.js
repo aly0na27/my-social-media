@@ -1,5 +1,6 @@
 import styles from "./Paginator.module.css";
 import React, {useState} from "react";
+import classNames from "classnames";
 
 function Paginator({totalItemsCount, pageSize, pageSelected, onChangePageUsers, portionSize}) {
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
@@ -10,29 +11,33 @@ function Paginator({totalItemsCount, pageSize, pageSelected, onChangePageUsers, 
 
 
     let portionCount = Math.ceil(pagesCount / portionSize)
-    let [portionNumber, setPortionNumber] = useState(Math.ceil(pageSelected/portionSize));
+    let [portionNumber, setPortionNumber] = useState(Math.ceil(pageSelected / portionSize));
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     let rightPortionPageNumber = portionNumber * portionSize;
 
     return (
         <div>
             {
-                portionNumber !== 1 ? <button onClick={() => {setPortionNumber(portionNumber-1)}}>Prev</button> : undefined
+                portionNumber !== 1 ? <button onClick={() => {
+                    setPortionNumber(portionNumber - 1)
+                }}>Prev</button> : undefined
             }
             <div>
                 {
                     pages
                         .filter(p => leftPortionPageNumber <= p && p <= rightPortionPageNumber)
-                        .map((el)  => {
+                        .map((el) => {
                             return <span key={el}
                                          onClick={() => onChangePageUsers(el)}
-                                         className={pageSelected === el ? styles.pageSelected : undefined}
-                            > { el } </span>
+                                         className={classNames({[styles.pageSelected]: pageSelected === el})}
+                            > {el} </span>
                         })
                 }
             </div>
             {
-                portionNumber < portionCount ? <button onClick={() => {setPortionNumber(portionNumber+1)}}>Next</button> : undefined
+                portionNumber < portionCount ? <button onClick={() => {
+                    setPortionNumber(portionNumber + 1)
+                }}>Next</button> : undefined
             }
         </div>
     )

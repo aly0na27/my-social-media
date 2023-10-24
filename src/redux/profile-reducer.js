@@ -95,9 +95,11 @@ const updateProfileSuccess = (isUpdateProfile) => {
 
 export const updateUserStatus = (status) => async (dispatch) => {
     let response = await profileAPI.updateProfileStatus(status);
-    if (response.data.resultCode === 0) {
-        dispatch(setUserStatus(status));
-    }
+    if (response && response.data.resultCode === 0) {
+            dispatch(setUserStatus(status));
+        }
+
+
 }
 
 export const getStatusUser = (userId) => async (dispatch) => {
