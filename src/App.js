@@ -1,15 +1,6 @@
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {
-    BrowserRouter,
-    HashRouter,
-    Navigate,
-    Route,
-    Routes,
-    useLocation,
-    useNavigate,
-    useParams
-} from "react-router-dom";
+import {HashRouter, Navigate, Route, Routes, useLocation, useNavigate, useParams} from "react-router-dom";
 import News from "./components/News/News";
 import UsersContainer from "./components/Users/UsersContainer";
 import MusicsContainer from "./components/Musics/MusicsContainer";
@@ -36,8 +27,8 @@ const App = (props) => {
     // }
     return (
         <>
-            {props.initialized ?
-                <div className={"App"} data-theme={isDark ? "dark" : "light"}>
+            {props.initialized
+                ? <main className={"App"} data-theme={isDark ? "dark" : "light"}>
                     <HeaderContainer isDark={isDark} setIsDark={setIsDark}/>
                     <div className="appWrapper">
                         <div className={"appWrapper__nav"}>
@@ -58,8 +49,8 @@ const App = (props) => {
                             </Suspense>
                         </div>
                     </div>
-                </div> :
-                <Preloader/>}
+                </main>
+                : <Preloader/>}
         </>
     );
 }

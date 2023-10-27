@@ -6,7 +6,7 @@ import {
     setUnfollow,
     toggleIsFollowingProgress
 } from "../../redux/users_reducer";
-import React from "react";
+import React, {useEffect} from "react";
 import Users from "./Users";
 import {
     getFollowingInProgress, getIsFetching,
@@ -17,30 +17,25 @@ import {
 } from "../../redux/users-selectors";
 import Preloader from "../common/Preloader/Preloader";
 
-class UsersContainer extends React.Component {
-    componentDidMount() {
-        // console.log("rerender")
-        const {pageSize, pageSelected} = this.props
-        this.props.getUsers(pageSize, pageSelected)
-    }
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("rerender")
+function UsersContainer(props) {
+
+    useEffect(() => {
+        const {pageSize, pageSelected} = props;
+        props.getUsers(pageSize, pageSelected)
+    }, [])
+
+    const onChangePageUsers = (p) => {
+        props.changeSelectedPage(p);
+        props.getUsers(props.pageSize, p);
     }
 
-    onChangePageUsers = (p) => {
-        this.props.changeSelectedPage(p);
-        this.props.getUsers(this.props.pageSize, p);
-    }
-
-    render() {
-        return (
-            <>
-                {this.props.isFetching ? <Preloader/> :
-                <Users {...this.props} onChangePageUsers={this.onChangePageUsers}/>
-                }
-                    </>
-        );
-    }
+    return (
+        <>
+            {props.isFetching ? <Preloader/> :
+                <Users {...props} onChangePageUsers={onChangePageUsers}/>
+            }
+        </>
+    );
 }
 
 let mapStateToProps = (state) => {
@@ -56,6 +51,6 @@ let mapStateToProps = (state) => {
 
 
 export default connect(mapStateToProps, {
-     changeSelectedPage, toggleIsFollowingProgress,
+    changeSelectedPage, toggleIsFollowingProgress,
     getUsers, setUnfollow, setFollow
 })(UsersContainer);

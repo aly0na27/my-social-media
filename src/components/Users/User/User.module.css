@@ -1,17 +1,14 @@
 .userWrapper {
-    display: grid;
-    width: 90%;
+    display: flex;
     gap: 2rem;
-    grid-template-columns: 3fr 10fr;
-    justify-items: start;
-    /*justify-content: center;*/
+    flex-direction: column;
     align-items: center;
-    /*align-content: center;*/
-    /*border: 1px solid #c7c5c5;*/
-    background-color: var(--background-color);
-    border-radius: 2rem;
-    padding: 1rem;
+    background-color: var(--foreground-color);
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 100%;
 }
+
 .userItem {
     /*padding: 1rem;*/
 }
@@ -22,9 +19,6 @@
     gap: 1rem;
     align-items: center;
     align-content: center
-}
-.avatar {
-
 }
 
 .userIcon {
@@ -40,11 +34,19 @@ s.wrapperButton {
     width: 10rem;
     height: 3rem;
     border: none;
-    border-radius: 2rem;
-    background-image: var(--first-gradient);
+    border-radius: 1rem;
     font-family: Saira, sans-serif;
     color: #f0f0f0;
     font-weight: bold;
+    transition: 0.5s ease all;
+}
+
+.activeBtn {
+    background-color: var(--btn-active);
+}
+
+.disactiveBtn {
+    background-color: var(--btn-disactive);
 }
 
 .button:hover {
@@ -52,5 +54,10 @@ s.wrapperButton {
 }
 
 .nameUser {
-    font-size: 3rem;
+    color: var(--primary-text-color);
+    font-size: 1.5rem;
+}
+
+.nameUser__link {
+    text-decoration: none;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {getProfileUser, getStatusUser, updatePhoto, updateProfile, updateUserStatus} from "../../redux/profile-reducer";
@@ -6,31 +6,30 @@ import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 
-class ProfileContainer extends React.Component {
+function ProfileContainer(props) {
 
-    refreshProfile() {
-        let userId = this.props.router.params.userId
+    const refreshProfile = () => {
+        let userId = props.router.params.userId
         if (!userId) {
-            userId = this.props.userId;
+            userId = props.userId;
         }
-        this.props.getProfileUser(userId);
-        this.props.getStatusUser(userId);
-    }
-    componentDidMount() {
-        this.refreshProfile()
+        props.getProfileUser(userId);
+        props.getStatusUser(userId);
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.router.params.userId !== prevProps.router.params.userId) {
-            this.refreshProfile()
-        }
-    }
+    useEffect(() => {
+        refreshProfile()
+    }, []);
 
-    render() {
-        return (
-            <Profile  isOwner={!this.props.router.params.userId} {...this.props} userId={this.props.router.params.userId}/>
-        )
-    }
+    useEffect(() => {
+        refreshProfile()
+    }, [props.router.params.userId])
+
+    return (
+        <Profile isOwner={!props.router.params.userId} {...props}
+                 userId={props.router.params.userId}/>
+    )
+
 }
 
 let mapStateToProps = (state) => {
@@ -54,10 +53,17 @@ function withRouter(Component) {
             />
         );
     }
+
     return ComponentWithRouterProp;
 }
 
 export default compose(
     withRouter,
     withAuthRedirect,
-    connect(mapStateToProps, {getProfileUser, getStatusUser, updateUserStatus, updatePhoto, updateProfile}))(ProfileContainer)
+    connect(mapStateToProps, {
+        getProfileUser,
+        getStatusUser,
+        updateUserStatus,
+        updatePhoto,
+        updateProfile
+    }))(ProfileContainer)

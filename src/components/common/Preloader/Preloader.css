@@ -1,12 +1,14 @@
-.preloaderImg {
-    position: absolute;
+.preloaderDiv {
+    position: relative;
     width: 100%;
     height: 100%;
     background-color: var(--background-color);
 }
 
-.preloaderDiv {
-    position: relative;
+.preloaderDiv svg {
+    position: absolute;
     width: 100%;
     height: 100%;
+    background: var(--background-color);
+
 }

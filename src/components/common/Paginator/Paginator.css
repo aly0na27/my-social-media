@@ -1,0 +1,7 @@
+.paginator {
+    background-color: var(--foreground-color);
+    padding: 1rem;
+    border-radius: 1rem;
+    width: 100%;
+    text-align: center;
+}

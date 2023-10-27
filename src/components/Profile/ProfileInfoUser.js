@@ -1,6 +1,6 @@
 import styles from "./ProfileInfo.module.css"
 import Preloader from "../common/Preloader/Preloader";
-import avatar from "../../assets/images/Icon/iconProfile.svg"
+import avatar from "../../assets/images/avatar.svg"
 import Status from "./Status/Status";
 import {useEffect, useRef, useState} from "react";
 import ModalWindow from "../common/ModalWindow/ModalWindow";
@@ -15,19 +15,15 @@ function ProfileInfo(props) {
 
     useEffect(() => {
         moreDetailsActive ? document.querySelector("body").classList.add("lock") :
-            document.querySelector("body").classList.remove("lock")
-    }, [moreDetailsActive])
-
-    useEffect(() => {
+            document.querySelector("body").classList.remove("lock");
         if (editMode) {
             ref.current?.scrollIntoView({behavior: "smooth"})
         }
-    }, [editMode])
+    }, [moreDetailsActive, editMode])
 
     if (!props.profile) {
         return <Preloader/>
     }
-
 
     const onSubmit = (dataForm) => {
         props.updateProfile(dataForm)

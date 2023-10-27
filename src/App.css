@@ -16,7 +16,7 @@ body.lock {
     /*position: relative;*/
     display: grid;
     grid-template-columns: 2.5fr 9fr;
-    gap: 1rem;
+    gap: 2rem;
     grid-template-areas:
         "h h"
         "n c";
