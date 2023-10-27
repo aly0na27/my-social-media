@@ -1,6 +1,15 @@
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate, useParams} from "react-router-dom";
+import {
+    BrowserRouter,
+    HashRouter,
+    Navigate,
+    Route,
+    Routes,
+    useLocation,
+    useNavigate,
+    useParams
+} from "react-router-dom";
 import News from "./components/News/News";
 import UsersContainer from "./components/Users/UsersContainer";
 import MusicsContainer from "./components/Musics/MusicsContainer";
@@ -17,45 +26,41 @@ const ProfileContainer = lazy(() => import("./components/Profile/ProfileContaine
 const DialogsContainer = lazy(() => import("./components/Dialogs/DialogsContainer"))
 
 const App = (props) => {
-    useEffect(() => {
-        props.initializeApp();
-        window.addEventListener("unhandledrejection", catchAllUnhandlePromises);
-        return () => {
-            window.removeEventListener("unhandledrejection", catchAllUnhandlePromises)
-        }
-    }, [catchAllUnhandlePromises])
-    function catchAllUnhandlePromises(reason, promise) {
-
-        alert(reason.reason.message);
-    }
     const [isDark, setIsDark] = useState(false)
 
-    if (!props.initialized) {
-        return <Preloader/>
-    }
+    useEffect(() => {
+        props.initializeApp();
+    }, [])
+    // if (!props.initialized) {
+    //     return <Preloader/>
+    // }
     return (
-        <div className={"App"} data-theme={isDark ? "dark" : "light"}>
-            <HeaderContainer isDark={isDark} setIsDark={setIsDark}/>
-            <div className="appWrapper">
-                <div className={"appWrapper__nav"}>
-                    <Navbar/>
-                </div>
-                <div className="appWrapper__content">
-                    <Suspense fallback={<Preloader/>}>
-                        <Routes>
-                            <Route path={"/"} element={<Navigate to={"/profile"}/>}/>
-                            <Route path="/dialogs/*" element={<DialogsContainer/>}/>
-                            <Route path="/profile/:userId?"
-                                   element={<ProfileContainer/>}/>
-                            <Route path="/users" element={<UsersContainer/>}/>
-                            <Route path="/music" element={<MusicsContainer/>}/>
-                            <Route path="/news" element={<News/>}/>
-                            <Route path="/login" element={<LoginContainer/>}/>
-                        </Routes>
-                    </Suspense>
-                </div>
-            </div>
-        </div>
+        <>
+            {props.initialized ?
+                <div className={"App"} data-theme={isDark ? "dark" : "light"}>
+                    <HeaderContainer isDark={isDark} setIsDark={setIsDark}/>
+                    <div className="appWrapper">
+                        <div className={"appWrapper__nav"}>
+                            <Navbar/>
+                        </div>
+                        <div className="appWrapper__content">
+                            <Suspense fallback={<Preloader/>}>
+                                <Routes>
+                                    <Route path={"/"} element={<Navigate to={"/profile"}/>}/>
+                                    <Route path="/dialogs/*" element={<DialogsContainer/>}/>
+                                    <Route path="/profile/:userId?"
+                                           element={<ProfileContainer/>}/>
+                                    <Route path="/users" element={<UsersContainer/>}/>
+                                    <Route path="/music" element={<MusicsContainer/>}/>
+                                    <Route path="/news" element={<News/>}/>
+                                    <Route path="/login" element={<LoginContainer/>}/>
+                                </Routes>
+                            </Suspense>
+                        </div>
+                    </div>
+                </div> :
+                <Preloader/>}
+        </>
     );
 }
 
@@ -91,11 +96,11 @@ const AppContainer = compose(
 
 const SamuraiJsApp = function () {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
                 <AppContainer/>
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 

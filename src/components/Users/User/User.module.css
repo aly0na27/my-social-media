@@ -7,7 +7,8 @@
     /*justify-content: center;*/
     align-items: center;
     /*align-content: center;*/
-    border: 1px solid #c7c5c5;
+    /*border: 1px solid #c7c5c5;*/
+    background-color: var(--background-color);
     border-radius: 2rem;
     padding: 1rem;
 }
@@ -40,7 +41,7 @@ s.wrapperButton {
     height: 3rem;
     border: none;
     border-radius: 2rem;
-    background-image: linear-gradient(to right top, #cd9fe7, #61eade);
+    background-image: var(--first-gradient);
     font-family: Saira, sans-serif;
     color: #f0f0f0;
     font-weight: bold;

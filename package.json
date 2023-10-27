@@ -2,12 +2,13 @@
   "name": "react-way",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://aly0na27.github.io/my-social-media",
+  "homepage": "https://aly0na27.github.io/my-social-media/",
   "dependencies": {
     "@react-buddy/ide-toolbox": "^2.4.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "antd": "^5.10.2",
     "axios": "^1.5.1",
     "classnames": "^2.3.2",
     "react": "^18.2.0",
@@ -28,7 +29,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "tsc:w": "tsc -w"
   },
   "eslintConfig": {
     "extends": [
@@ -54,6 +56,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^6.0.0"
+    "gh-pages": "^6.0.0",
+    "typescript": "^5.2.2"
   }
 }
