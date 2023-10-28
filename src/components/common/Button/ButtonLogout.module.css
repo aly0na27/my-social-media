@@ -1,6 +1,7 @@
 .logoutBtn {
     border: none;
     background-color: var(--foreground-color);
+    transition: all ease 0.1s;
 }
 
 .logoutBtn:hover {

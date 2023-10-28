@@ -9,6 +9,7 @@ import ProfileFormDataRedux from "./MyProfile/ProfileFormData";
 import InputChangePhoto from "../common/Input/InputChangePhoto";
 
 function ProfileInfo(props) {
+    debugger
     const [moreDetailsActive, setMoreDetailsActive] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const ref = useRef(null)

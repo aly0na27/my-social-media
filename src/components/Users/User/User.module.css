@@ -7,6 +7,11 @@
     border-radius: 1rem;
     padding: 2rem;
     width: 100%;
+    transition: all ease 0.4s;
+}
+
+.userWrapper:hover {
+    transform: translateY(-10px);
 }
 
 .userItem {
@@ -47,6 +52,14 @@ s.wrapperButton {
 
 .disactiveBtn {
     background-color: var(--btn-disactive);
+}
+
+.activeBtn:hover {
+    background-color: var(--btn-active-hover);
+}
+
+.disactiveBtn:hover {
+    background-color: var(--btn-disactive-hover);
 }
 
 .button:hover {

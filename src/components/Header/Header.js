@@ -6,7 +6,7 @@ import ButtonLogout from "../common/Button/ButtonLogout";
 import DarkMode from "../common/DarkMode/DarkMode";
 
 function Header(props) {
-
+    debugger
     return (
         <header className={styles.header}>
             <div className={styles.logoContainer}>

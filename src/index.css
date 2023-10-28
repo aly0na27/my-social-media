@@ -15,7 +15,9 @@
   --third-btn-hover: #80e5dc;
   --btn-color-shadow: rgba(189, 108, 218, 0.4);
   --btn-active: #61eade;
-  --btn-disactive: #c78be8
+  --btn-disactive: #c78be8;
+  --btn-active-hover: #4fc2b7;
+  --btn-disactive-hover: #9c5fbe;
 }
 
 [data-theme=dark] {
@@ -35,6 +37,8 @@
   --btn-color-shadow: rgba(145, 86, 17, 0.4);
   --btn-active: #ee8a50;
   --btn-disactive: #da4e2e;
+  --btn-active-hover: #be6e3e;
+  --btn-disactive-hover: #a83d24;
 }
 
 body {

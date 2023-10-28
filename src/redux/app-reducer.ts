@@ -6,16 +6,16 @@ type SetInitializedTypeCreate = {
     type: typeof SET_INITIALIZED,
 }
 
-type InitialStateTypeCreate = {
+export type InitialStateAppType = {
     initialized: boolean
 }
-let initialState: InitialStateTypeCreate = {
+let initialState: InitialStateAppType = {
     initialized: false
 }
 
 
 
-const appReducer = (state: InitialStateTypeCreate = initialState, action: SetInitializedTypeCreate) => {
+const appReducer = (state: InitialStateAppType = initialState, action: SetInitializedTypeCreate):InitialStateAppType => {
     switch (action.type) {
         case SET_INITIALIZED:
             return {
@@ -27,11 +27,10 @@ const appReducer = (state: InitialStateTypeCreate = initialState, action: SetIni
     }
 }
 
-export const setInitialized = () => {
-    const setInitialized: SetInitializedTypeCreate = {
+export const setInitialized = ():SetInitializedTypeCreate => {
+    return  {
         type: SET_INITIALIZED
     }
-    return setInitialized
 }
 
 export const initializeApp = () => (dispatch) => {
