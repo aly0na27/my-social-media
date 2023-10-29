@@ -1,7 +1,7 @@
 import {profileAPI, usersAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {updateAuthPhoto} from "./auth-reducer";
-import {PhotosType} from "../types";
+import {PhotosType} from "../types/types";
 
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";

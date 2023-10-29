@@ -1,6 +1,6 @@
 import {usersAPI} from "../api/api";
 import {updateObjectInArray} from "../utils/deep-copy";
-import {PhotosType} from "../types";
+import {PhotosType} from "../types/types";
 
 
 const FOLLOW = "FOLLOW";
@@ -13,7 +13,7 @@ const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS";
 
 
-type UserType = {
+export type UserType = {
     id: number,
     name: string,
     photos: PhotosType,

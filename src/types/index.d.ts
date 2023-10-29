@@ -2,7 +2,8 @@ declare module "*.svg" {
     const path: string;
     export default path;
 }
-export type PhotosType = {
-    small: string | null,
-    large: string | null
+
+declare module '*.css' {
+    const content: { [className: string]: string };
+    export default content;
 }

@@ -1,20 +1,22 @@
-import React from "react";
 import {ConfigProvider, Pagination} from "antd";
 import "./Paginator.css"
+import * as React from "react";
 
-function Paginator(props) {
+type PropsType = {
+    totalUserCount: number,
+    pageSize: number,
+    pageSelected: number,
+    onChangePageUsers: (pageNumber: number) => void
+}
+
+const Paginator: React.FC<PropsType> = ({totalUserCount, pageSize, pageSelected, onChangePageUsers}) => {
     const onChangePaginator = (pageNumber) => {
-        props.onChangePageUsers(pageNumber)
+        onChangePageUsers(pageNumber)
     }
 
     return (
-        <>
+        <div>
             <ConfigProvider theme={{
-                token: {
-                    Pagination: {
-                        backgroundColor:'red'
-                    }
-                },
                 components: {
                     Pagination: {
                         colorBgContainer: 'var(--foreground-color)',
@@ -31,11 +33,13 @@ function Paginator(props) {
                     }
                 }
             }}>
-                <Pagination rootClassName={"paginator"} defaultCurrent={props.pageSelected} defaultPageSize={5} onChange={onChangePaginator}
+                <Pagination rootClassName={"paginator"} defaultCurrent={pageSelected} defaultPageSize={5}
+                            onChange={onChangePaginator}
                             showSizeChanger={false} showQuickJumper={true}
-                            total={Math.ceil(props.totalUserCount / props.pageSize)}/>
+                            total={Math.ceil(totalUserCount / pageSize)}/>
 
-            </ConfigProvider></>
+            </ConfigProvider>
+        </div>
     )
 
     // let pagesCount = Math.ceil(totalItemsCount / pageSize);
