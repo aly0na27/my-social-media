@@ -28,14 +28,14 @@ const User: React.FC<PropsType> = ({id, name, photos, followingInProgress, follo
             <div className={s.wrapperButton}>
                 {
                     followed ?
-                        <button disabled={followingInProgress.some(id => id === id)}
+                        <button disabled={followingInProgress.some(userId => id === userId)}
                                 className={s.button + ' ' + s.activeBtn}
                                 onClick={() => {
                                     setUnfollow(id);
                                 }}>
                             Unfollowed
                         </button> :
-                        <button disabled={!!followingInProgress.some(id => id === id)}
+                        <button disabled={!!followingInProgress.some(userId => id === userId)}
                                 className={s.button + ' ' + s.disactiveBtn}
                                 onClick={() => {
                                     setFollow(id);

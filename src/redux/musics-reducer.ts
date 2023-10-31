@@ -40,7 +40,7 @@ const initialState = {
 }
 
 type InitialStateType = typeof initialState
-const musicsReducer = (state = initialState, action: any): InitialStateType => {
+const musicsReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case ADD_MUSIC:
             return {
@@ -76,6 +76,8 @@ const musicsReducer = (state = initialState, action: any): InitialStateType => {
             return state;
     }
 }
+
+type ActionsType = AddMusicActionType | DeleteMusicActionType
 
 type AddMusicActionType = {
     type: typeof ADD_MUSIC,
