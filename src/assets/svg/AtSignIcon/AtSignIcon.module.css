@@ -1,0 +1,6 @@
+
+.atSign {
+    width: 2rem;
+    height: 2rem;
+    stroke: var(--third-text-color)
+}

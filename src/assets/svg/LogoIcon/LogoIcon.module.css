@@ -1,0 +1,12 @@
+.logo {
+    width: 4rem;
+    height: 4rem;
+}
+
+.logo path{
+    fill: var(--third-btn-color);
+}
+.logo g path {
+    stroke: var(--third-btn-color);
+    fill: none
+}

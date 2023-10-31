@@ -1,0 +1,9 @@
+.searchJobIcon {
+    width: 2rem;
+    height: 2rem;
+    padding: 0.2rem;
+}
+
+.searchJobIcon path {
+    stroke: var(--third-text-color)
+}

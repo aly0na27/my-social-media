@@ -1,0 +1,7 @@
+.skillsIcon {
+    width: 2rem;
+    height: 2rem;
+    padding: 0.2rem;
+    fill: var(--third-text-color);
+}
+

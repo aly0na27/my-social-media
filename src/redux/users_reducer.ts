@@ -167,7 +167,7 @@ export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingActionTyp
     }
 }
 
-export const toggleIsFollowingProgress = (isFetching: boolean, userId: number): ToggleIsFollowingInProgressActionType => {
+export const toggleFollowingInProgress = (isFetching: boolean, userId: number): ToggleIsFollowingInProgressActionType => {
     return {
         type: TOGGLE_IS_FOLLOWING_PROGRESS,
         isFetching, userId
@@ -192,11 +192,11 @@ export const setFollow = (id) => async (dispatch) => {
 }
 
 export const setFollowUnfollow = (userId, apiMethod, actionCreator) => async (dispatch) => {
-    dispatch(toggleIsFollowingProgress(true, userId));
+    dispatch(toggleFollowingInProgress(true, userId));
     let response = await apiMethod(userId);
     if (response.resultCode === 0) {
         dispatch(actionCreator(userId))
     }
-    dispatch(toggleIsFollowingProgress(false, userId))
+    dispatch(toggleFollowingInProgress(false, userId))
 }
 export default usersReducer;

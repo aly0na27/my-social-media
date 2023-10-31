@@ -1,12 +1,12 @@
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {HashRouter, Navigate, Route, Routes, useLocation, useNavigate, useParams} from "react-router-dom";
+import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
 import News from "./components/News/News";
 import UsersContainer from "./components/Users/UsersContainer";
 import MusicsContainer from "./components/Musics/MusicsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginContainer from "./components/Login/Login";
-import React, {Component, lazy, Suspense, useEffect, useState} from "react";
+import React, {lazy, Suspense, useEffect, useState} from "react";
 import {connect, Provider} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
@@ -22,9 +22,7 @@ const App = (props) => {
     useEffect(() => {
         props.initializeApp();
     }, [])
-    // if (!props.initialized) {
-    //     return <Preloader/>
-    // }
+
     return (
         <>
             {props.initialized
@@ -55,23 +53,6 @@ const App = (props) => {
     );
 }
 
-function withRouter(Component) {
-
-    function ComponentWithRouterProp(props) {
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
-        return (
-            <Component
-                {...props}
-                router={{location, navigate, params}}
-            />
-        );
-    }
-
-    return ComponentWithRouterProp;
-}
-
 const mapStateToProps = (state) => {
     return {
         initialized: state.app.initialized,
@@ -79,7 +60,6 @@ const mapStateToProps = (state) => {
 }
 
 const AppContainer = compose(
-    withRouter,
     connect(mapStateToProps, {
         initializeApp
     }),

@@ -15,7 +15,7 @@ type PostType = {
     likesCount: number
 }
 
-type ContactsType = {
+export type ContactsType = {
     github: string,
     vk: string,
     facebook: string,
@@ -26,13 +26,14 @@ type ContactsType = {
     mainLink: string
 }
 
-type ProfileType = {
+export type ProfileType = {
     userId: number,
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
     fullName: string,
     contacts: ContactsType,
     photos: PhotosType;
+    aboutMe: string
 }
 
 let initialState = {
@@ -50,7 +51,8 @@ let initialState = {
         {
             id: "3",
             message: "вот тебе и мяу, вот тебе и реакт...",
-            likesCount: ""
+            likesCount: "",
+
         }
     ] as Array<PostType>,
     myProfilePhoto: null as null | string,
