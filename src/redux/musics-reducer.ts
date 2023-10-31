@@ -2,12 +2,13 @@ const ADD_MUSIC = "ADD_MUSIC";
 const DELETE_MUSIC = "DELETE_MUSIC";
 
 
-type Song = {
+export type SongType = {
     id: number,
     name: string,
     musicians: string,
     status: boolean
 }
+
 const initialState = {
     musics: [
         {
@@ -35,7 +36,7 @@ const initialState = {
             musicians: "Sucker",
             status: false
         },
-    ] as Array<Song>
+    ] as Array<SongType>
 }
 
 type InitialStateType = typeof initialState
