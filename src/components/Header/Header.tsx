@@ -1,7 +1,7 @@
 import styles from "./Header.module.css"
 import {NavLink} from "react-router-dom";
 import avatar from "./../../assets/images/avatar.svg"
-import ButtonLogout from "../common/Button/ButtonLogout";
+import {ButtonLogout} from "../common/Button/ButtonLogout";
 import DarkMode from "../common/DarkMode/DarkMode";
 import * as React from "react";
 import {LogoIcon} from "../../assets/svg/LogoIcon/LogoIcon";

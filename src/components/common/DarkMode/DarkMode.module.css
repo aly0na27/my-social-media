@@ -1,7 +1,3 @@
-.darkModeLabel svg path {
-    fill: var(--first-btn-color)
-}
-
 .darkModeLabel {
     width: 3rem;
     height: 3rem;
@@ -15,11 +11,4 @@
     visibility: hidden;
 }
 
-.darkModeLabel:hover svg path {
-    fill: var(--second-btn-color)
-}
-.darkModeLabel svg {
-    width: 3rem;
-    height: 3rem;
-}
 

@@ -1,0 +1,12 @@
+.logoutIcon {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.logoutIcon {
+    stroke: var(--first-btn-color);
+}
+
+.logoutIcon:hover path {
+    stroke: var(--second-btn-color);
+}

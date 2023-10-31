@@ -1,0 +1,12 @@
+.darkModeIcon {
+    width: 3rem;
+    height: 3rem;
+}
+
+.darkModeIcon path {
+    fill: var(--first-btn-color)
+}
+
+.darkModeIcon:hover path {
+    fill: var(--second-btn-color)
+}

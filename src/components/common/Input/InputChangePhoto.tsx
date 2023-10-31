@@ -1,10 +1,15 @@
 import styles from "./InputChangePhoto.module.css"
-import {updatePhoto} from "../../../redux/profile-reducer";
-function InputChangePhoto(props) {
+import * as React from "react";
+
+type PropsType = {
+    updatePhoto: (file: string) => void
+}
+
+const InputChangePhoto: React.FC<PropsType> = ({updatePhoto}) => {
 
     let selectPhoto = (e) => {
         let file = e.target.files[0]
-        props.updatePhoto(file)
+        updatePhoto(file)
     }
     return (
         <div className={styles.edit}>

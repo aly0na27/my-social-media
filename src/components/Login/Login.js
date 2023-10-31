@@ -8,7 +8,6 @@ import ButtonLogin from "../common/Button/ButtonLogin";
 import {Input} from "../common/FormsControllers/FormsConrtolers";
 
 const LoginForm = ({handleSubmit, error, captcha}) => {
-    // debugger
     return (
         <>
             <div className={styles.containerForm}>

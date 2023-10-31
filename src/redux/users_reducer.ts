@@ -1,5 +1,4 @@
 import {usersAPI} from "../api/api";
-import {updateObjectInArray} from "../utils/deep-copy";
 import {PhotosType} from "../types/types";
 
 
@@ -51,12 +50,30 @@ const usersReducer = (state = initialState, action: any):InitialStateType => {
         case FOLLOW:
             return {
                 ...state,
-                users: updateObjectInArray(state.users, action.userId, "id", {followed: true})
+                users: state.users.map(u => {
+                    if (u.id === action.id) {
+                        return {
+                            ...u,
+                            followed: true
+                        }
+                    } else {
+                        return u
+                    }
+                })
             }
         case UNFOLLOW:
             return {
                 ...state,
-                users: updateObjectInArray(state.users, action.userId, "id", {followed: false})
+                users: state.users.map (u => {
+                    if (u.id === action.id) {
+                        return {
+                            ...u,
+                            followed: false
+                        }
+                    } else {
+                        return u
+                    }
+                })
             }
         case SET_USERS:
             return {

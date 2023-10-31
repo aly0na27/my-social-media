@@ -6,26 +6,25 @@ import UsersContainer from "./components/Users/UsersContainer";
 import MusicsContainer from "./components/Musics/MusicsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginContainer from "./components/Login/Login";
-import React, {lazy, Suspense, useEffect, useState} from "react";
-import {connect, Provider} from "react-redux";
+import React, {Suspense, useEffect, useState} from "react";
+import {connect, ConnectedProps, Provider} from "react-redux";
 import {initializeApp} from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
-import {compose} from "redux";
-import store from "./redux/redux-store";
+import store, {AppStateType} from "./redux/redux-store";
 
-const ProfileContainer = lazy(() => import("./components/Profile/ProfileContainer"))
-const DialogsContainer = lazy(() => import("./components/Dialogs/DialogsContainer"))
+const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"))
+const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer.js"))
 
-const App = (props) => {
+const App: React.FC<PropsFromRedux> = ({initialized, initializeApp}) => {
     const [isDark, setIsDark] = useState(false)
 
     useEffect(() => {
-        props.initializeApp();
+        initializeApp();
     }, [])
 
     return (
         <>
-            {props.initialized
+            {initialized
                 ? <main className={"App"} data-theme={isDark ? "dark" : "light"}>
                     <HeaderContainer isDark={isDark} setIsDark={setIsDark}/>
                     <div className="appWrapper">
@@ -53,17 +52,27 @@ const App = (props) => {
     );
 }
 
-const mapStateToProps = (state) => {
+
+const mapStateToProps = (state: AppStateType) => {
     return {
         initialized: state.app.initialized,
     }
 }
 
-const AppContainer = compose(
-    connect(mapStateToProps, {
-        initializeApp
-    }),
-)(App);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        initializeApp() {
+            dispatch(initializeApp())
+        }
+    }
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+
+const AppContainer: React.FC = connector(App)
 
 const SamuraiJsApp = function () {
     return (

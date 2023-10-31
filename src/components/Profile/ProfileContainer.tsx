@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {FunctionComponent, useEffect} from "react";
 import * as React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
@@ -71,7 +71,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-export default compose(
+const ProfileHOC = compose(
     withAuthRedirect,
     connect<MapStatePropsType, MapDispatchPropsType>(mapStateToProps, {
         getProfileUser,
@@ -80,3 +80,5 @@ export default compose(
         updatePhoto,
         updateProfile
     }))(ProfileContainer)
+
+export default ProfileHOC as FunctionComponent
