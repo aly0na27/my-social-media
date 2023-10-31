@@ -30,7 +30,6 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 
 
 const MusicsContainer: React.FC<PropsFromRedux> = ({addSong, musics, deleteSong, isAuth}) => {
-    debugger
     return (
         <>
             {

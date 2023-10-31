@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {changeSelectedPage, getUsers, setFollow, setUnfollow, UserType} from "../../redux/users_reducer";
+import {changeSelectedPage, getUsers, setFollow, setUnfollow} from "../../redux/users_reducer";
 import * as React from "react";
 import {useEffect} from "react";
 import Users from "./Users";
@@ -13,6 +13,7 @@ import {
 } from "../../redux/users-selectors";
 import Preloader from "../common/Preloader/Preloader";
 import {AppStateType} from "../../redux/redux-store";
+import {UserType} from "../../types/types";
 
 
 type MapStatePropsType = {

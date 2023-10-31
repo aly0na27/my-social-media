@@ -1,6 +1,6 @@
 import ProfileInfoUser from "./ProfileInfoUser";
 import * as React from "react";
-import {ProfileType} from "../../redux/profile-reducer";
+import {ProfileType} from "../../types/types";
 
 type PropsType = {
     isOwner: boolean,

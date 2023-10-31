@@ -1,5 +1,5 @@
 import {usersAPI} from "../api/api";
-import {PhotosType} from "../types/types";
+import {UserType} from "../types/types";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
@@ -13,14 +13,6 @@ const SET_TOTAL_USER_COUNT = "SET_TOTAL_USER_COUNT";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 const TOGGLE_IS_FOLLOWING_PROGRESS = "TOGGLE_IS_FOLLOWING_PROGRESS";
 
-
-export type UserType = {
-    id: number,
-    name: string,
-    photos: PhotosType,
-    status: null | string,
-    followed: boolean,
-}
 
 let initialState = {
     users: [] as Array<UserType>,

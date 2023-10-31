@@ -9,7 +9,6 @@ type PropsType = {
 }
 
 const Musics: React.FC<PropsType> = ({addSong, musics, deleteSong}) => {
-    debugger
     return (
         <div>
             {

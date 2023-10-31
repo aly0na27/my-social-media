@@ -1,7 +1,7 @@
 import styles from "./ModalWindow.module.css"
 import ProfileData from "../../Profile/MyProfile/ProfileData/ProfileData";
 import * as React from "react";
-import {ProfileType} from "../../../redux/profile-reducer";
+import {ProfileType} from "../../../types/types";
 
 type PropsType = {
     moreDetailsActive: boolean,

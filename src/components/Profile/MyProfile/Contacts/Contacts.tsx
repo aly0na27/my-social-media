@@ -4,7 +4,7 @@ import instagramIcon from "../../../../assets/images/Icon/IconContacts/instagram
 import facebookIcon from "../../../../assets/images/Icon/IconContacts/facebook.svg"
 import githubIcon from "../../../../assets/images/Icon/IconContacts/github.svg"
 import * as React from "react";
-import {ContactsType} from "../../../../redux/profile-reducer";
+import {ContactsType} from "../../../../types/types";
 
 type PropsType = {
     contacts: ContactsType
@@ -22,22 +22,22 @@ const Contacts: React.FC<PropsType> = ({contacts}) => {
                     contactsUser.map(el => {
                         switch (el[0]) {
                             case "facebook":
-                                return <a className={styles.links} href={el[1]}>
+                                return <a key={el[0]} className={styles.links} href={el[1]}>
                                     <img className={styles.contactsIcon} src={facebookIcon} alt={""}/>
                                     <span className={styles.contactsSpan}>Facebook</span>
                                 </a>
                             case "vk":
-                                return <a className={styles.links} href={el[1]}>
+                                return <a key={el[0]} className={styles.links} href={el[1]}>
                                     <img className={styles.contactsIcon} src={vkIcon} alt={""}/>
                                     <span className={styles.contactsSpan}>VK</span>
                                 </a>
                             case "instagram":
-                                return <a className={styles.links} href={el[1]}>
+                                return <a key={el[0]} className={styles.links} href={el[1]}>
                                     <img className={styles.contactsIcon} src={instagramIcon} alt={""}/>
                                     <span className={styles.contactsSpan}>Instagram</span>
                                 </a>
                             case "github":
-                                return <a className={styles.links} href={el[1]}>
+                                return <a key={el[0]} className={styles.links} href={el[1]}>
                                     <img className={styles.contactsIcon} src={githubIcon} alt={""}/>
                                     <span className={styles.contactsSpan}>Github</span>
                                 </a>

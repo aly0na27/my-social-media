@@ -5,7 +5,7 @@ import * as React from "react";
 import {ListIcon} from "../../../../assets/svg/ListIcon/ListIcon";
 import {SearchJobIcon} from "../../../../assets/svg/SearchJobIcon/SearchJobIcon";
 import {SkillsIcon} from "../../../../assets/svg/SkillsIcon/SkillsIcon";
-import {ProfileType} from "../../../../redux/profile-reducer";
+import {ProfileType} from "../../../../types/types";
 
 type PropsType = {
     profile: ProfileType

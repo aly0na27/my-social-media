@@ -1,9 +1,8 @@
 import styles from "./Users.module.css"
 import * as React from "react";
-// import User from "./User/User";
 import User from "./User/User"
 import Paginator from "../common/Paginator/Paginator";
-import {UserType} from "../../redux/users_reducer";
+import {UserType} from "../../types/types";
 
 type UsersProps = {
     users: Array<UserType>,

@@ -1,7 +1,7 @@
-import {profileAPI, usersAPI} from "../api/api";
+import {profileAPI, ResultsCode} from "../api/api";
 import {FormAction, stopSubmit} from "redux-form";
 import {updateAuthPhoto, UpdateAuthPhotoActionType} from "./auth-reducer";
-import {PhotosType} from "../types/types";
+import {PhotosType, ProfileType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
 
@@ -15,27 +15,6 @@ type PostType = {
     id: number,
     message: string,
     likesCount: number
-}
-
-export type ContactsType = {
-    github: string,
-    vk: string,
-    facebook: string,
-    instagram: string,
-    twitter: string,
-    website: string,
-    youtube: string,
-    mainLink: string
-}
-
-export type ProfileType = {
-    userId: number,
-    lookingForAJob: boolean,
-    lookingForAJobDescription: string,
-    fullName: string,
-    contacts: ContactsType,
-    photos: PhotosType;
-    aboutMe: string
 }
 
 let initialState = {
@@ -83,8 +62,6 @@ const profileReducer = (state = initialState, action: ActionsType): InitialState
                 status: action.status
             }
         case UPDATE_PROFILE_PHOTO:
-            debugger
-            console.log(action.photos)
             return {
                 ...state,
                 profile: {...state.profile, photos: {...action.photos}}
@@ -161,11 +138,12 @@ const updateProfileSuccess = (isUpdateProfile: boolean): UpdateProfileSuccessAct
 // Thunk
 
 // type DispatchType = Dispatch<ActionsType>
+
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
 
 export const updateUserStatus = (status: string): ThunkType => async (dispatch) => {
-    let response = await profileAPI.updateProfileStatus(status);
-    if (response && response.data.resultCode === 0) {
+    let data = await profileAPI.updateProfileStatus(status);
+    if (data && data.resultCode === ResultsCode.Success) {
             dispatch(setUserStatus(status));
         }
 
@@ -173,27 +151,26 @@ export const updateUserStatus = (status: string): ThunkType => async (dispatch) 
 }
 
 export const getStatusUser = (userId: number): ThunkType => async (dispatch) => {
-    let response = await profileAPI.getProfileStatus(userId);
-    dispatch(setUserStatus(response.data));
+    let data = await profileAPI.getProfileStatus(userId);
+    dispatch(setUserStatus(data));
 }
 
 export const getProfileUser = (userId: number): ThunkType => async (dispatch) => {
-    let response = await usersAPI.getProfileUser(userId);
+    let response = await profileAPI.getProfileUser(userId);
     dispatch(setUserProfile(response))
 }
 
 export const updatePhoto = (file: string): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | UpdateAuthPhotoActionType> => async (dispatch) => {
-    let photo = await profileAPI.updateProfilePhoto(file);
-    debugger
-    if (photo.data.resultCode === 0) {
-        dispatch(updateProfilePhoto(photo.data.data.photos))
-        dispatch(updateAuthPhoto(photo.data.data.photos.small))
+    let data = await profileAPI.updateProfilePhoto(file);
+    if (data.resultCode === ResultsCode.Success) {
+        dispatch(updateProfilePhoto(data.data.photos))
+        dispatch(updateAuthPhoto(data.data.photos.small))
     }
 }
 
 export const updateProfile = (newData: ProfileType): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | FormAction> => async (dispatch, getState) => {
     const response = await profileAPI.updateProfile(newData);
-    if (response.data.resultCode === 0) {
+    if (response.data.resultCode === ResultsCode.Success) {
         dispatch(updateProfileSuccess(true))
         await dispatch(getProfileUser(getState().auth.userId))
     } else {

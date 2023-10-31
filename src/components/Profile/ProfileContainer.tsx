@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import {
     getProfileUser,
     getStatusUser,
-    ProfileType,
     updatePhoto,
     updateProfile,
     updateUserStatus
@@ -14,6 +13,7 @@ import {useParams} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
 import {AppStateType} from "../../redux/redux-store";
+import {ProfileType} from "../../types/types";
 
 type MapStatePropsType = {
     profile: ProfileType,

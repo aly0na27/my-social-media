@@ -1,4 +1,4 @@
-import {authAPI, securityApi, usersAPI} from "../api/api";
+import {authAPI, profileAPI, ResultCodeForCaptcha, ResultsCode, securityApi} from "../api/api";
 import avatarUser from "./../assets/images/avatar.svg";
 import {FormAction, stopSubmit} from "redux-form";
 import {ThunkAction} from "redux-thunk";
@@ -91,7 +91,6 @@ const setCaptcha = (captcha: string): SetCaptchaActionType => {
 }
 
 export const updateAuthPhoto = (photo: string): UpdateAuthPhotoActionType => {
-    debugger
     return {
         type: UPDATE_PHOTO,
         photo: photo
@@ -106,7 +105,7 @@ export const authThunkCreate = (): ThunkType => async (dispatch) => {
     let response = await authAPI.authMe();
     if (response.resultCode === 0) {
         let {id, email, login} = response.data
-        usersAPI.getProfileUser(id).then(response => {
+        profileAPI.getProfileUser(id).then(response => {
             let photos = response.photos.small;
             if (!photos) {
                 photos = avatarUser;
@@ -120,13 +119,13 @@ export const loginThunkCreate = (email: string, password: string, rememberMe: bo
     async (dispatch) => {
         let response = await authAPI.authLogin(email, password, rememberMe, captcha);
 
-        if (response.data.resultCode === 0) {
+        if (response.resultCode === ResultCodeForCaptcha.Success) {
             await dispatch(authThunkCreate());
             dispatch(setCaptcha(null))
         } else {
-            let message = (response.data.messages && response.data.messages.length > 0) ? response.data.messages[0] : '';
+            let message = (response.messages && response.messages.length > 0) ? response.messages[0] : '';
             dispatch(stopSubmit("login", {_error: message}));
-            if (response.data.resultCode === 10) {
+            if (response.resultCode === ResultCodeForCaptcha.isRequireCaptcha) {
                 await dispatch(getCaptchaUrl());
             }
         }
@@ -134,14 +133,14 @@ export const loginThunkCreate = (email: string, password: string, rememberMe: bo
 
 export const logoutThunkCreate = (): ThunkType => async (dispatch: any) => {
     let response = await authAPI.authLogout();
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === ResultsCode.Success) {
         dispatch(setAuthUserData(null, null, null, null, false))
     }
 }
 
 export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
     let response = await securityApi.getCaptcha();
-    dispatch(setCaptcha(response.data.url))
+    dispatch(setCaptcha(response.url))
 }
 export default authReducer;
 

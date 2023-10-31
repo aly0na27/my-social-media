@@ -5,7 +5,7 @@ import styles from "../../Login/Login.module.css";
 import s from "./ProfileFormData.module.css"
 import React from "react";
 
-function ProfileFormData({contacts, handleSubmit, initialValues, error, isOwner}) {
+function ProfileFormData({contacts, handleSubmit, error}) {
     return (
         <form className={s.form} onSubmit={handleSubmit}>
             <div className={s.formProfileData}>
@@ -51,7 +51,7 @@ function ProfileFormData({contacts, handleSubmit, initialValues, error, isOwner}
                 {
                     Object.keys(contacts).map(el => {
                         return (
-                            <div className={s.formItem}>
+                            <div key={el} className={s.formItem}>
                                 <div className={s.formItemTitle}><h3>{el}:</h3></div>
                                 <div><Field key={el} name={"contacts." + el} component={Input}
                                               placeholder={"contact"}></Field></div>

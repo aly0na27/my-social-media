@@ -26,10 +26,9 @@ const Status: React.FC<PropsType> = ({status, updateProfileStatus, isOwner}) => 
     }
 
     const onChangeStatus = (newStatus: React.ChangeEvent<HTMLInputElement>) => {
-        debugger
         setLocalStatus(newStatus.target.value)
     }
-    debugger
+
     return (
         <div>
             {

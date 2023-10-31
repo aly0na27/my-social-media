@@ -6,9 +6,9 @@ import {useEffect, useRef, useState} from "react";
 import ModalWindow from "../common/ModalWindow/ModalWindow";
 import ProfileFormDataRedux from "./MyProfile/ProfileFormData";
 import InputChangePhoto from "../common/Input/InputChangePhoto";
-import {ProfileType} from "../../redux/profile-reducer";
 import * as React from "react";
 import {IconMoreDetails} from "../../assets/svg/IconMoreDetails/IconMoreDetails";
+import {ProfileType} from "../../types/types";
 
 type PropsType = {
     isOwner: boolean,
@@ -20,7 +20,7 @@ type PropsType = {
     updatePhoto: (photo: string) => void,
     updateProfile: (profile: ProfileType) => void
 }
-const ProfileInfo: React.FC<PropsType> = ({isOwner, userId, isUpdateProfile, updateUserStatus,
+const ProfileInfo: React.FC<PropsType> = ({isOwner, isUpdateProfile, updateUserStatus,
                          updatePhoto, updateProfile, profile, status}) => {
 
     const [moreDetailsActive, setMoreDetailsActive] = useState(false);
