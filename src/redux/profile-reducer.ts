@@ -1,5 +1,5 @@
 import {profileAPI, ResultsCode} from "../api/api";
-import {FormAction, stopSubmit} from "redux-form";
+// import {FormAction} from "redux-form";
 import {updateAuthPhoto, UpdateAuthPhotoActionType} from "./auth-reducer";
 import {PhotosType, ProfileType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
@@ -168,12 +168,14 @@ export const updatePhoto = (file: string): ThunkAction<Promise<void>, AppStateTy
     }
 }
 
-export const updateProfile = (newData: ProfileType): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | FormAction> => async (dispatch, getState) => {
+export const updateProfile = (newData: ProfileType, setStatus, setEditMode): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => async (dispatch, getState) => {
     const response = await profileAPI.updateProfile(newData);
     if (response.data.resultCode === ResultsCode.Success) {
         dispatch(updateProfileSuccess(true))
+        setEditMode(false)
         await dispatch(getProfileUser(getState().auth.userId))
     } else {
+        await dispatch(updateProfileSuccess(false))
         if (response.data.messages) {
             let link = {}
             response.data.messages.forEach((el, i) => {
@@ -184,10 +186,8 @@ export const updateProfile = (newData: ProfileType): ThunkAction<Promise<void>, 
                     link[linkItem] = response.data.messages[i]
                 }
             })
-            dispatch(stopSubmit("edit-profile", {"contacts": link}))
+            setStatus({errors: link})
         }
-        dispatch(updateProfileSuccess(false))
-        // return Promise.reject(response.data.messages[0])
     }
 }
 export default profileReducer;

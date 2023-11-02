@@ -3,28 +3,26 @@
     flex-direction: column;
     align-items: center;
     padding: 2rem 1rem;
-
+    max-width: 100%;
 }
 
 .formProfileData {
     display: grid;
-    /*grid-template-columns: 4fr 4fr;*/
     gap: 2rem;
     border-top: 1px solid var(--secondary-text-color);
-    /*border-bottom: 1px solid var(--secondary-text-color);*/
-    padding: 4rem 0
+    padding: 4rem 0;
+    min-width: 20rem;
+
 }
 
 .formItem {
     display: grid;
-    grid-template-columns: 12rem auto;
+    grid-template-columns: 1fr 3fr;
     gap: 4rem
 }
 
 .formItemTitle {
     justify-self: end;
-    /*width: 15rem;*/
-
 }
 
 .btnSave {
@@ -38,11 +36,9 @@
     font-size: 1.3rem;
     font-weight: 600;
     transition: all 0.18s ease-in-out;
-    /*border: 1px solid #333;*/
     border: none;
     color: var(--background-color);
     background-color: var(--primary-text-color);
-    /*grid-area: C;*/
 }
 
 .btnSave:hover {

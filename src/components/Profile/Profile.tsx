@@ -7,17 +7,16 @@ type PropsType = {
     profile: ProfileType,
     status: string,
     userId: number,
-    isUpdateProfile: boolean,
     updateUserStatus: (status: string) => void,
     updatePhoto: (photo: string) => void,
-    updateProfile: (profile: ProfileType) => void
+    updateProfile: (profile: ProfileType, setStats, setEditMode) => void
 }
 
-const Profile: React.FC<PropsType> = ({isOwner, userId, isUpdateProfile, updateUserStatus,
+const Profile: React.FC<PropsType> = ({isOwner, userId, updateUserStatus,
                                         updatePhoto, updateProfile, profile, status}) => {
     return (
         <div>
-            <ProfileInfoUser isOwner={isOwner} profile={profile}  status={status} isUpdateProfile={isUpdateProfile}
+            <ProfileInfoUser isOwner={isOwner} profile={profile}  status={status}
                              updateUserStatus={updateUserStatus} updatePhoto={updatePhoto} updateProfile={updateProfile}
                              userId={userId} />
             {/*<MyPostsContainer/>*/}

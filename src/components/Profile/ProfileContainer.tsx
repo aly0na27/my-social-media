@@ -19,7 +19,6 @@ type MapStatePropsType = {
     profile: ProfileType,
     status: string,
     userId: number,
-    isUpdateProfile: boolean
 }
 
 type MapDispatchPropsType = {
@@ -27,12 +26,12 @@ type MapDispatchPropsType = {
     getStatusUser: (userId: number) => void,
     updateUserStatus: (status: string) => void,
     updatePhoto: (photo: string) => void,
-    updateProfile: (profile: ProfileType) => void
+    updateProfile: (profile: ProfileType, setStatus, setEditMode) => void
 }
 
 type PropsType = MapDispatchPropsType & MapStatePropsType;
 
-const ProfileContainer: React.FC<PropsType> = ({profile, status, userId, isUpdateProfile, getProfileUser,
+const ProfileContainer: React.FC<PropsType> = ({profile, status, userId, getProfileUser,
                               getStatusUser, updateUserStatus, updatePhoto, updateProfile}) =>{
 
     const params = useParams();
@@ -56,7 +55,7 @@ const ProfileContainer: React.FC<PropsType> = ({profile, status, userId, isUpdat
     }
 
     return (
-        <Profile isOwner={!params.userId} profile={profile}  status={status} isUpdateProfile={isUpdateProfile} updateUserStatus={updateUserStatus} updatePhoto={updatePhoto} updateProfile={updateProfile}
+        <Profile isOwner={!params.userId} profile={profile}  status={status} updateUserStatus={updateUserStatus} updatePhoto={updatePhoto} updateProfile={updateProfile}
                  userId={Number(params.userId)}/>
     )
 
@@ -67,7 +66,6 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         profile: state.profilePage.profile,
         status: state.profilePage.status,
         userId: state.auth.userId,
-        isUpdateProfile: state.profilePage.isUpdateProfile
     }
 }
 

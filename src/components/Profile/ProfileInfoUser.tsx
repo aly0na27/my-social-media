@@ -4,25 +4,23 @@ import avatar from "../../assets/images/avatar.svg"
 import Status from "./Status/Status";
 import {useEffect, useRef, useState} from "react";
 import ModalWindow from "../common/ModalWindow/ModalWindow";
-import ProfileFormDataRedux from "./MyProfile/ProfileFormData";
 import InputChangePhoto from "../common/Input/InputChangePhoto";
 import * as React from "react";
 import {IconMoreDetails} from "../../assets/svg/IconMoreDetails/IconMoreDetails";
 import {ProfileType} from "../../types/types";
+import {ProfileForm} from "./MyProfile/ProfileFormData";
 
 type PropsType = {
     isOwner: boolean,
     profile: ProfileType,
     status: string,
     userId: number,
-    isUpdateProfile: boolean,
     updateUserStatus: (status: string) => void,
     updatePhoto: (photo: string) => void,
-    updateProfile: (profile: ProfileType) => void
+    updateProfile: (profile: ProfileType, setStatus, setEditMode) => void
 }
-const ProfileInfo: React.FC<PropsType> = ({isOwner, isUpdateProfile, updateUserStatus,
+const ProfileInfo: React.FC<PropsType> = ({isOwner, updateUserStatus,
                          updatePhoto, updateProfile, profile, status}) => {
-
     const [moreDetailsActive, setMoreDetailsActive] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const ref = useRef(null)
@@ -37,13 +35,6 @@ const ProfileInfo: React.FC<PropsType> = ({isOwner, isUpdateProfile, updateUserS
 
     if (!profile) {
         return <Preloader/>
-    }
-
-    const onSubmit = (dataForm) => {
-        updateProfile(dataForm)
-        if (isUpdateProfile) {
-            setEditMode(false)
-        }
     }
 
     return (
@@ -105,9 +96,7 @@ const ProfileInfo: React.FC<PropsType> = ({isOwner, isUpdateProfile, updateUserS
                                 <InputChangePhoto updatePhoto={updatePhoto}/>
                             </div>
                         </div>
-                        <ProfileFormDataRedux initialValues={profile}
-                                              contacts={profile.contacts}
-                                              onSubmit={onSubmit}/>
+                        <ProfileForm setEditMode={setEditMode} profile={profile} updateProfile={updateProfile}/>
                     </div>
                     : undefined}
         </>
