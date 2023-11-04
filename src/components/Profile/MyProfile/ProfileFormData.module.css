@@ -46,3 +46,8 @@
     background: var(--second-btn-color);
     cursor: pointer;
 }
+
+
+.spanError {
+    color: #f63f3f;
+}

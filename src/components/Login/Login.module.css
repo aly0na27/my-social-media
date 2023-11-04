@@ -1,11 +1,12 @@
-
 .containerForm {
     width: 100%;
     background-color: var(--foreground-color);
     border-radius: 2rem;
 }
+
 .title {
     font-size: 3.4rem;
+    font-weight: 800;
     text-align: center;
     padding: 1rem 0 2rem 0;
     background: var(--first-gradient);
@@ -14,16 +15,45 @@
 }
 .form {
     position: relative;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*flex-direction: column;*/
     gap: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 70%;
+    width: 50%;
     padding: 2rem
 }
 
 .formError {
     color: #ea6a6a;
+}
+
+.loginBtn {
+    position: relative;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 10rem;
+    height: 2.7rem;
+    font-family: 'Roboto', sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 800;
+    color: #000;
+    background-color: var(--first-btn-color);
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+}
+
+.loginBtn:hover {
+    background-color: var(--second-btn-color);
+    box-shadow: 0 15px 20px var(--btn-color-shadow);
+    color: #fff;
+    top: -7px;
 }

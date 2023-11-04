@@ -1,6 +1,6 @@
 import {authAPI, profileAPI, ResultCodeForCaptcha, ResultsCode, securityApi} from "../api/api";
 import avatarUser from "./../assets/images/avatar.svg";
-import {FormAction, stopSubmit} from "redux-form";
+import {FormAction} from "redux-form";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
 
@@ -115,7 +115,7 @@ export const authThunkCreate = (): ThunkType => async (dispatch) => {
     }
 }
 
-export const loginThunkCreate = (email: string, password: string, rememberMe: boolean, captcha: string): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | FormAction> =>
+export const loginThunkCreate = (email: string, password: string, rememberMe: boolean, captcha: string | null, setStatus: (status: any) => void): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | FormAction> =>
     async (dispatch) => {
         let response = await authAPI.authLogin(email, password, rememberMe, captcha);
 
@@ -124,9 +124,10 @@ export const loginThunkCreate = (email: string, password: string, rememberMe: bo
             dispatch(setCaptcha(null))
         } else {
             let message = (response.messages && response.messages.length > 0) ? response.messages[0] : '';
-            dispatch(stopSubmit("login", {_error: message}));
             if (response.resultCode === ResultCodeForCaptcha.isRequireCaptcha) {
                 await dispatch(getCaptchaUrl());
+            } else {
+                setStatus(message)
             }
         }
     }

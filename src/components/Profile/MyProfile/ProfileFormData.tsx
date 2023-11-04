@@ -2,10 +2,13 @@ import React from "react";
 import {Form, Formik, FormikErrors} from "formik";
 import {ContactsType, ProfileType} from "../../../types/types";
 import Input from 'formik-antd/es/input'
+import TypedInput from "formik-antd/es/input";
 import FormItem from "formik-antd/es/form-item";
-import s from './ProfileFormData.module.css'
+import styles from './ProfileFormData.module.css'
 import Checkbox from "formik-antd/es/checkbox";
 import {ConfigProvider} from "antd";
+import classNames from "classnames";
+import {CloseCircleOutlined} from "@ant-design/icons";
 
 interface OtherProps {
     profile: ProfileType,
@@ -32,6 +35,7 @@ export const ProfileForm: React.FC<OtherProps> = ({profile, setEditMode, updateP
         contacts: profile.contacts
     }
 
+
     return (
         <Formik initialValues={initialValues}
                 validate={(values) => {
@@ -42,37 +46,37 @@ export const ProfileForm: React.FC<OtherProps> = ({profile, setEditMode, updateP
                     if (!values.aboutMe) {
                         errors.aboutMe = "Required"
                     }
-
                     return errors
                 }}
                 onSubmit={async (values, actions) => {
                     await updateProfile(values, actions.setStatus, setEditMode)
                     actions.setSubmitting(false)
+                    debugger
                 }
                 }
         >
             {props => (
-                    <Form className={s.form}>
-                        <ConfigProvider theme={{
-                            components: {
-                                Input: {
-                                    colorBgContainer: "var(--background-color)",
-                                    colorPrimary: "var(--second-btn-color)",
-                                    colorPrimaryActive: "var(--second-btn-color)",
-                                    activeBorderColor: "var(--second-btn-color)",
-                                    hoverBorderColor: "var(--first-btn-color)",
-                                    colorText: "var(--primary-text-color)",
-                                    activeShadow: "0 0 0 1px var(--btn-color-shadow)",
-                                },
-                                Checkbox: {
-                                    colorPrimary: "var(--first-btn-color)",
-                                    colorPrimaryHover: "var(--second-btn-color)"
-                                }
+                <Form className={styles.form}>
+                    <ConfigProvider theme={{
+                        components: {
+                            Input: {
+                                colorBgContainer: "var(--background-color)",
+                                colorPrimary: "var(--second-btn-color)",
+                                colorPrimaryActive: "var(--second-btn-color)",
+                                activeBorderColor: "var(--second-btn-color)",
+                                hoverBorderColor: "var(--first-btn-color)",
+                                colorText: "var(--primary-text-color)",
+                                activeShadow: "0 0 0 1px var(--btn-color-shadow)",
+                            },
+                            Checkbox: {
+                                colorPrimary: "var(--first-btn-color)",
+                                colorPrimaryHover: "var(--second-btn-color)"
                             }
-                        }}>
-                        <div className={s.formProfileData}>
-                            <div className={s.formItem}>
-                                <div className={s.formItemTitle}>
+                        }
+                    }}>
+                        <div className={styles.formProfileData}>
+                            <div className={styles.formItem}>
+                                <div className={styles.formItemTitle}>
                                     <h3>Full name:</h3>
                                 </div>
                                 <div>
@@ -81,8 +85,8 @@ export const ProfileForm: React.FC<OtherProps> = ({profile, setEditMode, updateP
                                     </FormItem>
                                 </div>
                             </div>
-                            <div className={s.formItem}>
-                                <div className={s.formItemTitle}>
+                            <div className={styles.formItem}>
+                                <div className={styles.formItemTitle}>
                                     <h3>About me:</h3>
                                 </div>
                                 <div>
@@ -91,8 +95,8 @@ export const ProfileForm: React.FC<OtherProps> = ({profile, setEditMode, updateP
                                     </FormItem>
                                 </div>
                             </div>
-                            <div className={s.formItem}>
-                                <div className={s.formItemTitle}>
+                            <div className={styles.formItem}>
+                                <div className={styles.formItemTitle}>
                                     <h3>Looking for a job?</h3>
                                 </div>
                                 <div>
@@ -101,27 +105,33 @@ export const ProfileForm: React.FC<OtherProps> = ({profile, setEditMode, updateP
                                     </FormItem>
                                 </div>
                             </div>
-                            <div className={s.formItem}>
-                                <div className={s.formItemTitle}>
+                            <div className={styles.formItem}>
+                                <div className={styles.formItemTitle}>
                                     <h3>My skills:</h3>
                                 </div>
                                 <div>
 
-                                    <Input name={"lookingForAJobDescription"} placeholder={"Skills"}/>
+                                    <TypedInput.TextArea name={"lookingForAJobDescription"} placeholder={"Skills"}/>
                                 </div>
                             </div>
                         </div>
-                        <div className={s.formProfileData}>
+                        <div className={styles.formProfileData}>
                             {
                                 Object.keys(profile.contacts).map(el => {
                                     return (
-                                        <div key={el} className={s.formItem}>
-                                            <div className={s.formItemTitle}>
+                                        <div key={el} className={styles.formItem}>
+                                            <div className={styles.formItemTitle}>
                                                 <h3>{el}:</h3>
                                             </div>
                                             <div>
-                                                <Input key={el} name={"contacts." + el}/>
-                                                {props.status && (props.status.errors[el]) && props.status.errors[el]}
+                                                <Input
+                                                        className={classNames({[styles.inputError]: props.status && props.status.errors[el]})}
+                                                        key={el} name={"contacts." + el}
+                                                        status={props.status && props.status.errors[el] && 'error'}
+                                                        suffix={props.status && props.status.errors[el] && <CloseCircleOutlined/>}
+                                                    />
+                                                {props.status && props.status.errors[el] &&
+                                                    <span className={styles.spanError}>Invalid URL format</span>}
 
                                             </div>
                                         </div>
@@ -130,12 +140,11 @@ export const ProfileForm: React.FC<OtherProps> = ({profile, setEditMode, updateP
                             }
                         </div>
 
-                        <button className={s.btnSave} type={"submit"} disabled={false}>
+                        <button className={styles.btnSave} type={"submit"} disabled={false}>
                             Save
                         </button>
-                        </ConfigProvider>
-
-                    </Form>
+                    </ConfigProvider>
+                </Form>
             )}
         </Formik>
     )

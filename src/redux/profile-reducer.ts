@@ -183,7 +183,11 @@ export const updateProfile = (newData: ProfileType, setStatus, setEditMode): Thu
                 if (message.includes("Contacts->")) {
                     const result = message.match(/->\w+/);
                     const linkItem = result[0].substring(2).toLowerCase()
-                    link[linkItem] = response.data.messages[i]
+                    if (linkItem === "mainlink") {
+                        link["mainLink"] = response.data.messages[i]
+                    } else {
+                        link[linkItem] = response.data.messages[i]
+                    }
                 }
             })
             setStatus({errors: link})
