@@ -70,7 +70,9 @@ export const ProfileForm: React.FC<OtherProps> = ({profile, setEditMode, updateP
                             },
                             Checkbox: {
                                 colorPrimary: "var(--first-btn-color)",
-                                colorPrimaryHover: "var(--second-btn-color)"
+                                colorPrimaryHover: "var(--second-btn-color)",
+                                colorBgContainer: "var(--foreground-color)",
+
                             }
                         }
                     }}>
