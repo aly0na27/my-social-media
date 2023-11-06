@@ -26,10 +26,10 @@ const Login: React.FC<PropsType> = ({isAuth, captcha, loginThunkCreate}) => {
     }
 
     return (
-        <section className={styles.containerForm}>
+        <main className={styles.containerForm}>
             <header className={styles.title}>Login</header>
             <LoginForm captcha={captcha} loginThunkCreate={loginThunkCreate}/>
-        </section>
+        </main>
     )
 }
 

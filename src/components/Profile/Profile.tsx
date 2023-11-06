@@ -15,12 +15,12 @@ type PropsType = {
 const Profile: React.FC<PropsType> = ({isOwner, userId, updateUserStatus,
                                         updatePhoto, updateProfile, profile, status}) => {
     return (
-        <div>
+        <main>
             <ProfileInfoUser isOwner={isOwner} profile={profile}  status={status}
                              updateUserStatus={updateUserStatus} updatePhoto={updatePhoto} updateProfile={updateProfile}
                              userId={userId} />
             {/*<MyPostsContainer/>*/}
-        </div>
+        </main>
     );
 }
 

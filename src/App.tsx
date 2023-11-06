@@ -1,7 +1,7 @@
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
-import News from "./components/News/News";
+// import News from "./components/News/News";
 import UsersContainer from "./components/Users/UsersContainer";
 import MusicsContainer from "./components/Musics/MusicsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
@@ -14,7 +14,7 @@ import store, {AppStateType} from "./redux/redux-store";
 
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"))
 const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer.js"))
-
+const NewsContainer = React.lazy(() => import("./components/News/NewsContainer"))
 const App: React.FC<PropsFromRedux> = ({initialized, initializeApp}) => {
     const [isDark, setIsDark] = useState(false)
 
@@ -40,7 +40,7 @@ const App: React.FC<PropsFromRedux> = ({initialized, initializeApp}) => {
                                            element={<ProfileContainer/>}/>
                                     <Route path="/users" element={<UsersContainer/>}/>
                                     <Route path="/music" element={<MusicsContainer/>}/>
-                                    <Route path="/news" element={<News/>}/>
+                                    <Route path="/news" element={<NewsContainer/>}/>
                                     <Route path="/login" element={<LoginContainer/>}/>
                                 </Routes>
                             </Suspense>

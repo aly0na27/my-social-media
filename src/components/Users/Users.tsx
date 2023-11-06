@@ -17,7 +17,7 @@ type UsersProps = {
 
 const Users: React.FC<UsersProps> = ({users, followingInProgress, setFollow, setUnfollow, totalUserCount, pageSize, pageSelected, onChangePageUsers}) => {
     return (
-        <div className={styles.usersContainer}>
+        <main className={styles.usersContainer}>
             <header className={styles.header}>
                 <h2>Users</h2>
             </header>
@@ -37,7 +37,7 @@ const Users: React.FC<UsersProps> = ({users, followingInProgress, setFollow, set
                         pageSelected={pageSelected}
                         onChangePageUsers={onChangePageUsers}/>
 
-        </div>
+        </main>
     )
 }
 
