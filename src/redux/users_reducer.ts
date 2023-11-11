@@ -1,7 +1,6 @@
 import {UserType} from "../types/types";
 import {Dispatch} from "redux";
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, InferActionsType} from "./redux-store";
+import {BaseThunkType, InferActionsType} from "./redux-store";
 import {usersAPI} from "../api/usersAPI";
 
 let initialState = {
@@ -122,10 +121,9 @@ type ActionsType = InferActionsType<typeof UsersActions>
 
 //Thunk Action
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
 type DispatchType = Dispatch<ActionsType>
 
-export const getUsers = (pageSize: number, pageSelected: number): ThunkType =>
+export const getUsers = (pageSize: number, pageSelected: number): BaseThunkType<ActionsType> =>
     async (dispatch) => {
         dispatch(UsersActions.toggleIsFetching(true));
         let response = await usersAPI.getUsers(pageSize, pageSelected);
@@ -134,12 +132,12 @@ export const getUsers = (pageSize: number, pageSelected: number): ThunkType =>
         dispatch(UsersActions.setTotalUserCount(response.totalCount))
     }
 
-export const setUnfollow = (id: number): ThunkType =>
+export const setUnfollow = (id: number): BaseThunkType<ActionsType> =>
     async (dispatch) => {
         await _setFollowUnfollow(dispatch, id, usersAPI.setUnfollow.bind(usersAPI), UsersActions.unfollowSuccess);
 }
 
-export const setFollow = (id: number): ThunkType => async (dispatch) => {
+export const setFollow = (id: number): BaseThunkType<ActionsType> => async (dispatch) => {
         await _setFollowUnfollow(dispatch, id, usersAPI.setFollow.bind(usersAPI), UsersActions.followSuccess);
 }
 

@@ -1,10 +1,10 @@
-import {applyMiddleware, combineReducers, compose, createStore} from "redux";
+import {Action, applyMiddleware, combineReducers, compose, createStore} from "redux";
 import profileReducer from "./profile-reducer";
 import dialogsReducer from "./dialogs-reducer";
 import usersReducer from "./users_reducer";
 import musicsReducer from "./musics-reducer";
 import authReducer from "./auth-reducer";
-import thunkMiddleware from "redux-thunk";
+import thunkMiddleware, {ThunkAction} from "redux-thunk";
 import {reducer as formReducer} from 'redux-form'
 import appReducer from "./app-reducer";
 import newsReducer from "./news-reducer";
@@ -35,6 +35,8 @@ const store = createStore(reducers,  composeEnhancers(applyMiddleware(thunkMiddl
 type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never
 
 export type InferActionsType<T extends {[key: string]: (...args:any[]) => any}> = ReturnType<PropertiesType<T>>
+
+export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
 
 // @ts-ignore
 window.__store__ = store;
