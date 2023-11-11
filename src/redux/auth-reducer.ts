@@ -1,9 +1,11 @@
-import {authAPI, profileAPI, ResultCodeForCaptcha, ResultsCode, securityApi} from "../api/api";
+import {ResultCodeForCaptcha, ResultsCode} from "../api/api";
 import avatarUser from "./../assets/images/avatar.svg";
 import {FormAction} from "redux-form";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType, InferActionsType} from "./redux-store";
-
+import {authAPI} from "../api/authAPI";
+import {securityApi} from "../api/securityAPI";
+import {profileAPI} from "../api/profileAPI";
 
 const initialState = {
     userId: null as null | number,

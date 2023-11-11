@@ -1,8 +1,9 @@
-import {profileAPI, ResultsCode} from "../api/api";
+import {ResultsCode} from "../api/api";
 import {AuthActions, AuthActionsType} from "./auth-reducer";
 import {PhotosType, ProfileType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType, InferActionsType} from "./redux-store";
+import {profileAPI} from "../api/profileAPI";
 
 type PostType = {
     id: number,
