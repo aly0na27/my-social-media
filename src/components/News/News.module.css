@@ -1,0 +1,23 @@
+
+.header {
+    position: relative;
+    width: 100%;
+    height: 8rem;
+    background-color: var(--foreground-color);
+    border-radius: 1rem;
+    transition: all ease 0.1s;
+}
+
+.header h2 {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+    font-size: 2.5rem;
+}
+
+.newsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem
+}

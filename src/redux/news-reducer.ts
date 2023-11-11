@@ -3,35 +3,45 @@ import {newsAPI} from "../api/news_api";
 import {ThunkAction} from "redux-thunk";
 
 const SET_NEWS = "SET_NEWS";
-
+const SET_NEXT_PAGE = "SET_NEXT_PAGE"
 
 export type NewsItemType = {
-    uuid: string
+    article_id: string
     title: string
     description: string,
-    url: string
+    link: string
+    keywords: Array<string>
+    creator: Array<string>
+    video_url: null | string,
+    content: string
+    pubDate: string
     image_url: string
-    published_at: string
-    categories: Array<string>
-    keywords: string
-    snippet: string
+    source_id: string
+    source_priority: number
+    country: Array<string>
+    category: Array<string>
     language: string
-    source: string
-    relevance_score: any
-    locale: string
 }
 
 const initialState = {
-    news: [] as Array<NewsItemType>
+    news: [] as Array<NewsItemType>,
+    nextPage: ""
 }
 
 type InitialStateType = typeof initialState
-const newsReducer = (state: InitialStateType = initialState, action: SetNewsActionType) => {
+const newsReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case SET_NEWS: {
             debugger
             return {
-                news: action.news
+                ...state,
+                news: [...state.news, ...action.news]
+            }
+        }
+        case SET_NEXT_PAGE: {
+            return {
+                ...state,
+                nextPage: action.newPage
             }
         }
         default:
@@ -44,7 +54,13 @@ type SetNewsActionType = {
     news: Array<NewsItemType>
 }
 
-type ActionsType = SetNewsActionType
+type SetNextPageType = {
+    type: typeof SET_NEXT_PAGE,
+    newPage: string
+}
+
+type ActionsType = SetNewsActionType | SetNextPageType
+
 const setNewsActionCreate = (news: Array<NewsItemType>): SetNewsActionType => {
     return {
         type: SET_NEWS,
@@ -52,12 +68,24 @@ const setNewsActionCreate = (news: Array<NewsItemType>): SetNewsActionType => {
     }
 }
 
+const setNextPage = (newPage: string): SetNextPageType => {
+    return {
+        type: SET_NEXT_PAGE,
+        newPage: newPage
+    }
+}
 
 // Thunk
 
-export const getNewsThunkCreate = (): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => async (dispatch) => {
-    let data = await newsAPI.getAllNews()
-    dispatch(setNewsActionCreate(data.data))
+export const getNewsThunkCreate = (setLastList: (newLasList: boolean) => void,): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => async (dispatch, getState) => {
+    let data = await newsAPI.getAllNews(getState().newsPage.nextPage)
+    debugger
+    if (!data.nextPage.length) {
+        setLastList(true)
+    } else {
+        dispatch(setNextPage(data.nextPage))
+        dispatch(setNewsActionCreate(data.results))
+    }
 }
 
 export default newsReducer

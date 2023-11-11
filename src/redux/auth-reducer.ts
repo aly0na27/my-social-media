@@ -2,11 +2,7 @@ import {authAPI, profileAPI, ResultCodeForCaptcha, ResultsCode, securityApi} fro
 import avatarUser from "./../assets/images/avatar.svg";
 import {FormAction} from "redux-form";
 import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./redux-store";
-
-const SET_USER_DATA = "SET_USER_DATA";
-const SET_CAPTCHA = "SET_CAPTCHA";
-const UPDATE_PHOTO = "UPDATE_PHOTO";
+import {AppStateType, InferActionsType} from "./redux-store";
 
 
 const initialState = {
@@ -20,20 +16,20 @@ const initialState = {
 
 export type InitialStateType = typeof initialState
 
-function authReducer(state = initialState, action: ActionsType): InitialStateType {
+function authReducer(state = initialState, action: AuthActionsType): InitialStateType {
     switch (action.type) {
-        case SET_USER_DATA:
+        case "SET_USER_DATA":
             return {
                 ...state,
                 ...action.data,
 
             }
-        case SET_CAPTCHA:
+        case "SET_CAPTCHA":
             return {
                 ...state,
                 captcha: action.captcha
             }
-        case UPDATE_PHOTO:
+        case "UPDATE_PHOTO":
             return {
                 ...state,
                 photos: action.photo
@@ -45,61 +41,41 @@ function authReducer(state = initialState, action: ActionsType): InitialStateTyp
 
 //Action
 
-type ActionsType = SetUserDataActionType | SetCaptchaActionType | UpdateAuthPhotoActionType
+export type AuthActionsType = InferActionsType<typeof AuthActions>
 
-type UserType = {
-    userId: number | null,
-    email: string | null,
-    login: string | null,
-    photos: string | null,
-    isAuth: boolean
+export const AuthActions = {
+    setAuthUserData: (userId: number, email: string, login: string, photos: string, isAuth) => {
+        return {
+            type: "SET_USER_DATA",
+            data: {
+                userId,
+                email,
+                login,
+                photos,
+                isAuth
+            }
+        } as const
+    },
+    setCaptcha: (captcha: string) => {
+        return {
+            type: "SET_CAPTCHA",
+            captcha
+        } as const
+    },
+    updateAuthPhoto: (photo: string) => {
+        return {
+            type: "UPDATE_PHOTO",
+            photo: photo
+        } as const
+    },
 }
 
-type SetUserDataActionType = {
-    type: typeof SET_USER_DATA,
-    data: UserType
-}
+// type PropertiesType<T> = T extends { [key: string]: infer U} ? U : never
 
-type SetCaptchaActionType = {
-    type: typeof SET_CAPTCHA,
-    captcha: string
-}
-
-export type UpdateAuthPhotoActionType = {
-    type: typeof UPDATE_PHOTO,
-    photo: string
-}
-
-export const setAuthUserData = (userId: number, email: string, login: string, photos: string, isAuth): SetUserDataActionType => {
-    return {
-        type: SET_USER_DATA,
-        data: {
-            userId,
-            email,
-            login,
-            photos,
-            isAuth
-        }
-    }
-}
-
-const setCaptcha = (captcha: string): SetCaptchaActionType => {
-    return {
-        type: SET_CAPTCHA,
-        captcha
-    }
-}
-
-export const updateAuthPhoto = (photo: string): UpdateAuthPhotoActionType => {
-    return {
-        type: UPDATE_PHOTO,
-        photo: photo
-    }
-}
 
 //Thunk
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, AuthActionsType>
 
 export const authThunkCreate = (): ThunkType => async (dispatch) => {
     let response = await authAPI.authMe();
@@ -110,18 +86,18 @@ export const authThunkCreate = (): ThunkType => async (dispatch) => {
             if (!photos) {
                 photos = avatarUser;
             }
-            dispatch(setAuthUserData(id, email, login, photos, true));
+            dispatch(AuthActions.setAuthUserData(id, email, login, photos, true));
         })
     }
 }
 
-export const loginThunkCreate = (email: string, password: string, rememberMe: boolean, captcha: string | null, setStatus: (status: any) => void): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | FormAction> =>
+export const loginThunkCreate = (email: string, password: string, rememberMe: boolean, captcha: string | null, setStatus: (status: any) => void): ThunkAction<Promise<void>, AppStateType, unknown, AuthActionsType | FormAction> =>
     async (dispatch) => {
         let response = await authAPI.authLogin(email, password, rememberMe, captcha);
 
         if (response.resultCode === ResultCodeForCaptcha.Success) {
             await dispatch(authThunkCreate());
-            dispatch(setCaptcha(null))
+            dispatch(AuthActions.setCaptcha(null))
         } else {
             let message = (response.messages && response.messages.length > 0) ? response.messages[0] : '';
             if (response.resultCode === ResultCodeForCaptcha.isRequireCaptcha) {
@@ -135,13 +111,13 @@ export const loginThunkCreate = (email: string, password: string, rememberMe: bo
 export const logoutThunkCreate = (): ThunkType => async (dispatch: any) => {
     let response = await authAPI.authLogout();
     if (response.resultCode === ResultsCode.Success) {
-        dispatch(setAuthUserData(null, null, null, null, false))
+        dispatch(AuthActions.setAuthUserData(null, null, null, null, false))
     }
 }
 
 export const getCaptchaUrl = (): ThunkType => async (dispatch) => {
     let response = await securityApi.getCaptcha();
-    dispatch(setCaptcha(response.url))
+    dispatch(AuthActions.setCaptcha(response.url))
 }
 export default authReducer;
 

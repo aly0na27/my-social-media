@@ -13,7 +13,7 @@ import Preloader from "./components/common/Preloader/Preloader";
 import store, {AppStateType} from "./redux/redux-store";
 
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"))
-const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer.js"))
+const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
 const NewsContainer = React.lazy(() => import("./components/News/NewsContainer"))
 const App: React.FC<PropsFromRedux> = ({initialized, initializeApp}) => {
     const [isDark, setIsDark] = useState(false)

@@ -1,6 +1,4 @@
-const ADD_MUSIC = "ADD_MUSIC";
-const DELETE_MUSIC = "DELETE_MUSIC";
-
+import {InferActionsType} from "./redux-store";
 
 export type SongType = {
     id: number,
@@ -40,9 +38,10 @@ const initialState = {
 }
 
 type InitialStateType = typeof initialState
+
 const musicsReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case ADD_MUSIC:
+        case "ADD_MUSIC":
             return {
                 ...state,
                 musics: state.musics.map((m) => {
@@ -57,7 +56,7 @@ const musicsReducer = (state = initialState, action: ActionsType): InitialStateT
                     }
                 })
             }
-        case DELETE_MUSIC:
+        case "DELETE_MUSIC":
             return {
                 ...state,
                 musics: state.musics.map((m) => {
@@ -77,30 +76,24 @@ const musicsReducer = (state = initialState, action: ActionsType): InitialStateT
     }
 }
 
-type ActionsType = AddMusicActionType | DeleteMusicActionType
+// Action
 
-type AddMusicActionType = {
-    type: typeof ADD_MUSIC,
-    userId: number
-}
-
-type DeleteMusicActionType = {
-    type: typeof DELETE_MUSIC,
-    userId: number
-}
-
-export const addMusicCreateAction = (userId: number): AddMusicActionType => {
-    return {
-        type: ADD_MUSIC,
-        userId: userId
+export const MusicActions = {
+    addMusicCreateAction: (userId: number) => {
+        return {
+            type: "ADD_MUSIC",
+            userId: userId
+        } as const
+    },
+    deleteMusicCreateAction: (userId: number)=> {
+        return {
+            type: "DELETE_MUSIC",
+            userId: userId
+        } as const
     }
-}
 
-export const deleteMusicCreateAction = (userId: number): DeleteMusicActionType => {
-    return {
-        type: DELETE_MUSIC,
-        userId: userId
-    }
 }
+type ActionsType = InferActionsType<typeof MusicActions>
+
 
 export default musicsReducer;

@@ -1,0 +1,7 @@
+.newsItem {
+    background-color: var(--foreground-color);
+}
+
+.img {
+    max-width: 30rem;
+}

@@ -2,8 +2,8 @@ import {Form, Formik, FormikErrors} from "formik";
 import React from "react";
 import FormItem from "formik-antd/es/form-item";
 import Input from "formik-antd/es/input";
+import TypedInput from "formik-antd/es/input";
 import Checkbox from "formik-antd/es/checkbox";
-import TypedInput from "formik-antd/es/input"
 import styles from "./Login.module.css"
 import {ConfigProvider} from "antd";
 

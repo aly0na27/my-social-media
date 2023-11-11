@@ -1,14 +1,39 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {NewsItemType} from "../../redux/news-reducer";
 import NewsItem from "./NewsItem/NewsItem";
+import styles from "./News.module.css"
+import NewsLoader from "../common/MyLoader/NewsLoader/NewsLoader";
 
 type PropsType = {
     news: Array<NewsItemType>
+    getNewsThunkCreate: (setLastList: (newLastList: boolean) => void) => void
+    lastList: boolean
+    setLastList: (newLastList: boolean) => void
 }
-const News: React.FC<PropsType> = ({news}) => {
+const News: React.FC<PropsType> = ({news, getNewsThunkCreate, lastList, setLastList}) => {
+    const [currPage, setCurrPage] = useState(1)
+
+    useEffect(() => {
+        getNewsThunkCreate(setLastList);
+        window.addEventListener("scroll", handleScroll)
+    }, [currPage])
+
+    const handleScroll = () => {
+        let userScrollHeight = window.scrollY + window.innerHeight
+        // debugger
+        if (userScrollHeight >= document.getElementById("news").offsetHeight && !lastList) {
+            setCurrPage(currPage + 1)
+        }
+    }
     return (
-        <main >
-            {news.map(n => <NewsItem headline={n}/>)}
+        <main id={"news"}>
+            <header className={styles.header}>
+                <h2>News</h2>
+            </header>
+            {/*<NewsLoader/>*/}
+            <div className={styles.newsContainer}>
+                {news.map(n => <NewsItem headline={n}/>)}
+            </div>
         </main>
     )
 }

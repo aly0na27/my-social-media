@@ -1,15 +1,8 @@
 import {profileAPI, ResultsCode} from "../api/api";
-// import {FormAction} from "redux-form";
-import {updateAuthPhoto, UpdateAuthPhotoActionType} from "./auth-reducer";
+import {AuthActions, AuthActionsType} from "./auth-reducer";
 import {PhotosType, ProfileType} from "../types/types";
 import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./redux-store";
-
-const ADD_POST = "ADD-POST";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
-const SET_USER_STATUS = "SET_USER_STATE";
-const UPDATE_PROFILE_PHOTO = "UPDATE_PROFILE_PHOTO";
-const UPDATE_PROFILE_SUCCESSFUL = "UPDATE_PROFILE_SUCCESSFUL";
+import {AppStateType, InferActionsType} from "./redux-store";
 
 type PostType = {
     id: number,
@@ -45,28 +38,28 @@ let initialState = {
 export type InitialStateType = typeof initialState
 const profileReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case ADD_POST:
+        case "ADD_POST":
             return {
                 ...state,
                 posts: [...state.posts, {id: 5, message: action.postText, likesCount: 8}],
             };
-        case SET_USER_PROFILE:
+        case "SET_USER_PROFILE":
             return {
                 ...state,
                 profile: action.profile
 
             }
-        case SET_USER_STATUS:
+        case "SET_USER_STATUS":
             return {
                 ...state,
                 status: action.status
             }
-        case UPDATE_PROFILE_PHOTO:
+        case "UPDATE_PROFILE_PHOTO":
             return {
                 ...state,
                 profile: {...state.profile, photos: {...action.photos}}
             }
-        case UPDATE_PROFILE_SUCCESSFUL:
+        case "UPDATE_PROFILE_SUCCESSFUL":
             return {
                 ...state,
                 isUpdateProfile: action.isUpdateProfile
@@ -78,60 +71,37 @@ const profileReducer = (state = initialState, action: ActionsType): InitialState
 
 // Action
 
-type ActionsType = AddPostActionType | SetUserStatusActionType | SetUserProfileActionType | UpdateProfilePhotoActionType | UpdateProfileSuccessActionType
-
-type AddPostActionType = {
-    type: typeof ADD_POST,
-    postText: string
-}
-
-type SetUserProfileActionType = {
-    type: typeof SET_USER_PROFILE,
-    profile: ProfileType
-}
-
-type SetUserStatusActionType = {
-    type: typeof SET_USER_STATUS,
-    status: string
-}
-
-type UpdateProfilePhotoActionType = {
-    type: typeof UPDATE_PROFILE_PHOTO,
-    photos: PhotosType
-}
-
-type UpdateProfileSuccessActionType = {
-    type: typeof UPDATE_PROFILE_SUCCESSFUL,
-    isUpdateProfile: boolean
-}
-
-export const addPostCreateAction = (newPostText: string): AddPostActionType => ({type: ADD_POST, postText: newPostText})
-
-const setUserProfile = (profile: ProfileType): SetUserProfileActionType => {
-    return {
-        type: SET_USER_PROFILE,
-        profile
-    }
-}
-
-const setUserStatus = (status: string): SetUserStatusActionType => {
-    return {
-        type: SET_USER_STATUS,
-        status
-    }
-}
-
-const updateProfilePhoto = (newPhoto: PhotosType): UpdateProfilePhotoActionType => {
-    return {
-        type: UPDATE_PROFILE_PHOTO,
-        photos: newPhoto
-    }
-}
-
-const updateProfileSuccess = (isUpdateProfile: boolean): UpdateProfileSuccessActionType => {
-    return {
-        type: UPDATE_PROFILE_SUCCESSFUL,
-        isUpdateProfile
+type ActionsType = InferActionsType<typeof ProfileActions>
+export const ProfileActions = {
+    addPostCreateAction: (newPostText: string) => {
+        return {
+            type: "ADD_POST",
+            postText: newPostText
+        } as const
+    },
+    setUserProfile: (profile: ProfileType) => {
+        return {
+            type: "SET_USER_PROFILE",
+            profile
+        } as const
+    },
+    setUserStatus: (status: string) => {
+        return {
+            type: "SET_USER_STATUS",
+            status
+        } as const
+    },
+    updateProfilePhoto: (newPhoto: PhotosType) => {
+        return {
+            type: "UPDATE_PROFILE_PHOTO",
+            photos: newPhoto
+        } as const
+    },
+    updateProfileSuccess: (isUpdateProfile: boolean) => {
+        return {
+            type: "UPDATE_PROFILE_SUCCESSFUL",
+            isUpdateProfile
+        } as const
     }
 }
 
@@ -144,38 +114,39 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
 export const updateUserStatus = (status: string): ThunkType => async (dispatch) => {
     let data = await profileAPI.updateProfileStatus(status);
     if (data && data.resultCode === ResultsCode.Success) {
-            dispatch(setUserStatus(status));
+            dispatch(ProfileActions.setUserStatus(status));
         }
 
 
 }
 
+
 export const getStatusUser = (userId: number): ThunkType => async (dispatch) => {
     let data = await profileAPI.getProfileStatus(userId);
-    dispatch(setUserStatus(data));
+    dispatch(ProfileActions.setUserStatus(data));
 }
 
 export const getProfileUser = (userId: number): ThunkType => async (dispatch) => {
     let response = await profileAPI.getProfileUser(userId);
-    dispatch(setUserProfile(response))
+    dispatch(ProfileActions.setUserProfile(response))
 }
 
-export const updatePhoto = (file: string): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | UpdateAuthPhotoActionType> => async (dispatch) => {
+export const updatePhoto = (file: string): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | AuthActionsType> => async (dispatch) => {
     let data = await profileAPI.updateProfilePhoto(file);
     if (data.resultCode === ResultsCode.Success) {
-        dispatch(updateProfilePhoto(data.data.photos))
-        dispatch(updateAuthPhoto(data.data.photos.small))
+        dispatch(ProfileActions.updateProfilePhoto(data.data.photos))
+        dispatch(AuthActions.updateAuthPhoto(data.data.photos.small))
     }
 }
 
 export const updateProfile = (newData: ProfileType, setStatus, setEditMode): ThunkAction<Promise<void>, AppStateType, unknown, ActionsType> => async (dispatch, getState) => {
     const response = await profileAPI.updateProfile(newData);
     if (response.data.resultCode === ResultsCode.Success) {
-        dispatch(updateProfileSuccess(true))
+        dispatch(ProfileActions.updateProfileSuccess(true))
         setEditMode(false)
         await dispatch(getProfileUser(getState().auth.userId))
     } else {
-        await dispatch(updateProfileSuccess(false))
+        dispatch(ProfileActions.updateProfileSuccess(false))
         if (response.data.messages) {
             let link = {}
             response.data.messages.forEach((el, i) => {

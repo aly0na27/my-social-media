@@ -1,4 +1,4 @@
-import {addMusicCreateAction, deleteMusicCreateAction} from "../../redux/musics-reducer";
+import {MusicActions} from "../../redux/musics-reducer";
 import {connect, ConnectedProps} from "react-redux";
 import Musics from "./Musics";
 import {AppStateType} from "../../redux/redux-store";
@@ -16,10 +16,10 @@ const mapStateToProps = (state: AppStateType) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         addSong(userId: number) {
-            dispatch(addMusicCreateAction(userId));
+            dispatch(MusicActions.addMusicCreateAction(userId));
         },
         deleteSong(userId: number) {
-            dispatch(deleteMusicCreateAction(userId));
+            dispatch(MusicActions.deleteMusicCreateAction(userId));
         }
     }
 }

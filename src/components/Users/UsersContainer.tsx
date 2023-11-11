@@ -1,5 +1,5 @@
 import {connect} from "react-redux";
-import {changeSelectedPage, getUsers, setFollow, setUnfollow} from "../../redux/users_reducer";
+import {getUsers, setFollow, setUnfollow, UsersActions} from "../../redux/users_reducer";
 import * as React from "react";
 import {useEffect} from "react";
 import Users from "./Users";
@@ -69,8 +69,21 @@ let mapStateToProps = (state: AppStateType) => {
     }
 }
 
+const mapDispatchToProps = (dispatch): MapDispatchPropsType => {
+    return {
+        changeSelectedPage: (page: number) => {
+            dispatch(UsersActions.changeSelectedPage(page))
+        },
+        getUsers: (pageSize: number, pageSelected: number) => {
+            return dispatch(getUsers(pageSize, pageSelected))
+        },
+        setUnfollow: (userId: number) => {
+            return dispatch(setUnfollow(userId))
+        },
+        setFollow: (userId: number) => {
+            return dispatch(setFollow(userId))
+        }
+    }
+}
 
-export default connect<MapStatePropsType, MapDispatchPropsType>(mapStateToProps, {
-    changeSelectedPage,
-    getUsers, setUnfollow, setFollow
-})(UsersContainer);
+export default connect<MapStatePropsType, MapDispatchPropsType>(mapStateToProps, mapDispatchToProps)(UsersContainer);
