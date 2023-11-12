@@ -17,7 +17,6 @@ const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsCo
 const NewsContainer = React.lazy(() => import("./components/News/NewsContainer"))
 const App: React.FC<PropsFromRedux> = ({initialized, initializeApp}) => {
     const [isDark, setIsDark] = useState(false)
-
     useEffect(() => {
         initializeApp();
     }, [])

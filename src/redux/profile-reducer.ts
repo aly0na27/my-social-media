@@ -122,6 +122,7 @@ export const getStatusUser = (userId: number): BaseThunkType<ActionsType> => asy
 export const getProfileUser = (userId: number): BaseThunkType<ActionsType> => async (dispatch) => {
     let response = await profileAPI.getProfileUser(userId);
     dispatch(ProfileActions.setUserProfile(response))
+    // await Promise.reject("fvdvd")
 }
 
 export const updatePhoto = (file: string): BaseThunkType<ActionsType | AuthActionsType> => async (dispatch) => {

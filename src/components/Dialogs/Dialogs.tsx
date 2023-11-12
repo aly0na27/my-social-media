@@ -2,8 +2,8 @@ import s from "./Dialogs.module.css"
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import React from "react";
-import SendMessage from "./AddMessageForm";
 import {DialogType, MessageType} from "../../types/types";
+import {SendMessageFormik} from "./AddMessageForm";
 
 interface Props {
     dialogs: Array<DialogType>
@@ -28,7 +28,7 @@ const Dialogs: React.FC<Props> = ({dialogs, messages, addMessage}) => {
                     </div>
 
                     <div className={s.sendBar}>
-                        <SendMessage onAddMessage={onAddMessage}/>
+                        <SendMessageFormik onAddMessage={onAddMessage}/>
                     </div>
                 </div>
             </div>
