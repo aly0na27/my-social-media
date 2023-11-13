@@ -2,6 +2,7 @@ import {UserType} from "../types/types";
 import {Dispatch} from "redux";
 import {BaseThunkType, InferActionsType} from "./redux-store";
 import {usersAPI} from "../api/usersAPI";
+import {MyResponseType} from "../api/api";
 
 let initialState = {
     users: [] as Array<UserType>,
@@ -12,7 +13,7 @@ let initialState = {
     followingInProgress: [] as Array<number> //array of userId
 }
 
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
 const usersReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
@@ -121,8 +122,6 @@ type ActionsType = InferActionsType<typeof UsersActions>
 
 //Thunk Action
 
-type DispatchType = Dispatch<ActionsType>
-
 export const getUsers = (pageSize: number, pageSelected: number): BaseThunkType<ActionsType> =>
     async (dispatch) => {
         dispatch(UsersActions.toggleIsFetching(true));
@@ -141,7 +140,7 @@ export const setFollow = (id: number): BaseThunkType<ActionsType> => async (disp
         await _setFollowUnfollow(dispatch, id, usersAPI.setFollow.bind(usersAPI), UsersActions.followSuccess);
 }
 
-const _setFollowUnfollow = async (dispatch: DispatchType, userId: number, apiMethod: any, actionCreator: (userId: number) => ActionsType) => {
+const _setFollowUnfollow = async (dispatch: Dispatch<ActionsType>, userId: number, apiMethod: (userId: number) => Promise<MyResponseType>, actionCreator: (userId: number) => ActionsType) => {
     dispatch(UsersActions.toggleFollowingInProgress(true, userId));
     let response = await apiMethod(userId);
     if (response.resultCode === 0) {

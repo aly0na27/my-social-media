@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {NewsItemType} from "../../redux/news-reducer";
 import NewsItem from "./NewsItem/NewsItem";
 import styles from "./News.module.css"
 import NewsLoader from "../common/MyLoader/NewsLoader/NewsLoader";
+import {NewsItemType} from "../../types/types";
 
 type PropsType = {
     news: Array<NewsItemType>
@@ -16,12 +16,14 @@ const News: React.FC<PropsType> = ({news, getNewsThunkCreate, lastList, setLastL
     useEffect(() => {
         getNewsThunkCreate(setLastList);
         window.addEventListener("scroll", handleScroll)
+        return () => window.removeEventListener("scroll", handleScroll)
     }, [currPage])
 
     const handleScroll = () => {
+        debugger
         let userScrollHeight = window.scrollY + window.innerHeight
         // debugger
-        if (userScrollHeight >= document.getElementById("news").offsetHeight && !lastList) {
+        if (document.getElementById("news") && userScrollHeight >= document.getElementById("news").offsetHeight && !lastList) {
             setCurrPage(currPage + 1)
         }
     }

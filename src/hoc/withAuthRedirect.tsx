@@ -1,19 +1,25 @@
 import {Navigate} from "react-router-dom";
-import {connect, ConnectedComponent} from "react-redux";
-import React, {FunctionComponent} from "react";
+import {connect} from "react-redux";
+import React from "react";
 import {AppStateType} from "../redux/redux-store";
 
-const mapStateToPropsForRedirect = (state: AppStateType) => {
+
+interface MapStateType{
+    isAuth: boolean
+}
+const mapStateToPropsForRedirect = (state: AppStateType): MapStateType => {
     return {
         isAuth: state.auth.isAuth
     }
 }
-export const withAuthRedirect = (AuthRedirectComponent: FunctionComponent): ConnectedComponent<any, any> | FunctionComponent => {
-    const RedirectComponent = (props) => {
+export function withAuthRedirect<WCP>(AuthRedirectComponent: React.ComponentType<WCP>) {
+    const RedirectComponent: React.FC<MapStateType> = (props) => {
+        let {isAuth, ...restProps} = props
+
         if (!props.isAuth) {
             return <Navigate to={"/login"}/>
         }
-        return <AuthRedirectComponent {...props}/>
+        return <AuthRedirectComponent {...restProps as unknown as WCP}/>
     }
-    return connect(mapStateToPropsForRedirect)(RedirectComponent);
+    return connect<MapStateType>(mapStateToPropsForRedirect)(RedirectComponent);
 }

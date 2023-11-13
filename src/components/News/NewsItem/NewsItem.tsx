@@ -1,6 +1,6 @@
-import {NewsItemType} from "../../../redux/news-reducer";
 import React from "react";
 import styles from "./NewsItem.module.css"
+import {NewsItemType} from "../../../types/types";
 
 type PropsType = {
     headline: NewsItemType

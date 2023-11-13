@@ -1,9 +1,10 @@
 import styles from "./News.module.css"
 import {AppStateType} from "../../redux/redux-store";
-import {getNewsThunkCreate, NewsItemType} from "../../redux/news-reducer";
+import {getNewsThunkCreate} from "../../redux/news-reducer";
 import {connect} from "react-redux";
 import React, {FunctionComponent, useEffect, useState} from "react";
 import News from "./News";
+import {NewsItemType} from "../../types/types";
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType
 

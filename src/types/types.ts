@@ -43,3 +43,21 @@ export type DialogType = {
     name: string,
     avatar: string
 }
+
+export type NewsItemType = {
+    article_id: string
+    title: string
+    description: string,
+    link: string
+    keywords: Array<string>
+    creator: Array<string>
+    video_url: null | string,
+    content: string
+    pubDate: string
+    image_url: string
+    source_id: string
+    source_priority: number
+    country: Array<string>
+    category: Array<string>
+    language: string
+}
