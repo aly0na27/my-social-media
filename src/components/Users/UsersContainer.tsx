@@ -23,10 +23,12 @@ type MapStatePropsType = {
     users: Array<UserType>,
     followingInProgress: Array<number>,
     totalUserCount: number
+    category: boolean | null
+    term: string
 }
 
 type MapDispatchPropsType = {
-    getUsers: (pageSize: number, pageSelected: number) => void,
+    getUsers: (pageSize: number, pageSelected: number, term?: string, friend?: boolean) => void,
     changeSelectedPage: (page: number) => void,
     setFollow: (pageNumber: number) => void,
     setUnfollow: (pageNumber: number) => void,
@@ -34,7 +36,7 @@ type MapDispatchPropsType = {
 
 type PropsType = MapStatePropsType & MapDispatchPropsType;
 
-const UsersContainer: React.FC<PropsType> = ({getUsers, pageSelected, changeSelectedPage, pageSize,
+const UsersContainer: React.FC<PropsType> = ({getUsers, category, term, pageSelected, changeSelectedPage, pageSize,
                                                         isFetching, users, followingInProgress,
                                                     totalUserCount, setFollow, setUnfollow
                                                       }) => {
@@ -45,27 +47,30 @@ const UsersContainer: React.FC<PropsType> = ({getUsers, pageSelected, changeSele
 
     const onChangePageUsers = (p) => {
         changeSelectedPage(p);
-        getUsers(pageSize, p);
+        getUsers(pageSize, p, term, category);
     }
 
     return (
         <>
             {isFetching ? <Preloader/> :
-                <Users users={users} followingInProgress={followingInProgress} setFollow={setFollow} setUnfollow={setUnfollow}
-                       onChangePageUsers={onChangePageUsers} pageSize={pageSize} pageSelected={pageSelected} totalUserCount={totalUserCount}/>
+                <Users term={term} getUsers={getUsers} users={users} followingInProgress={followingInProgress} setFollow={setFollow} setUnfollow={setUnfollow}
+                       onChangePageUsers={onChangePageUsers} pageSize={pageSize} pageSelected={pageSelected} totalUserCount={totalUserCount}
+                changeSelectedPage={changeSelectedPage} category={category}/>
             }
         </>
     );
 }
 
-let mapStateToProps = (state: AppStateType) => {
+let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: getUsersSuperSelector(state),
         pageSize: getPageSize(state),
         totalUserCount: getTotalUserCount(state),
         pageSelected: getPageSelected(state),
         followingInProgress: getFollowingInProgress(state),
-        isFetching: getIsFetching(state)
+        isFetching: getIsFetching(state),
+        category: state.usersPage.category,
+        term: state.usersPage.term
     }
 }
 
@@ -74,8 +79,8 @@ const mapDispatchToProps = (dispatch): MapDispatchPropsType => {
         changeSelectedPage: (page: number) => {
             dispatch(UsersActions.changeSelectedPage(page))
         },
-        getUsers: (pageSize: number, pageSelected: number) => {
-            return dispatch(getUsers(pageSize, pageSelected))
+        getUsers: (pageSize: number, pageSelected: number, term?: string, friend?: boolean) => {
+            return dispatch(getUsers(pageSize, pageSelected, term, friend))
         },
         setUnfollow: (userId: number) => {
             return dispatch(setUnfollow(userId))

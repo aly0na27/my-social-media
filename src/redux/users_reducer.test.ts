@@ -24,7 +24,9 @@ beforeEach(() => {
         totalUserCount: 0,
         pageSelected: 1,
         isFetching: false,
-        followingInProgress: [] as Array<number> //array of userId
+        followingInProgress: [] as Array<number>, //array of userId
+        category: null,
+        term: ''
     }
 
 

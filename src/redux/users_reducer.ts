@@ -9,6 +9,8 @@ let initialState = {
     pageSize: 9,
     totalUserCount: 0,
     pageSelected: 1,
+    term: '',
+    category: null as null | boolean,
     isFetching: false,
     followingInProgress: [] as Array<number> //array of userId
 }
@@ -72,6 +74,16 @@ const usersReducer = (state = initialState, action: ActionsType): InitialStateTy
                     ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter(id => id !== action.userId)
             }
+        case "SET_CATEGORY":
+            return {
+                ...state,
+                category: action.category
+            }
+        case "SET_TERM":
+            return {
+                ...state,
+                term: action.term
+            }
         default:
             return state;
 
@@ -114,21 +126,35 @@ export const UsersActions = {
             type: "TOGGLE_IS_FOLLOWING_PROGRESS",
             isFetching, userId
         } as const
+    },
+    setCategory: (category: boolean | null)  => {
+        return {
+            type: "SET_CATEGORY",
+            category: category
+        } as const
+    },
+    setTerm: (term: string) => {
+        return {
+            type: "SET_TERM",
+            term: term
+        } as const
     }
-
 }
 
 type ActionsType = InferActionsType<typeof UsersActions>
 
 //Thunk Action
 
-export const getUsers = (pageSize: number, pageSelected: number): BaseThunkType<ActionsType> =>
+export const getUsers = (pageSize: number, pageSelected: number, term: string = '', category: boolean | null = null): BaseThunkType<ActionsType> =>
     async (dispatch) => {
         dispatch(UsersActions.toggleIsFetching(true));
-        let response = await usersAPI.getUsers(pageSize, pageSelected);
+        let response = await usersAPI.getUsers(pageSize, pageSelected, term, category);
         dispatch(UsersActions.toggleIsFetching(false));
         dispatch(UsersActions.setUsers(response.items));
         dispatch(UsersActions.setTotalUserCount(response.totalCount))
+        dispatch(UsersActions.setCategory(category))
+        dispatch(UsersActions.setTerm(term))
+        debugger
     }
 
 export const setUnfollow = (id: number): BaseThunkType<ActionsType> =>

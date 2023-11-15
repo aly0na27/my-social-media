@@ -8,8 +8,9 @@ type GetUsers = {
 }
 
 export const usersAPI = {
-    getUsers(pageSize: number, pageSelected: number) {
-        return instance.get<GetUsers>(`users?count=${pageSize}&page=${pageSelected}`).then(response => response.data)
+    getUsers(pageSize: number, pageSelected: number, term: string, category: boolean | null) {
+        debugger
+        return instance.get<GetUsers>(`users?count=${pageSize}&page=${pageSelected}&term=${term}&friend=${category}`).then(response => response.data)
     },
     setFollow(userId: number) {
         return instance.post<MyResponseType>(`follow/${userId}`).then(response => response.data)
