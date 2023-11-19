@@ -2,7 +2,7 @@ import './App.css';
 import Navbar from "./components/Navbar/Navbar";
 import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
 // import News from "./components/News/News";
-import UsersContainer from "./components/Users/UsersContainer";
+import {UsersPage} from "./components/Users/UsersContainer";
 import MusicsContainer from "./components/Musics/MusicsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginContainer from "./components/Login/Login";
@@ -37,7 +37,7 @@ const App: React.FC<PropsFromRedux> = ({initialized, initializeApp}) => {
                                     <Route path="/dialogs/*" element={<DialogsContainer/>}/>
                                     <Route path="/profile/:userId?"
                                            element={<ProfileContainer/>}/>
-                                    <Route path="/users" element={<UsersContainer/>}/>
+                                    <Route path="/users" element={<UsersPage/>}/>
                                     <Route path="/music" element={<MusicsContainer/>}/>
                                     <Route path="/news" element={<NewsContainer/>}/>
                                     <Route path="/login" element={<LoginContainer/>}/>

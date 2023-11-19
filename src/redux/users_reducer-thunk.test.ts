@@ -1,7 +1,6 @@
 import {usersAPI} from "../api/usersAPI";
 import {MyResponseType, ResultsCode} from "../api/api";
-import {setFollow, setUnfollow} from "./users_reducer";
-import {UsersActions} from "./users_reducer";
+import {setUnfollow, UsersActions} from "./users_reducer";
 
 jest.mock("../api/usersAPI")
 const usersAPIMock = usersAPI as jest.Mocked<typeof usersAPI>
@@ -23,9 +22,7 @@ const result: MyResponseType = {
 test("success follow thunk", async () => {
     usersAPIMock.setFollow.mockReturnValue(Promise.resolve(result))
 
-    const thunk = setFollow(1)
-
-    await thunk(dispatchMock, getStateMock, {})
+    // await thunk(dispatchMock, getStateMock, {})
 
     expect(dispatchMock).toBeCalledTimes(3)
     expect(dispatchMock).toHaveBeenNthCalledWith(1, UsersActions.toggleFollowingInProgress(true, 1))

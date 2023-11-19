@@ -1,10 +1,11 @@
-import "./Preloader.css"
+import styles from "./Preloader.module.css"
 import {PreloaderIcon} from "../../../assets/svg/PreloaderIcon/PreloaderIcon";
 import * as React from "react";
 
 const Preloader: React.FC = () => {
+    debugger
     return (
-        <div className={"preloaderDiv"}>
+        <div className={styles.preloaderDiv}>
             <PreloaderIcon/>
         </div>
     )

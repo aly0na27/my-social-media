@@ -1,18 +1,21 @@
 import {ConfigProvider, Pagination} from "antd";
 import "./Paginator.css"
 import * as React from "react";
+import {useSelector} from "react-redux";
+import {getPageSelected, getPageSize, getTotalUserCount} from "../../../redux/users-selectors";
 
-type PropsType = {
-    totalUserCount: number,
-    pageSize: number,
-    pageSelected: number,
+interface PropsType {
     onChangePageUsers: (pageNumber: number) => void
 }
+const Paginator: React.FC<PropsType> = ({onChangePageUsers}) => {
 
-const Paginator: React.FC<PropsType> = ({totalUserCount, pageSize, pageSelected, onChangePageUsers}) => {
-    const onChangePaginator = (pageNumber) => {
-        onChangePageUsers(pageNumber)
-    }
+    const pageSelected = useSelector(getPageSelected)
+    const totalUserCount = useSelector(getTotalUserCount)
+    const pageSize = useSelector(getPageSize)
+
+    // const onChangePaginator = (pageNumber) => {
+    //     onChangePageUsers(pageNumber)
+    // }
 
     return (
         <div>
@@ -33,7 +36,7 @@ const Paginator: React.FC<PropsType> = ({totalUserCount, pageSize, pageSelected,
                 }
             }}>
                 <Pagination rootClassName={"paginator"} defaultCurrent={pageSelected} defaultPageSize={1}
-                            onChange={onChangePaginator}
+                            onChange={onChangePageUsers}
                             showSizeChanger={false} showQuickJumper={true}
                             total={Math.ceil(totalUserCount / pageSize)}/>
 

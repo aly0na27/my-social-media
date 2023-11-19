@@ -10,11 +10,12 @@ type PropsType = {
     photos: string,
     followed: boolean,
     followingInProgress: Array<number>,
-    setUnfollow: (userId: number) => void,
-    setFollow: (userId: number) => void
+    unfollow: (userId: number) => void,
+    follow: (userId: number) => void
 }
 
-const User: React.FC<PropsType> = ({id, name, photos, followingInProgress, followed, setFollow, setUnfollow}) => {
+const User: React.FC<PropsType> = ({id, name, photos, followingInProgress, followed, follow, unfollow}) => {
+
     return (
         <div className={s.userWrapper}>
             <NavLink to={'/profile/' + id}>
@@ -31,14 +32,14 @@ const User: React.FC<PropsType> = ({id, name, photos, followingInProgress, follo
                         <button disabled={followingInProgress.some(userId => id === userId)}
                                 className={s.button + ' ' + s.activeBtn}
                                 onClick={() => {
-                                    setUnfollow(id);
+                                    unfollow(id);
                                 }}>
                             Unfollowed
                         </button> :
                         <button disabled={!!followingInProgress.some(userId => id === userId)}
                                 className={s.button + ' ' + s.disactiveBtn}
                                 onClick={() => {
-                                    setFollow(id);
+                                    follow(id);
                                 }}>
                             Followed
                         </button>

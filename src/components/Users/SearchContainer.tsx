@@ -3,16 +3,11 @@ import {Form, Formik} from "formik";
 import Input from "formik-antd/es/input";
 import FormItem from "formik-antd/es/form-item";
 import Cascader from "formik-antd/es/cascader";
+import {useDispatch, useSelector} from "react-redux";
+import {getCategory, getPageSelected, getPageSize, getTerm} from "../../redux/users-selectors";
+import {getUsers, UsersActions} from "../../redux/users_reducer";
+import {ThunkDispatch} from "redux-thunk";
 
-interface PropsType {
-    getUsers: (pageSize: number, pageSelected: number, term?: string, friend?: boolean) => void
-    pageSize: number
-    pageSelected: number
-    onChangePageUsers: (pageNumber: number) => void
-    changeSelectedPage: (page: number) => void
-    category: boolean | null
-    term: string
-}
 
 type ValuesType = {
     term: string
@@ -24,8 +19,16 @@ interface Option {
     label: string
 }
 
-export const SearchContainer: React.FC<PropsType> = ({getUsers, term, category, changeSelectedPage, pageSelected, pageSize}) => {
-    debugger
+export const SearchContainer: React.FC = () => {
+
+    const dispatch: ThunkDispatch<any, any, any> = useDispatch()
+
+    const term = useSelector(getTerm)
+    const category = useSelector(getCategory)
+    const pageSize = useSelector(getPageSize)
+    let pageSelected = useSelector(getPageSelected)
+
+
     const initialValues: ValuesType = {
         term: term,
         category: [category === null ? 'all' : (category ? 'friends' : 'notFriends')]
@@ -48,12 +51,11 @@ export const SearchContainer: React.FC<PropsType> = ({getUsers, term, category, 
     return (
         <div>
             <Formik initialValues={initialValues}
-                    onSubmit={values => {
-                        debugger
+                    onSubmit={(values: ValuesType) => {
 
-                        changeSelectedPage(1)
-                        getUsers(pageSize, pageSelected = 1, values.term, values.category.length ?
-                            (values.category[0] === 'all' ? null : values.category[0] === 'friends') : null)
+                        dispatch(UsersActions.changeSelectedPage(1))
+                        dispatch(getUsers(pageSize, pageSelected = 1, values.term, values.category.length ?
+                            (values.category[0] === 'all' ? null : values.category[0] === 'friends') : null))
 
 
             }}>
