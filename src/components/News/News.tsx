@@ -20,9 +20,7 @@ const News: React.FC<PropsType> = ({news, getNewsThunkCreate, lastList, setLastL
     }, [currPage])
 
     const handleScroll = () => {
-        debugger
         let userScrollHeight = window.scrollY + window.innerHeight
-        // debugger
         if (document.getElementById("news") && userScrollHeight >= document.getElementById("news").offsetHeight && !lastList) {
             setCurrPage(currPage + 1)
         }

@@ -2,28 +2,24 @@ import styles from "./ProfileInfo.module.css"
 import Preloader from "../common/Preloader/Preloader";
 import avatar from "../../assets/images/avatar.svg"
 import Status from "./Status/Status";
+import * as React from "react";
 import {useEffect, useRef, useState} from "react";
 import ModalWindow from "../common/ModalWindow/ModalWindow";
 import InputChangePhoto from "../common/Input/InputChangePhoto";
-import * as React from "react";
 import {IconMoreDetails} from "../../assets/svg/IconMoreDetails/IconMoreDetails";
-import {ProfileType} from "../../types/types";
 import {ProfileForm} from "./MyProfile/ProfileFormData";
+import {AppStateType, useAppDispatch} from "../../redux/redux-store";
+import {useSelector} from "react-redux";
+import {updatePhoto, updateProfile} from "../../redux/profile-reducer";
+import {ProfileType} from "../../types/types";
 
-type PropsType = {
-    isOwner: boolean,
-    profile: ProfileType,
-    status: string,
-    userId: number,
-    updateUserStatus: (status: string) => void,
-    updatePhoto: (photo: string) => void,
-    updateProfile: (profile: ProfileType, setStatus, setEditMode) => void
-}
-const ProfileInfo: React.FC<PropsType> = ({isOwner, updateUserStatus,
-                         updatePhoto, updateProfile, profile, status}) => {
+const ProfileInfo: React.FC<{isOwner: boolean}> = ({isOwner}) => {
     const [moreDetailsActive, setMoreDetailsActive] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const ref = useRef(null)
+    const dispatch = useAppDispatch()
+
+    const profile = useSelector((state: AppStateType) => state.profilePage.profile)
 
     useEffect(() => {
         moreDetailsActive ? document.querySelector("body").classList.add("lock") :
@@ -37,6 +33,13 @@ const ProfileInfo: React.FC<PropsType> = ({isOwner, updateUserStatus,
         return <Preloader/>
     }
 
+    const updateMyProfile = (newData: ProfileType, setStatus, setEditMode) => {
+        return dispatch(updateProfile(newData, setStatus, setEditMode))
+    }
+
+    const updateProfilePhoto = (newPhoto) => {
+        return dispatch(updatePhoto(newPhoto))
+    }
     return (
         <>
             <div className={styles.sectionProfile}>
@@ -53,7 +56,7 @@ const ProfileInfo: React.FC<PropsType> = ({isOwner, updateUserStatus,
                                 {profile.fullName}
                             </h3>
                             {
-                                <Status isOwner={isOwner} status={status} updateProfileStatus={updateUserStatus}/>
+                                <Status isOwner={isOwner}/>
                             }
                         </div>
 
@@ -93,10 +96,10 @@ const ProfileInfo: React.FC<PropsType> = ({isOwner, updateUserStatus,
                                     src={(profile.photos && profile.photos.large) ? profile.photos.large : avatar}
                                     className={styles.avatar}
                                     alt=""/>
-                                <InputChangePhoto updatePhoto={updatePhoto}/>
+                                <InputChangePhoto updatePhoto={updateProfilePhoto}/>
                             </div>
                         </div>
-                        <ProfileForm setEditMode={setEditMode} profile={profile} updateProfile={updateProfile}/>
+                        <ProfileForm setEditMode={setEditMode} profile={profile} updateProfile={updateMyProfile}/>
                     </div>
                     : undefined}
         </>

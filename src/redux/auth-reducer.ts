@@ -79,7 +79,7 @@ export const authThunkCreate = (): BaseThunkType<AuthActionsType> => async (disp
     let response = await authAPI.authMe();
     if (response.resultCode === 0) {
         let {id, email, login} = response.data
-        profileAPI.getProfileUser(id).then(response => {
+        await profileAPI.getProfileUser(id).then(response => {
             let photos = response.photos.small;
             if (!photos) {
                 photos = avatarUser;

@@ -13,8 +13,9 @@ import Preloader from "./components/common/Preloader/Preloader";
 import store, {AppStateType} from "./redux/redux-store";
 
 const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"))
-const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"))
+const ChatContainer = React.lazy(() => import("./pages/ChatPage/ChatPage"))
 const NewsContainer = React.lazy(() => import("./components/News/NewsContainer"))
+
 const App: React.FC<PropsFromRedux> = ({initialized, initializeApp}) => {
     const [isDark, setIsDark] = useState(false)
     useEffect(() => {
@@ -34,7 +35,7 @@ const App: React.FC<PropsFromRedux> = ({initialized, initializeApp}) => {
                             <Suspense fallback={<Preloader/>}>
                                 <Routes>
                                     <Route path={"/"} element={<Navigate to={"/profile"}/>}/>
-                                    <Route path="/dialogs/*" element={<DialogsContainer/>}/>
+                                    <Route path="/dialogs/*" element={<ChatContainer/>}/>
                                     <Route path="/profile/:userId?"
                                            element={<ProfileContainer/>}/>
                                     <Route path="/users" element={<UsersPage/>}/>
@@ -73,7 +74,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 
 const AppContainer: React.FC = connector(App)
 
-const SamuraiJsApp = function () {
+export const SamuraiJsApp = function () {
     return (
         <HashRouter>
             <Provider store={store}>
@@ -83,4 +84,4 @@ const SamuraiJsApp = function () {
     )
 }
 
-export default SamuraiJsApp
+// export default SamuraiJsApp

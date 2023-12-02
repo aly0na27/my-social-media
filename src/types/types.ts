@@ -61,3 +61,8 @@ export type NewsItemType = {
     category: Array<string>
     language: string
 }
+
+export type FilterType = {
+    term: string
+    isFriend: boolean | null
+}

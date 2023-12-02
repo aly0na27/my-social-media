@@ -1,5 +1,6 @@
 import usersReducer from "./users_reducer";
 import users_reducer, {InitialStateType, UsersActions} from "./users_reducer";
+import {FilterType} from "../types/types";
 
 
 let state: InitialStateType
@@ -25,8 +26,7 @@ beforeEach(() => {
         pageSelected: 1,
         isFetching: false,
         followingInProgress: [] as Array<number>, //array of userId
-        category: null,
-        term: ''
+        filter: {} as FilterType
     }
 
 

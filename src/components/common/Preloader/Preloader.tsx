@@ -3,7 +3,6 @@ import {PreloaderIcon} from "../../../assets/svg/PreloaderIcon/PreloaderIcon";
 import * as React from "react";
 
 const Preloader: React.FC = () => {
-    debugger
     return (
         <div className={styles.preloaderDiv}>
             <PreloaderIcon/>

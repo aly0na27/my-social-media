@@ -1825,6 +1825,13 @@
   resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.14.18.tgz#f8b187dc89756fa5c0b7d15aea537a6f73f0c2d8"
   integrity sha512-yFpF35fEVDV81nVktu0BE9qn2dD/chs7PsQhlyaV3EnTeZi9RZBuvoEfRym1/jmhJ2tcfeWXiRuHG942mQXJJQ==
 
+"@mui/icons-material@^5.14.18":
+  version "5.14.18"
+  resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.14.18.tgz#9e92964cde8c7ba32cf50438a83403dc283f2328"
+  integrity sha512-o2z49R1G4SdBaxZjbMmkn+2OdT1bKymLvAYaB6pH59obM1CYv/0vAVm6zO31IqhwtYwXv6A7sLIwCGYTaVkcdg==
+  dependencies:
+    "@babel/runtime" "^7.23.2"
+
 "@mui/material@^5.14.18":
   version "5.14.18"
   resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.14.18.tgz#d0a89be3e27afe90135d542ddbf160b3f34e869c"
@@ -2009,6 +2016,20 @@
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@react-buddy/ide-toolbox/-/ide-toolbox-2.4.0.tgz#8c986491f061334c0da6e7c77b65b88ef915ef8d"
   integrity sha512-TWHX6gwa0Gop7215uHhjFMbYLLdjM/b9rr0wYE3E0m7GNJ56gbPpbZiq86w9uI8zksl827acqGeT437MkuO64w==
+
+"@react-buddy/palette-antd@^5.3.0":
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/@react-buddy/palette-antd/-/palette-antd-5.3.1.tgz#3ded9b9cc44cfa14399c3b02bf754e9744978782"
+  integrity sha512-G75Pik29FnmyvANiGLSpMFpru4Uzv5woq/IFrkmfYmJb+5vW3lhc+Y/PftLqatSH9fjXs/UOszuSbPzlykT9cw==
+  dependencies:
+    "@react-buddy/ide-toolbox" "^2.4.0"
+
+"@react-buddy/palette-mui@^5.0.1":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@react-buddy/palette-mui/-/palette-mui-5.0.2.tgz#f949565a6d0d5206f7b9f54f6dfefd05a38e4846"
+  integrity sha512-X9gdm+fwmvZTiOMWtCtljyJtSEYNH2F6qHtmht7liQUkNW8e61icu2vfLWYtwz9XG1QxFuPbev5RCsh/+Ewldw==
+  dependencies:
+    "@react-buddy/ide-toolbox" "^2.4.0"
 
 "@remix-run/router@1.10.0":
   version "1.10.0"

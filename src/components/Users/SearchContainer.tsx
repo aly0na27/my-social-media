@@ -4,9 +4,10 @@ import Input from "formik-antd/es/input";
 import FormItem from "formik-antd/es/form-item";
 import Cascader from "formik-antd/es/cascader";
 import {useDispatch, useSelector} from "react-redux";
-import {getCategory, getPageSelected, getPageSize, getTerm} from "../../redux/users-selectors";
+import {getPageSelected, getPageSize} from "../../redux/users-selectors";
 import {getUsers, UsersActions} from "../../redux/users_reducer";
 import {ThunkDispatch} from "redux-thunk";
+import {AppStateType} from "../../redux/redux-store";
 
 
 type ValuesType = {
@@ -23,15 +24,14 @@ export const SearchContainer: React.FC = () => {
 
     const dispatch: ThunkDispatch<any, any, any> = useDispatch()
 
-    const term = useSelector(getTerm)
-    const category = useSelector(getCategory)
+    const filter = useSelector((state: AppStateType) => state.usersPage.filter)
     const pageSize = useSelector(getPageSize)
     let pageSelected = useSelector(getPageSelected)
 
 
     const initialValues: ValuesType = {
-        term: term,
-        category: [category === null ? 'all' : (category ? 'friends' : 'notFriends')]
+        term: filter.term,
+        category: [filter.isFriend === null ? 'all' : (filter.isFriend ? 'friends' : 'notFriends')]
     }
 
     const options: Option[] = [
@@ -50,7 +50,7 @@ export const SearchContainer: React.FC = () => {
     ]
     return (
         <div>
-            <Formik initialValues={initialValues}
+            <Formik enableReinitialize={true} initialValues={initialValues}
                     onSubmit={(values: ValuesType) => {
 
                         dispatch(UsersActions.changeSelectedPage(1))
@@ -61,7 +61,7 @@ export const SearchContainer: React.FC = () => {
             }}>
                 <Form>
                     <FormItem name={"term"}>
-                        <Input name={"term"}></Input>
+                        <Input name={"term"} placeholder={"term"}></Input>
                     </FormItem>
                     <FormItem name={"category"}>
                         <Cascader name={"category"} defaultValue={['all']} options={options}/>

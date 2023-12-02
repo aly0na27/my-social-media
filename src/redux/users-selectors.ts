@@ -29,10 +29,3 @@ export const getIsFetching = (state: AppStateType) => {
     return state.usersPage.isFetching
 }
 
-export const getTerm = (state: AppStateType) => {
-    return state.usersPage.term
-}
-
-export const getCategory = (state: AppStateType) => {
-    return state.usersPage.category
-}

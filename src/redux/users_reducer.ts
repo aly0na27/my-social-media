@@ -1,4 +1,4 @@
-import {UserType} from "../types/types";
+import {FilterType, UserType} from "../types/types";
 import {Dispatch} from "redux";
 import {BaseThunkType, InferActionsType} from "./redux-store";
 import {usersAPI} from "../api/usersAPI";
@@ -10,10 +10,9 @@ let initialState = {
     pageSize: 9,
     totalUserCount: 0,
     pageSelected: 1,
-    term: '',
-    category: null as null | boolean,
     isFetching: false,
-    followingInProgress: [] as Array<number> //array of userId
+    followingInProgress: [] as Array<number>, //array of userId
+    filter: { term: '', isFriend: null} as FilterType
 }
 
 export type InitialStateType = typeof initialState
@@ -64,7 +63,6 @@ const usersReducer = (state = initialState, action: UsersActionsType): InitialSt
                 totalUserCount: action.totalCount
             }
         case "TOGGLE_IS_FETCHING":
-            debugger
             return {
                 ...state,
                 isFetching: action.isFetching
@@ -76,16 +74,15 @@ const usersReducer = (state = initialState, action: UsersActionsType): InitialSt
                     ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter(id => id !== action.userId)
             }
-        case "SET_CATEGORY":
+        case "SET_FILTER":
             return {
                 ...state,
-                category: action.category
+                filter: {
+                    term: action.filter.term,
+                    isFriend: action.filter.isFriend
+                }
             }
-        case "SET_TERM":
-            return {
-                ...state,
-                term: action.term
-            }
+
         default:
             return state;
 
@@ -129,16 +126,16 @@ export const UsersActions = {
             isFetching, userId
         } as const
     },
-    setCategory: (category: boolean | null) => {
+    setFilter: (newFilter: FilterType) => {
         return {
-            type: "SET_CATEGORY",
-            category: category
+            type: "SET_FILTER",
+            filter: newFilter
         } as const
     },
-    setTerm: (term: string) => {
+    setCurrentPage: (currentPage: number) => {
         return {
-            type: "SET_TERM",
-            term: term
+            type: "SET_CURRENT_PAGE",
+            currentPage
         } as const
     }
 }
@@ -148,15 +145,17 @@ export type UsersThunkAction = BaseThunkType<UsersActionsType>
 
 //Thunk Action
 
-export const getUsers = (pageSize: number, pageSelected: number, term: string = '', category: boolean | null = null): UsersThunkAction => {
+export const getUsers = (pageSize: number, pageSelected: number, term: string = '', isFriend: boolean | null = null): UsersThunkAction => {
     return async (dispatch: ThunkDispatch<any, any, any>) => {
+        debugger
         dispatch(UsersActions.toggleIsFetching(true));
-        dispatch(UsersActions.setCategory(category))
-        dispatch(UsersActions.setTerm(term))
-        let response = await usersAPI.getUsers(pageSize, pageSelected, term, category);
+        dispatch(UsersActions.setFilter({term, isFriend}))
+        dispatch(UsersActions.changeSelectedPage(pageSelected))
+        let response = await usersAPI.getUsers(pageSize, pageSelected, {term, isFriend});
         dispatch(UsersActions.toggleIsFetching(false));
         dispatch(UsersActions.setUsers(response.items));
         dispatch(UsersActions.setTotalUserCount(response.totalCount))
+
     }
 }
 

@@ -1,16 +1,22 @@
 import {useEffect, useState} from "react"
 import styles from "./Status.module.css"
 import * as React from "react";
+import {AppStateType, useAppDispatch} from "../../../redux/redux-store";
+import {useSelector} from "react-redux";
+import {updateUserStatus} from "../../../redux/profile-reducer";
 
 type PropsType = {
-    status: string,
-    updateProfileStatus: (newStatus: string) => void,
     isOwner: boolean
 }
 
-const Status: React.FC<PropsType> = ({status, updateProfileStatus, isOwner}) => {
+const Status: React.FC<PropsType> = ({isOwner}) => {
+
+    const status = useSelector((state: AppStateType) => state.profilePage.status)
+
     const [localStatus, setLocalStatus] = useState(status);
     const [editMode, setEditMode] = useState(false)
+    const dispatch = useAppDispatch()
+
 
     useEffect(() => {
         setLocalStatus(status)
@@ -21,8 +27,8 @@ const Status: React.FC<PropsType> = ({status, updateProfileStatus, isOwner}) => 
     }
 
     const deactivateEditMode = () => {
-        setEditMode(false);
-        updateProfileStatus(localStatus)
+        setEditMode(false)
+        dispatch(updateUserStatus(localStatus))
     }
 
     const onChangeStatus = (newStatus: React.ChangeEvent<HTMLInputElement>) => {

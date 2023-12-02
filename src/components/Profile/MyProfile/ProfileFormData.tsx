@@ -26,7 +26,6 @@ interface FormValues {
 }
 
 
-
 export const ProfileForm: React.FC<OtherProps> = ({profile, setEditMode, updateProfile}) => {
     const initialValues = {
         userId: profile.userId,
@@ -50,11 +49,11 @@ export const ProfileForm: React.FC<OtherProps> = ({profile, setEditMode, updateP
                     }
                     return errors
                 }}
-                onSubmit={async (values, actions) => {
-                    await updateProfile(values, actions.setStatus, setEditMode)
-                    actions.setSubmitting(false)
-                    debugger
-                }
+                onSubmit={
+                    async (values, actions) => {
+                        await updateProfile(values, actions.setStatus, setEditMode)
+                        actions.setSubmitting(false)
+                    }
                 }
         >
             {props => (
@@ -129,11 +128,12 @@ export const ProfileForm: React.FC<OtherProps> = ({profile, setEditMode, updateP
                                             </div>
                                             <div>
                                                 <Input
-                                                        className={classNames({[styles.inputError]: props.status && props.status.errors[el]})}
-                                                        key={el} name={"contacts." + el}
-                                                        status={props.status && props.status.errors[el] && 'error'}
-                                                        suffix={props.status && props.status.errors[el] && <CloseCircleOutlined/>}
-                                                    />
+                                                    className={classNames({[styles.inputError]: props.status && props.status.errors[el]})}
+                                                    key={el} name={"contacts." + el}
+                                                    status={props.status && props.status.errors[el] && 'error'}
+                                                    suffix={props.status && props.status.errors[el] &&
+                                                        <CloseCircleOutlined/>}
+                                                />
                                                 {props.status && props.status.errors[el] &&
                                                     <span className={styles.spanError}>Invalid URL format</span>}
 

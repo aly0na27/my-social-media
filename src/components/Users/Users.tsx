@@ -6,45 +6,65 @@ import Paginator from "../common/Paginator/Paginator";
 import {SearchContainer} from "./SearchContainer";
 import {useSelector} from "react-redux";
 import {
-    getCategory,
     getFollowingInProgress,
     getIsFetching,
     getPageSelected,
     getPageSize,
-    getTerm,
     getTotalUserCount,
     getUsersState
 } from "../../redux/users-selectors";
 import {getUsers, setFollow, setUnfollow, UsersActions} from "../../redux/users_reducer";
-import {AppDispatch, useAppDispatch, useAppSelector} from "../../redux/redux-store";
+import {AppDispatch, AppStateType, useAppDispatch, useAppSelector} from "../../redux/redux-store";
 import {User as UserCascading} from "../CascadingScreens/User/User"
+import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 
+// interface SearchParamsType {
+//     page: string,
+//     term: string,
+//     friend: strin
+// }
+type SearchParamsType = {
+    page: string, term: string, friend: string
+}
 const Users: React.FC = () => {
     // const dispatch: ThunkDispatch<AppStateType, unknown, UsersActionsType> = useDispatch()
 
     const dispatch: AppDispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const location = useLocation()
+    const [searchParams] = useSearchParams(location.search)
 
     const users = useAppSelector(getUsersState)
     const pageSize = useSelector(getPageSize)
     const totalUserCount = useSelector(getTotalUserCount)
-    const term = useSelector(getTerm)
-    const category = useSelector(getCategory)
     const followingInProgress = useSelector(getFollowingInProgress)
     const pageSelected = useSelector(getPageSelected)
     const isFetching = useSelector(getIsFetching)
+    const filter = useSelector((state: AppStateType) => state.usersPage.filter )
 
     useEffect(() => {
-        dispatch(getUsers(pageSize, pageSelected))
+        debugger
+        let parsed  = Object.fromEntries(searchParams)
+
+        // debugger
+
+        dispatch(getUsers(pageSize, !!parsed.page ? Number(parsed.page) : pageSelected, !!parsed.term ? parsed.term : '', !!parsed.friend ? (parsed.friend === 'null' ? null : (parsed.friend === 'true')) : null))
     }, [])
+
+    useEffect(() => {
+        debugger
+        navigate(`/users?page=${pageSelected}&term=${filter.term}&friend=${filter.isFriend}`)
+    }, [filter, pageSelected])
 
     const onChangePageUsers = (p: number) => {
         dispatch(UsersActions.changeSelectedPage(p))
-        dispatch(getUsers(pageSize, p, term, category))
+        dispatch(getUsers(pageSize, p, filter.term, filter.isFriend))
     }
 
     const follow = (userId: number) => {
         return dispatch(setFollow(userId))
     }
+
     const unfollow = (userId: number) => {
         return dispatch(setUnfollow(userId))
     }

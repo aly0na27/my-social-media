@@ -13,14 +13,13 @@ const Header: React.FC<HeaderProps> = (props) => {
     const headerRef = useRef(null);
 
     const handleScroll = (top, height) => {
-        if (window.scrollY > top + height) {
+        if (window.scrollY > top + height + 50) {
             setSticky({isSticky: true, offset: height})
         } else {
             setSticky({isSticky: false, offset: 0})
         }
     }
     useEffect(() => {
-        debugger
         let header = headerRef.current.getBoundingClientRect();
         const handleScrollEvent = () => {
             handleScroll(header.top, header.height)

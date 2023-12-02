@@ -10,7 +10,6 @@ interface FormValues {
 }
 
 const SendMessageForm = (props: FormikProps<FormValues>) => {
-    debugger
     return (
         <Form>
             <FormItem name={"message"}>

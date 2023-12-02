@@ -5,12 +5,12 @@ import styles from "./Users.module.css";
 
 export const UsersPage: React.FC = () => {
     return (
-        <main>
+        <div>
             <header className={styles.header}>
                 <h2>Users</h2>
             </header>
             <Users/>
-        </main>
+        </div>
     );
 }
 
